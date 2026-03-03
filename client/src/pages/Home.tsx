@@ -61,55 +61,64 @@ const SERVICES = [
     icon: Building2,
     label: "Commercial Cleaning",
     desc: "Offices, retail spaces, warehouses and corporate facilities.",
-    img: "https://d2xsxph8kpxj0f.cloudfront.net/310519663396125342/LsnnQBd3D9ZpGUiGw6PBwg/svc_commercial-WEKdSc7EaqdeVnyquf4yob.webp",
+    img: "https://d2xsxph8kpxj0f.cloudfront.net/310519663396125342/LsnnQBd3D9ZpGUiGw6PBwg/svc_commercial_v2-LpEKwd5ocUenUXBG94ayFW.webp",
+    price: "From $39/hr",
   },
   {
     icon: HomeIcon,
     label: "Domestic Cleaning",
     desc: "Thorough residential cleaning tailored to your home.",
-    img: "https://d2xsxph8kpxj0f.cloudfront.net/310519663396125342/LsnnQBd3D9ZpGUiGw6PBwg/svc_domestic-SGtQ4UFvR7PeE48aPvZmWD.webp",
+    img: "https://d2xsxph8kpxj0f.cloudfront.net/310519663396125342/LsnnQBd3D9ZpGUiGw6PBwg/svc_domestic_v2-9YM3QtzCXTxaDCjvGcDqPr.webp",
+    price: "From $39/hr",
   },
   {
     icon: Droplets,
     label: "Steam Cleaning",
     desc: "Deep steam cleaning for carpets, upholstery and hard surfaces.",
-    img: "https://d2xsxph8kpxj0f.cloudfront.net/310519663396125342/LsnnQBd3D9ZpGUiGw6PBwg/svc_steam-f93rgjcNm58JXzexyEsHMi.webp",
+    img: "https://d2xsxph8kpxj0f.cloudfront.net/310519663396125342/LsnnQBd3D9ZpGUiGw6PBwg/svc_steam_v2-kfQhfbixzE66ExUjj9PURz.webp",
+    price: "From $100",
   },
   {
     icon: Layers,
-    label: "Floor Polishing",
-    desc: "Strip, seal and polish all floor types to a brilliant shine.",
-    img: "https://d2xsxph8kpxj0f.cloudfront.net/310519663396125342/LsnnQBd3D9ZpGUiGw6PBwg/svc_floor-XA9PBNAwuWfUAaMghbmS98.webp",
+    label: "Floor Scrubbing & Polishing",
+    desc: "Strip, scrub, seal and polish all floor types to a brilliant shine.",
+    img: "https://d2xsxph8kpxj0f.cloudfront.net/310519663396125342/LsnnQBd3D9ZpGUiGw6PBwg/svc_floor_v2-n4paXxRi3JtdmCff2Xmo9y.webp",
+    price: "From $200",
   },
   {
     icon: Wind,
     label: "Pressure Washing",
     desc: "High-pressure cleaning for driveways, facades and outdoor areas.",
-    img: "https://d2xsxph8kpxj0f.cloudfront.net/310519663396125342/LsnnQBd3D9ZpGUiGw6PBwg/svc_pressure-C9wcngLp7YcqMA4waQdZws.webp",
+    img: "https://d2xsxph8kpxj0f.cloudfront.net/310519663396125342/LsnnQBd3D9ZpGUiGw6PBwg/svc_pressure_v2-CaVRw3Ab4NxdAmGWSiEjr4.webp",
+    price: "From $200",
   },
   {
     icon: Sparkles,
     label: "General Cleaning",
     desc: "Regular maintenance cleaning for homes and businesses.",
-    img: "https://d2xsxph8kpxj0f.cloudfront.net/310519663396125342/LsnnQBd3D9ZpGUiGw6PBwg/svc_general-DXzFjsJkpQrZynLR7qCbiD.webp",
+    img: "https://d2xsxph8kpxj0f.cloudfront.net/310519663396125342/LsnnQBd3D9ZpGUiGw6PBwg/svc_general_v2-iDwebkcgzUKwjq5vw9cjDb.webp",
+    price: "From $39/hr",
   },
   {
     icon: Wrench,
     label: "Window Cleaning",
-    desc: "Streak-free window cleaning for commercial and residential.",
-    img: "https://d2xsxph8kpxj0f.cloudfront.net/310519663396125342/LsnnQBd3D9ZpGUiGw6PBwg/svc_window-5ctYK6kttPoWhau6DMqqbv.webp",
+    desc: "Streak-free window cleaning for commercial and residential properties.",
+    img: "https://d2xsxph8kpxj0f.cloudfront.net/310519663396125342/LsnnQBd3D9ZpGUiGw6PBwg/svc_window_v2-n9fs7Tgc2sLwziEw4KoFMx.webp",
+    price: "From $200",
   },
   {
     icon: Zap,
     label: "Industrial Cleaning",
     desc: "Specialised cleaning for factories, warehouses and industrial sites.",
-    img: "https://d2xsxph8kpxj0f.cloudfront.net/310519663396125342/LsnnQBd3D9ZpGUiGw6PBwg/svc_industrial-Ue5GkQhrM67y7LhMm54rSo.webp",
+    img: "https://d2xsxph8kpxj0f.cloudfront.net/310519663396125342/LsnnQBd3D9ZpGUiGw6PBwg/svc_commercial_v2-LpEKwd5ocUenUXBG94ayFW.webp",
+    price: "Custom Quote",
   },
   {
     icon: Shield,
     label: "End of Lease Cleaning",
     desc: "Bond-back guaranteed deep cleans for rental properties.",
-    img: "https://d2xsxph8kpxj0f.cloudfront.net/310519663396125342/LsnnQBd3D9ZpGUiGw6PBwg/svc_endoflease-228GNZYzJ8yvsNFjok5t4z.webp",
+    img: "https://d2xsxph8kpxj0f.cloudfront.net/310519663396125342/LsnnQBd3D9ZpGUiGw6PBwg/svc_endoflease_v2-RqLXusXXq7ajrgp8J6rtfh.webp",
+    price: "Custom Quote",
   },
 ];
 
@@ -122,7 +131,7 @@ const STATS = [
 
 const PRICING_PLANS = [
   {
-    name: "Domestic",
+    name: "Domestic Cleaning",
     icon: HomeIcon,
     rate: "$39",
     unit: "/hour",
@@ -136,9 +145,10 @@ const PRICING_PLANS = [
       "Free quote included",
     ],
     highlight: false,
+    badge: null,
   },
   {
-    name: "Commercial",
+    name: "Commercial Cleaning",
     icon: Building2,
     rate: "$39",
     unit: "/hour",
@@ -146,29 +156,21 @@ const PRICING_PLANS = [
     features: [
       "Office & workspace cleaning",
       "Floor polishing & buffing",
-      "Steam cleaning",
-      "Pressure washing",
-      "Window cleaning",
       "Scheduled maintenance plans",
+      "FREE window cleaning on contract start",
+      "Priority scheduling",
+      "Dedicated account manager",
     ],
     highlight: true,
+    badge: "Most Popular",
   },
-  {
-    name: "Industrial",
-    icon: Zap,
-    rate: "Custom",
-    unit: "quote",
-    desc: "Tailored solutions for factories, warehouses and large facilities.",
-    features: [
-      "Industrial floor scrubbing",
-      "High-pressure washing",
-      "Hazardous area cleaning",
-      "Large-scale facility cleaning",
-      "Flexible scheduling",
-      "Free site assessment",
-    ],
-    highlight: false,
-  },
+];
+
+const SPECIALTY_PRICING = [
+  { icon: Droplets, label: "Steam Cleaning", price: "From $100", desc: "Carpets, upholstery & hard surfaces" },
+  { icon: Layers, label: "Floor Scrubbing & Polishing", price: "From $200", desc: "Strip, seal & polish all floor types" },
+  { icon: Wind, label: "Pressure Washing", price: "From $200", desc: "Driveways, facades & outdoor areas" },
+  { icon: Wrench, label: "Window Cleaning", price: "From $200", desc: "Commercial & residential, streak-free" },
 ];
 
 const REVIEWS = [
@@ -375,13 +377,23 @@ export default function Home() {
             <a
               href="#contact"
               onClick={(e) => { e.preventDefault(); scrollTo("#contact"); }}
-              className="hidden lg:flex items-center gap-2 px-5 py-2 text-sm font-bold transition-all"
+              className="hidden lg:flex items-center gap-2 px-5 py-2.5 text-sm font-bold transition-all"
               style={{
-                background: "oklch(0.75 0.18 210)",
-                color: "oklch(0.06 0.02 240)",
+                background: "white",
+                color: "oklch(0.25 0.15 220)",
                 fontFamily: "'Barlow Condensed', sans-serif",
                 letterSpacing: "0.08em",
                 textTransform: "uppercase",
+                border: "2px solid oklch(0.75 0.18 210)",
+                boxShadow: "0 0 12px oklch(0.75 0.18 210 / 0.25)",
+              }}
+              onMouseEnter={(e) => {
+                (e.currentTarget as HTMLElement).style.background = "oklch(0.75 0.18 210)";
+                (e.currentTarget as HTMLElement).style.color = "oklch(0.06 0.02 240)";
+              }}
+              onMouseLeave={(e) => {
+                (e.currentTarget as HTMLElement).style.background = "white";
+                (e.currentTarget as HTMLElement).style.color = "oklch(0.25 0.15 220)";
               }}
             >
               Free Quote
@@ -567,6 +579,86 @@ export default function Home() {
         </div>
       </div>
 
+      {/* ── Intro Video Section ── */}
+      <section className="py-16" style={{ background: "oklch(0.06 0.02 240)" }}>
+        <div className="container">
+          <div className="text-center mb-10 fade-up">
+            <div
+              className="text-xs font-bold uppercase tracking-widest mb-3"
+              style={{ color: "oklch(0.75 0.18 210)", fontFamily: "'Barlow Condensed', sans-serif" }}
+            >
+              See Us In Action
+            </div>
+            <h2
+              style={{
+                fontFamily: "'Barlow Condensed', sans-serif",
+                fontWeight: 800,
+                fontSize: "clamp(2rem, 4vw, 3rem)",
+                color: "white",
+                textTransform: "uppercase",
+                lineHeight: 1.05,
+              }}
+            >
+              Professional Cleaning <span style={{ color: "oklch(0.75 0.18 210)" }}>In Action</span>
+            </h2>
+          </div>
+          <div className="grid md:grid-cols-2 gap-6 fade-up">
+            {/* Video 1 - Commercial Cleaning */}
+            <div className="relative overflow-hidden" style={{ border: "1px solid oklch(0.75 0.18 210 / 0.3)" }}>
+              <div style={{ position: "relative", paddingBottom: "56.25%", height: 0, overflow: "hidden" }}>
+                <iframe
+                  src="https://www.youtube.com/embed/Jv7aPDHFVuQ?autoplay=1&mute=1&loop=1&playlist=Jv7aPDHFVuQ&controls=0&modestbranding=1"
+                  title="Commercial Cleaning Services"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                  style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%", border: "none" }}
+                />
+              </div>
+              <div
+                className="px-4 py-3"
+                style={{ background: "oklch(0.1 0.025 240)", borderTop: "1px solid oklch(0.75 0.18 210 / 0.2)" }}
+              >
+                <div
+                  className="font-bold text-sm uppercase tracking-wider"
+                  style={{ fontFamily: "'Barlow Condensed', sans-serif", color: "white" }}
+                >
+                  Commercial Cleaning
+                </div>
+                <div className="text-xs mt-0.5" style={{ color: "oklch(0.6 0.02 240)" }}>
+                  Professional office & facility cleaning services
+                </div>
+              </div>
+            </div>
+            {/* Video 2 - Domestic / Carpet Cleaning */}
+            <div className="relative overflow-hidden" style={{ border: "1px solid oklch(0.75 0.18 210 / 0.3)" }}>
+              <div style={{ position: "relative", paddingBottom: "56.25%", height: 0, overflow: "hidden" }}>
+                <iframe
+                  src="https://www.youtube.com/embed/2XID_W4neJo?autoplay=1&mute=1&loop=1&playlist=2XID_W4neJo&controls=0&modestbranding=1"
+                  title="Domestic & Steam Cleaning"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                  style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%", border: "none" }}
+                />
+              </div>
+              <div
+                className="px-4 py-3"
+                style={{ background: "oklch(0.1 0.025 240)", borderTop: "1px solid oklch(0.75 0.18 210 / 0.2)" }}
+              >
+                <div
+                  className="font-bold text-sm uppercase tracking-wider"
+                  style={{ fontFamily: "'Barlow Condensed', sans-serif", color: "white" }}
+                >
+                  Domestic & Steam Cleaning
+                </div>
+                <div className="text-xs mt-0.5" style={{ color: "oklch(0.6 0.02 240)" }}>
+                  Deep cleaning for homes, carpets & upholstery
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* ── About Section ── */}
       <section id="about" className="py-20 section-light">
         <div className="container">
@@ -695,7 +787,7 @@ export default function Home() {
           </div>
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 fade-up">
-            {SERVICES.map(({ icon: Icon, label, desc, img }) => (
+            {SERVICES.map(({ icon: Icon, label, desc, img, price }) => (
               <div
                 key={label}
                 className="group overflow-hidden"
@@ -732,7 +824,7 @@ export default function Home() {
                       fontFamily: "'Barlow Condensed', sans-serif",
                     }}
                   >
-                    From $39/hr
+                    {price}
                   </div>
                 </div>
 
@@ -812,7 +904,7 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto fade-up">
+          <div className="grid md:grid-cols-2 gap-6 max-w-3xl mx-auto fade-up mb-12">
             {PRICING_PLANS.map((plan) => {
               const Icon = plan.icon;
               return (
@@ -926,9 +1018,110 @@ export default function Home() {
             })}
           </div>
 
+          {/* Specialty Services Pricing Table */}
+          <div className="mt-12 fade-up">
+            <h3
+              className="text-center mb-6"
+              style={{
+                fontFamily: "'Barlow Condensed', sans-serif",
+                fontWeight: 700,
+                fontSize: "1.5rem",
+                color: "oklch(0.1 0.03 240)",
+                textTransform: "uppercase",
+                letterSpacing: "0.05em",
+              }}
+            >
+              Specialty Services Pricing
+            </h3>
+            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 max-w-5xl mx-auto">
+              {SPECIALTY_PRICING.map(({ icon: Icon, label, price, desc }) => (
+                <div
+                  key={label}
+                  className="p-5 text-center"
+                  style={{ border: "1px solid oklch(0.88 0.01 240)", background: "oklch(0.98 0.005 240)" }}
+                >
+                  <div
+                    className="w-12 h-12 mx-auto mb-3 flex items-center justify-center"
+                    style={{ background: "oklch(0.75 0.18 210 / 0.1)" }}
+                  >
+                    <Icon className="w-6 h-6" style={{ color: "oklch(0.75 0.18 210)" }} />
+                  </div>
+                  <div
+                    style={{
+                      fontFamily: "'Barlow Condensed', sans-serif",
+                      fontWeight: 800,
+                      fontSize: "1.6rem",
+                      color: "oklch(0.75 0.18 210)",
+                      lineHeight: 1,
+                    }}
+                  >
+                    {price}
+                  </div>
+                  <div
+                    className="mt-1 font-bold text-sm"
+                    style={{ fontFamily: "'Barlow Condensed', sans-serif", color: "oklch(0.1 0.03 240)", textTransform: "uppercase", letterSpacing: "0.03em" }}
+                  >
+                    {label}
+                  </div>
+                  <div className="text-xs mt-1" style={{ color: "oklch(0.5 0.02 240)" }}>
+                    {desc}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
           <p className="text-center text-sm mt-8" style={{ color: "oklch(0.55 0.02 240)" }}>
             All prices are in AUD. Final quotes depend on property size, condition, and specific requirements. Contact us for a free, no-obligation assessment.
           </p>
+        </div>
+      </section>
+
+      {/* ── Free Window Cleaning Offer Banner ── */}
+      <section className="py-10" style={{ background: "oklch(0.75 0.18 210)" }}>
+        <div className="container">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+            <div className="flex items-center gap-4">
+              <div
+                className="w-14 h-14 flex items-center justify-center flex-shrink-0"
+                style={{ background: "oklch(0.06 0.02 240 / 0.15)" }}
+              >
+                <Wrench className="w-7 h-7" style={{ color: "oklch(0.06 0.02 240)" }} />
+              </div>
+              <div>
+                <div
+                  style={{
+                    fontFamily: "'Barlow Condensed', sans-serif",
+                    fontWeight: 800,
+                    fontSize: "clamp(1.4rem, 3vw, 2rem)",
+                    color: "oklch(0.06 0.02 240)",
+                    textTransform: "uppercase",
+                    lineHeight: 1.1,
+                  }}
+                >
+                  FREE Window Cleaning — Exclusive Commercial Offer
+                </div>
+                <p className="text-sm mt-1" style={{ color: "oklch(0.15 0.03 240)" }}>
+                  Sign up for a commercial cleaning contract and receive a complimentary window cleaning service when we start. Limited offer — call us today.
+                </p>
+              </div>
+            </div>
+            <a
+              href="#contact"
+              onClick={(e) => { e.preventDefault(); scrollTo("#contact"); }}
+              className="flex-shrink-0 flex items-center gap-2 px-6 py-3 font-bold text-sm uppercase tracking-wider transition-all"
+              style={{
+                background: "oklch(0.06 0.02 240)",
+                color: "oklch(0.75 0.18 210)",
+                fontFamily: "'Barlow Condensed', sans-serif",
+                letterSpacing: "0.08em",
+                whiteSpace: "nowrap",
+              }}
+            >
+              Claim This Offer
+              <ArrowRight className="w-4 h-4" />
+            </a>
+          </div>
         </div>
       </section>
 
