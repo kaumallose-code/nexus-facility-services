@@ -91,6 +91,64 @@
   --sidebar-ring: oklch(0.75 0.18 210);
 }
 
+@layer components {
+  .nexus-btn-solid {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.75rem;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 0.9rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    background: oklch(0.75 0.18 210);
+    color: oklch(0.06 0.02 240);
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-decoration: none;
+  }
+  .nexus-btn-solid:hover {
+    background: oklch(0.82 0.16 210);
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px oklch(0.75 0.18 210 / 0.35);
+  }
+  .nexus-btn-cyan {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.75rem;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 0.9rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    background: transparent;
+    color: oklch(0.75 0.18 210);
+    border: 2px solid oklch(0.75 0.18 210);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-decoration: none;
+  }
+  .nexus-btn-cyan:hover {
+    background: oklch(0.75 0.18 210 / 0.1);
+    transform: translateY(-1px);
+  }
+  .section-light {
+    background: oklch(0.99 0.002 240);
+  }
+  .fade-up {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.65s ease, transform 0.65s ease;
+  }
+  .fade-up.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;
