@@ -1,7 +1,7 @@
 /* 
  * NEXUS FACILITY SERVICES — Design System
- * Philosophy: Bold Dark-Mode Industrial (cleaned.au inspired)
- * Colors: Deep navy/charcoal backgrounds, electric cyan accents, white text
+ * Philosophy: Clean Professional Blue & White (cleaning brand)
+ * Colors: Royal blue backgrounds, sky blue accents, white text on dark, dark text on light
  * Typography: Barlow Condensed (headings) + DM Sans (body)
  */
 
@@ -47,48 +47,48 @@
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
-  
-  /* Nexus Brand Colors */
-  --color-nexus-cyan: oklch(0.75 0.18 210);
-  --color-nexus-navy: oklch(0.12 0.04 240);
-  --color-nexus-dark: oklch(0.08 0.02 240);
-  --color-nexus-mid: oklch(0.16 0.03 240);
+
+  /* Nexus Brand Colors — Blue & White Theme */
+  /* --nexus-blue-dark:  deep royal blue for hero/nav/dark sections */
+  /* --nexus-blue-mid:   medium blue for alternating sections        */
+  /* --nexus-blue-light: pale sky blue for subtle backgrounds        */
+  /* --nexus-accent:     vivid sky/cyan blue for CTAs & highlights   */
 }
 
 :root {
   --radius: 0.25rem;
   --background: oklch(1 0 0);
-  --foreground: oklch(0.15 0.02 240);
-  --card: oklch(0.98 0 0);
-  --card-foreground: oklch(0.15 0.02 240);
+  --foreground: oklch(0.18 0.04 240);
+  --card: oklch(0.98 0.005 230);
+  --card-foreground: oklch(0.18 0.04 240);
   --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.15 0.02 240);
-  --primary: oklch(0.75 0.18 210);
-  --primary-foreground: oklch(0.08 0.02 240);
-  --secondary: oklch(0.95 0.01 240);
-  --secondary-foreground: oklch(0.15 0.02 240);
-  --muted: oklch(0.95 0.01 240);
-  --muted-foreground: oklch(0.5 0.02 240);
-  --accent: oklch(0.75 0.18 210);
-  --accent-foreground: oklch(0.08 0.02 240);
+  --popover-foreground: oklch(0.18 0.04 240);
+  --primary: oklch(0.48 0.22 240);
+  --primary-foreground: oklch(1 0 0);
+  --secondary: oklch(0.93 0.03 230);
+  --secondary-foreground: oklch(0.25 0.06 240);
+  --muted: oklch(0.94 0.02 230);
+  --muted-foreground: oklch(0.48 0.05 240);
+  --accent: oklch(0.62 0.22 230);
+  --accent-foreground: oklch(1 0 0);
   --destructive: oklch(0.577 0.245 27.325);
   --destructive-foreground: oklch(0.985 0 0);
-  --border: oklch(0.88 0.01 240);
-  --input: oklch(0.88 0.01 240);
-  --ring: oklch(0.75 0.18 210);
-  --chart-1: oklch(0.75 0.18 210);
-  --chart-2: oklch(0.6 0.15 210);
-  --chart-3: oklch(0.45 0.12 210);
-  --chart-4: oklch(0.3 0.08 240);
-  --chart-5: oklch(0.15 0.04 240);
-  --sidebar: oklch(0.08 0.02 240);
-  --sidebar-foreground: oklch(0.9 0.01 240);
-  --sidebar-primary: oklch(0.75 0.18 210);
-  --sidebar-primary-foreground: oklch(0.08 0.02 240);
-  --sidebar-accent: oklch(0.16 0.03 240);
-  --sidebar-accent-foreground: oklch(0.9 0.01 240);
-  --sidebar-border: oklch(0.25 0.04 240);
-  --sidebar-ring: oklch(0.75 0.18 210);
+  --border: oklch(0.87 0.03 230);
+  --input: oklch(0.87 0.03 230);
+  --ring: oklch(0.62 0.22 230);
+  --chart-1: oklch(0.62 0.22 230);
+  --chart-2: oklch(0.52 0.18 240);
+  --chart-3: oklch(0.42 0.15 245);
+  --chart-4: oklch(0.32 0.10 250);
+  --chart-5: oklch(0.22 0.06 255);
+  --sidebar: oklch(0.22 0.08 245);
+  --sidebar-foreground: oklch(0.95 0.01 230);
+  --sidebar-primary: oklch(0.62 0.22 230);
+  --sidebar-primary-foreground: oklch(1 0 0);
+  --sidebar-accent: oklch(0.30 0.10 245);
+  --sidebar-accent-foreground: oklch(0.95 0.01 230);
+  --sidebar-border: oklch(0.35 0.10 245);
+  --sidebar-ring: oklch(0.62 0.22 230);
 }
 
 @layer components {
@@ -102,17 +102,17 @@
     font-size: 0.9rem;
     letter-spacing: 0.08em;
     text-transform: uppercase;
-    background: oklch(0.75 0.18 210);
-    color: oklch(0.06 0.02 240);
+    background: oklch(0.62 0.22 230);
+    color: oklch(1 0 0);
     border: none;
     cursor: pointer;
     transition: all 0.2s ease;
     text-decoration: none;
   }
   .nexus-btn-solid:hover {
-    background: oklch(0.82 0.16 210);
+    background: oklch(0.52 0.22 240);
     transform: translateY(-1px);
-    box-shadow: 0 6px 20px oklch(0.75 0.18 210 / 0.35);
+    box-shadow: 0 6px 20px oklch(0.62 0.22 230 / 0.35);
   }
   .nexus-btn-cyan {
     display: inline-flex;
@@ -125,18 +125,18 @@
     letter-spacing: 0.08em;
     text-transform: uppercase;
     background: transparent;
-    color: oklch(0.75 0.18 210);
-    border: 2px solid oklch(0.75 0.18 210);
+    color: oklch(0.62 0.22 230);
+    border: 2px solid oklch(0.62 0.22 230);
     cursor: pointer;
     transition: all 0.2s ease;
     text-decoration: none;
   }
   .nexus-btn-cyan:hover {
-    background: oklch(0.75 0.18 210 / 0.1);
+    background: oklch(0.62 0.22 230 / 0.12);
     transform: translateY(-1px);
   }
   .section-light {
-    background: oklch(0.99 0.002 240);
+    background: oklch(0.99 0.003 230);
   }
   .fade-up {
     opacity: 0;
@@ -210,8 +210,8 @@
     align-items: center;
     gap: 0.5rem;
     padding: 0.625rem 1.5rem;
-    border: 2px solid oklch(0.75 0.18 210);
-    color: oklch(0.75 0.18 210);
+    border: 2px solid oklch(0.62 0.22 230);
+    color: oklch(0.62 0.22 230);
     font-family: 'Barlow Condensed', sans-serif;
     font-weight: 600;
     font-size: 0.95rem;
@@ -221,8 +221,8 @@
     background: transparent;
   }
   .nexus-btn-cyan:hover {
-    background: oklch(0.75 0.18 210);
-    color: oklch(0.08 0.02 240);
+    background: oklch(0.62 0.22 230);
+    color: oklch(1 0 0);
   }
 
   .nexus-btn-solid {
@@ -230,43 +230,43 @@
     align-items: center;
     gap: 0.5rem;
     padding: 0.75rem 2rem;
-    background: oklch(0.75 0.18 210);
-    color: oklch(0.08 0.02 240);
+    background: oklch(0.62 0.22 230);
+    color: oklch(1 0 0);
     font-family: 'Barlow Condensed', sans-serif;
     font-weight: 700;
     font-size: 1rem;
     letter-spacing: 0.08em;
     text-transform: uppercase;
     transition: all 0.25s ease;
-    border: 2px solid oklch(0.75 0.18 210);
+    border: 2px solid oklch(0.62 0.22 230);
   }
   .nexus-btn-solid:hover {
     background: transparent;
-    color: oklch(0.75 0.18 210);
+    color: oklch(0.62 0.22 230);
   }
 
   .section-dark {
-    background: oklch(0.08 0.02 240);
+    background: oklch(0.22 0.10 245);
     color: white;
   }
 
   .section-mid {
-    background: oklch(0.12 0.03 240);
+    background: oklch(0.30 0.12 245);
     color: white;
   }
 
   .section-light {
     background: oklch(1 0 0);
-    color: oklch(0.15 0.02 240);
+    color: oklch(0.18 0.04 240);
   }
 
   .section-grey {
-    background: oklch(0.97 0.005 240);
-    color: oklch(0.15 0.02 240);
+    background: oklch(0.96 0.01 230);
+    color: oklch(0.18 0.04 240);
   }
 
   .cyan-heading {
-    color: oklch(0.75 0.18 210);
+    color: oklch(0.62 0.22 230);
     font-family: 'Barlow Condensed', sans-serif;
     font-weight: 700;
     text-transform: uppercase;
@@ -274,8 +274,8 @@
   }
 
   .service-card {
-    border: 2px solid oklch(0.75 0.18 210 / 0.4);
-    background: oklch(0.12 0.03 240);
+    border: 2px solid oklch(0.62 0.22 230 / 0.4);
+    background: oklch(0.30 0.12 245);
     color: white;
     padding: 1.5rem;
     transition: all 0.25s ease;
@@ -285,9 +285,9 @@
     gap: 0.5rem;
   }
   .service-card:hover {
-    border-color: oklch(0.75 0.18 210);
-    background: oklch(0.16 0.04 240);
-    box-shadow: 0 0 20px oklch(0.75 0.18 210 / 0.2);
+    border-color: oklch(0.62 0.22 230);
+    background: oklch(0.35 0.14 245);
+    box-shadow: 0 0 20px oklch(0.62 0.22 230 / 0.2);
   }
 
   /* Scroll animations */

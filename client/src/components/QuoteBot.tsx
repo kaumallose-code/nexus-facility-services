@@ -216,8 +216,8 @@ export default function QuoteBot() {
         onClick={handleOpen}
         className="fixed bottom-6 right-6 z-50 flex items-center gap-2 px-4 py-3 shadow-2xl transition-all duration-300 hover:scale-105"
         style={{
-          background: "oklch(0.75 0.18 210)",
-          color: "oklch(0.06 0.02 240)",
+          background: "oklch(0.62 0.22 230)",
+          color: "oklch(0.20 0.10 245)",
           fontFamily: "'Barlow Condensed', sans-serif",
           fontWeight: 700,
           fontSize: "0.9rem",
@@ -241,7 +241,7 @@ export default function QuoteBot() {
             maxWidth: "calc(100vw - 2rem)",
             height: "520px",
             maxHeight: "calc(100vh - 120px)",
-            background: "oklch(0.08 0.02 240)",
+            background: "oklch(0.22 0.10 245)",
             border: "1px solid oklch(0.75 0.18 210 / 0.3)",
             borderRadius: "4px",
           }}
@@ -250,16 +250,16 @@ export default function QuoteBot() {
           <div
             className="flex items-center justify-between px-4 py-3 flex-shrink-0"
             style={{
-              background: "oklch(0.75 0.18 210)",
+              background: "oklch(0.62 0.22 230)",
               borderRadius: "4px 4px 0 0",
             }}
           >
             <div className="flex items-center gap-2">
               <div
                 className="w-8 h-8 flex items-center justify-center"
-                style={{ background: "oklch(0.06 0.02 240)", borderRadius: "2px" }}
+                style={{ background: "oklch(0.20 0.10 245)", borderRadius: "2px" }}
               >
-                <Bot className="w-4 h-4" style={{ color: "oklch(0.75 0.18 210)" }} />
+                <Bot className="w-4 h-4" style={{ color: "oklch(0.62 0.22 230)" }} />
               </div>
               <div>
                 <div
@@ -267,7 +267,7 @@ export default function QuoteBot() {
                     fontFamily: "'Barlow Condensed', sans-serif",
                     fontWeight: 700,
                     fontSize: "0.95rem",
-                    color: "oklch(0.06 0.02 240)",
+                    color: "oklch(0.20 0.10 245)",
                     letterSpacing: "0.04em",
                     textTransform: "uppercase",
                   }}
@@ -286,7 +286,7 @@ export default function QuoteBot() {
             <button
               onClick={() => setIsOpen(false)}
               className="p-1 transition-opacity hover:opacity-70"
-              style={{ color: "oklch(0.06 0.02 240)" }}
+              style={{ color: "oklch(0.20 0.10 245)" }}
               aria-label="Close chat"
             >
               <X className="w-5 h-5" />
@@ -312,7 +312,7 @@ export default function QuoteBot() {
                   }}
                 >
                   {msg.from === "bot" ? (
-                    <Bot className="w-3.5 h-3.5" style={{ color: "oklch(0.75 0.18 210)" }} />
+                    <Bot className="w-3.5 h-3.5" style={{ color: "oklch(0.62 0.22 230)" }} />
                   ) : (
                     <User className="w-3.5 h-3.5" style={{ color: "oklch(0.75 0.02 240)" }} />
                   )}
@@ -323,8 +323,8 @@ export default function QuoteBot() {
                   <div
                     className="px-3 py-2 text-sm leading-relaxed"
                     style={{
-                      background: msg.from === "bot" ? "oklch(0.14 0.03 240)" : "oklch(0.75 0.18 210)",
-                      color: msg.from === "bot" ? "oklch(0.85 0.02 240)" : "oklch(0.06 0.02 240)",
+                      background: msg.from === "bot" ? "oklch(0.14 0.03 240)" : "oklch(0.62 0.22 230)",
+                      color: msg.from === "bot" ? "oklch(0.85 0.02 240)" : "oklch(0.20 0.10 245)",
                       borderRadius: "2px",
                       whiteSpace: "pre-line",
                     }}
@@ -342,7 +342,7 @@ export default function QuoteBot() {
                           className="text-left text-xs px-3 py-2 transition-all"
                           style={{
                             border: "1px solid oklch(0.75 0.18 210 / 0.4)",
-                            color: "oklch(0.75 0.18 210)",
+                            color: "oklch(0.62 0.22 230)",
                             background: "transparent",
                             fontFamily: "'DM Sans', sans-serif",
                           }}
@@ -369,7 +369,7 @@ export default function QuoteBot() {
                   className="w-7 h-7 flex items-center justify-center flex-shrink-0"
                   style={{ background: "oklch(0.75 0.18 210 / 0.15)", borderRadius: "2px" }}
                 >
-                  <Bot className="w-3.5 h-3.5" style={{ color: "oklch(0.75 0.18 210)" }} />
+                  <Bot className="w-3.5 h-3.5" style={{ color: "oklch(0.62 0.22 230)" }} />
                 </div>
                 <div
                   className="px-3 py-2 flex items-center gap-1"
@@ -380,7 +380,7 @@ export default function QuoteBot() {
                       key={i}
                       className="inline-block w-1.5 h-1.5 rounded-full"
                       style={{
-                        background: "oklch(0.75 0.18 210)",
+                        background: "oklch(0.62 0.22 230)",
                         animation: `bounce 1.2s ease-in-out ${i * 0.2}s infinite`,
                       }}
                     />
@@ -402,8 +402,8 @@ export default function QuoteBot() {
                   href="tel:0404934544"
                   className="flex-1 flex items-center justify-center gap-2 py-2.5 text-xs font-bold"
                   style={{
-                    background: "oklch(0.75 0.18 210)",
-                    color: "oklch(0.06 0.02 240)",
+                    background: "oklch(0.62 0.22 230)",
+                    color: "oklch(0.20 0.10 245)",
                     fontFamily: "'Barlow Condensed', sans-serif",
                     letterSpacing: "0.05em",
                     textTransform: "uppercase",
@@ -425,7 +425,7 @@ export default function QuoteBot() {
                   className="flex items-center justify-center gap-1 px-3 py-2.5 text-xs font-bold"
                   style={{
                     border: "1px solid oklch(0.75 0.18 210 / 0.4)",
-                    color: "oklch(0.75 0.18 210)",
+                    color: "oklch(0.62 0.22 230)",
                     fontFamily: "'Barlow Condensed', sans-serif",
                     letterSpacing: "0.05em",
                     textTransform: "uppercase",
@@ -458,8 +458,8 @@ export default function QuoteBot() {
                   disabled={!inputValue.trim()}
                   className="px-3 py-2 transition-opacity disabled:opacity-40"
                   style={{
-                    background: "oklch(0.75 0.18 210)",
-                    color: "oklch(0.06 0.02 240)",
+                    background: "oklch(0.62 0.22 230)",
+                    color: "oklch(0.20 0.10 245)",
                     borderRadius: "2px",
                   }}
                   aria-label="Send message"
