@@ -178,7 +178,7 @@ const REVIEWS = [
     name: "Grant Keenan",
     badge: "Local Guide · 165 reviews",
     rating: 5,
-    text: "I can not recommend and express gratitude enough to Nexus Facility Group and Vinu in particular. Called out to do a very deep clean of my elderly mother's house, Vinu worked constantly with care and compassion to ensure the house has been returned to its original pristine condition. Offering a range of services across both domestic and commercial cleaning, you will not go wrong giving the team here a call.",
+    text: "I can not recommend and express gratitude enough to Nexus Facility Group and Vinu in particular. Called out to do a very deep clean of my elderly mother's house, Vinu worked constantly with care and compassion to ensure the house has been returned to its original pristine condition. Offering a range of services across both domestic and commercial cleaning, you will not go wrong giving the team here a call. Thanks Vinu and team and we won't hesitate in calling you when we next require your services.",
     date: "11 months ago",
   },
   {
@@ -187,6 +187,27 @@ const REVIEWS = [
     rating: 5,
     text: "We engaged Nexus for the cleaning, stripping and polishing of our clinic floors. They did a wonderful job and were very professional. Would certainly recommend and use again in the future.",
     date: "10 months ago",
+  },
+  {
+    name: "White B.",
+    badge: "Google Review",
+    rating: 5,
+    text: "The team was punctual and did an incredible job. They didn't just do the basics; they scrubbed the shower until it sparkled and even folded the towels beautifully. Awesome services — highly recommend Nexus Facility Services!",
+    date: "1 day ago",
+  },
+  {
+    name: "Janak Kasun",
+    badge: "Google Review",
+    rating: 5,
+    text: "Good service, highly recommended.",
+    date: "1 day ago",
+  },
+  {
+    name: "Kiah Ashton",
+    badge: "Local Guide · Level 1",
+    rating: 5,
+    text: "Excellent cleaning service — gave a 5-star rating for the outstanding work done by the Nexus team.",
+    date: "4 days ago",
   },
 ];
 
@@ -1158,7 +1179,7 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto fade-up">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto fade-up">
             {REVIEWS.map((review) => (
               <div
                 key={review.name}
