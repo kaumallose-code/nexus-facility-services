@@ -33,6 +33,7 @@ import {
   DollarSign,
 } from "lucide-react";
 import QuoteBot from "@/components/QuoteBot";
+import { trpc } from "@/lib/trpc";
 
 // ─── Constants ────────────────────────────────────────────────────────────────
 const LOGO_URL =
@@ -44,7 +45,7 @@ const SERVICES_BG =
 
 const PHONE = "0404 934 544";
 const PHONE_HREF = "tel:0404934544";
-const EMAIL = "admin@nexusfacilites.au";
+const EMAIL = "admin.hr@nexusfacility.au";
 
 const NAV_LINKS = [
   { label: "Home", href: "#home" },
@@ -1174,7 +1175,7 @@ export default function Home() {
                 5.0
               </span>
               <span style={{ color: "oklch(0.42 0.06 245)" }} className="text-sm">
-                · 2 Google Reviews
+                · 5 Google Reviews
               </span>
             </div>
           </div>
@@ -1432,10 +1433,24 @@ export default function Home() {
 function ContactForm() {
   const [form, setForm] = useState({ name: "", phone: "", email: "", service: "", message: "" });
   const [submitted, setSubmitted] = useState(false);
+  const [error, setError] = useState("");
+
+  const submitMutation = trpc.enquiry.submit.useMutation({
+    onSuccess: () => setSubmitted(true),
+    onError: (err) => setError(err.message || "Something went wrong. Please try again or call us directly."),
+  });
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
+    setError("");
+    submitMutation.mutate({
+      name: form.name,
+      phone: form.phone,
+      email: form.email || undefined,
+      service: form.service || undefined,
+      message: form.message || undefined,
+      source: "contact_form",
+    });
   };
 
   if (submitted) {
@@ -1530,8 +1545,13 @@ function ContactForm() {
         <textarea rows={4} placeholder="Tell us about your cleaning needs..." value={form.message} onChange={(e) => setForm({ ...form, message: e.target.value })} style={{ ...inputStyle, resize: "vertical" }} />
       </div>
 
-      <button type="submit" className="nexus-btn-solid w-full justify-center">
-        Send Enquiry
+      {error && (
+        <p className="text-sm mb-4 p-3" style={{ background: "oklch(0.35 0.15 25 / 0.3)", color: "oklch(0.85 0.08 25)", border: "1px solid oklch(0.55 0.15 25 / 0.4)" }}>
+          {error}
+        </p>
+      )}
+      <button type="submit" disabled={submitMutation.isPending} className="nexus-btn-solid w-full justify-center" style={{ opacity: submitMutation.isPending ? 0.7 : 1 }}>
+        {submitMutation.isPending ? "Sending..." : "Send Enquiry"}
         <ArrowRight className="w-4 h-4" />
       </button>
 

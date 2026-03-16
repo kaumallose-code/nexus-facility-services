@@ -6,6 +6,7 @@
 
 import { useState, useRef, useEffect } from "react";
 import { MessageCircle, X, Send, Bot, User, Phone, ArrowRight } from "lucide-react";
+import { trpc } from "@/lib/trpc";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 interface Message {
@@ -99,7 +100,7 @@ function getBotResponse(step: BotStep, userInput: string, data: QuoteData): {
     case "summary":
       if (userInput.includes("Call")) {
         return {
-          text: `You can reach us directly on **0404 934 544** or email **admin@nexusfacilites.au**. We look forward to speaking with you! 😊`,
+          text: `You can reach us directly on **0404 934 544** or email **admin.hr@nexusfacility.au**. We look forward to speaking with you! 😊`,
           nextStep: "done",
         };
       }
@@ -135,8 +136,11 @@ export default function QuoteBot() {
   const [quoteData, setQuoteData] = useState<QuoteData>({});
   const [isTyping, setIsTyping] = useState(false);
   const [started, setStarted] = useState(false);
+  const [quoteSent, setQuoteSent] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+
+  const submitMutation = trpc.enquiry.submit.useMutation();
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -197,6 +201,23 @@ export default function QuoteBot() {
     // Get bot response
     const response = getBotResponse(currentStep, text, updatedData);
     addBotMessage(response.text, response.options, response.nextStep);
+
+    // When we reach the suburb step (summary), send the enquiry to the backend
+    if (currentStep === "ask_suburb" && !quoteSent) {
+      setQuoteSent(true);
+      const finalData = { ...updatedData, suburb: text };
+      if (finalData.name && finalData.phone) {
+        submitMutation.mutate({
+          name: finalData.name,
+          phone: finalData.phone,
+          service: finalData.service,
+          suburb: finalData.suburb,
+          propertySize: finalData.size,
+          message: `Frequency: ${finalData.frequency || 'Not specified'}`,
+          source: "quotebot",
+        });
+      }
+    }
 
     // Handle phone call option
     if (text.includes("Call us now")) {
@@ -419,6 +440,7 @@ export default function QuoteBot() {
                     setCurrentStep("greeting");
                     setQuoteData({});
                     setStarted(false);
+                    setQuoteSent(false);
                     setIsOpen(false);
                     setTimeout(() => handleOpen(), 100);
                   }}
