@@ -1433,24 +1433,42 @@ export default function Home() {
 function ContactForm() {
   const [form, setForm] = useState({ name: "", phone: "", email: "", service: "", message: "" });
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-  const submitMutation = trpc.enquiry.submit.useMutation({
-    onSuccess: () => setSubmitted(true),
-    onError: (err) => setError(err.message || "Something went wrong. Please try again or call us directly."),
-  });
+  const WEB3FORMS_KEY = import.meta.env.VITE_WEB3FORMS_KEY || "60b0c703-f29a-47e4-b929-39f1a114078a";
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
-    submitMutation.mutate({
-      name: form.name,
-      phone: form.phone,
-      email: form.email || undefined,
-      service: form.service || undefined,
-      message: form.message || undefined,
-      source: "contact_form",
-    });
+    setLoading(true);
+    try {
+      const payload = {
+        access_key: WEB3FORMS_KEY,
+        subject: `New Enquiry from ${form.name} — Nexus Facility Services`,
+        name: form.name,
+        phone: form.phone,
+        email: form.email || "Not provided",
+        service: form.service || "Not specified",
+        message: form.message || "No message provided",
+        from_name: "Nexus Facility Services Website",
+      };
+      const res = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify(payload),
+      });
+      const data = await res.json();
+      if (data.success) {
+        setSubmitted(true);
+      } else {
+        setError(data.message || "Something went wrong. Please try again or call us directly.");
+      }
+    } catch {
+      setError("Network error. Please try again or call us directly.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   if (submitted) {
@@ -1550,8 +1568,8 @@ function ContactForm() {
           {error}
         </p>
       )}
-      <button type="submit" disabled={submitMutation.isPending} className="nexus-btn-solid w-full justify-center" style={{ opacity: submitMutation.isPending ? 0.7 : 1 }}>
-        {submitMutation.isPending ? "Sending..." : "Send Enquiry"}
+      <button type="submit" disabled={loading} className="nexus-btn-solid w-full justify-center" style={{ opacity: loading ? 0.7 : 1 }}>
+        {loading ? "Sending..." : "Send Enquiry"}
         <ArrowRight className="w-4 h-4" />
       </button>
 

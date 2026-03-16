@@ -6,7 +6,8 @@
 
 import { useState, useRef, useEffect } from "react";
 import { MessageCircle, X, Send, Bot, User, Phone, ArrowRight } from "lucide-react";
-import { trpc } from "@/lib/trpc";
+// Web3Forms key for direct browser-to-email submission
+const WEB3FORMS_KEY = import.meta.env.VITE_WEB3FORMS_KEY || "60b0c703-f29a-47e4-b929-39f1a114078a";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 interface Message {
@@ -140,8 +141,6 @@ export default function QuoteBot() {
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const submitMutation = trpc.enquiry.submit.useMutation();
-
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
@@ -202,20 +201,27 @@ export default function QuoteBot() {
     const response = getBotResponse(currentStep, text, updatedData);
     addBotMessage(response.text, response.options, response.nextStep);
 
-    // When we reach the suburb step (summary), send the enquiry to the backend
+    // When we reach the suburb step, send the enquiry via Web3Forms
     if (currentStep === "ask_suburb" && !quoteSent) {
       setQuoteSent(true);
       const finalData = { ...updatedData, suburb: text };
       if (finalData.name && finalData.phone) {
-        submitMutation.mutate({
-          name: finalData.name,
-          phone: finalData.phone,
-          service: finalData.service,
-          suburb: finalData.suburb,
-          propertySize: finalData.size,
-          message: `Frequency: ${finalData.frequency || 'Not specified'}`,
-          source: "quotebot",
-        });
+        fetch("https://api.web3forms.com/submit", {
+          method: "POST",
+          headers: { "Content-Type": "application/json", Accept: "application/json" },
+          body: JSON.stringify({
+            access_key: WEB3FORMS_KEY,
+            subject: `New Quote Request from ${finalData.name} — Nexus Facility Services`,
+            name: finalData.name,
+            phone: finalData.phone,
+            service: finalData.service || "Not specified",
+            suburb: finalData.suburb || text,
+            property_size: finalData.size || "Not specified",
+            frequency: finalData.frequency || "Not specified",
+            from_name: "Nexus Facility Services QuoteBot",
+            message: `QuoteBot enquiry\nService: ${finalData.service || 'Not specified'}\nSuburb: ${finalData.suburb || text}\nProperty Size: ${finalData.size || 'Not specified'}\nFrequency: ${finalData.frequency || 'Not specified'}`,
+          }),
+        }).catch(() => { /* silent fail — user already sees confirmation message */ });
       }
     }
 
