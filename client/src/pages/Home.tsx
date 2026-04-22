@@ -1122,10 +1122,14 @@ export default function Home() {
               style={{ border: "1px solid oklch(0.75 0.18 210 / 0.25)", background: "oklch(0.30 0.12 245)" }}
             >
               <div
-                className="w-16 h-16 mx-auto mb-4 flex items-center justify-center"
-                style={{ background: "oklch(0.75 0.18 210 / 0.12)" }}
+                className="w-20 h-20 mx-auto mb-4 flex items-center justify-center overflow-hidden rounded-lg"
+                style={{ background: "black" }}
               >
-                <Building2 className="w-8 h-8" style={{ color: "oklch(0.62 0.22 230)" }} />
+                <img
+                  src="/manus-storage/alpha_facilities_logo_ace807f7.png"
+                  alt="Alpha Facilities Group Logo"
+                  className="w-full h-full object-contain p-1"
+                />
               </div>
               <h3
                 className="text-xl font-bold mb-2"
@@ -1150,16 +1154,20 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Ability to Ease */}
+            {/* Vital Ease */}
             <div
               className="p-8 text-center"
               style={{ border: "1px solid oklch(0.75 0.18 210 / 0.25)", background: "oklch(0.30 0.12 245)" }}
             >
               <div
-                className="w-16 h-16 mx-auto mb-4 flex items-center justify-center"
-                style={{ background: "oklch(0.75 0.18 210 / 0.12)" }}
+                className="w-20 h-20 mx-auto mb-4 flex items-center justify-center overflow-hidden rounded-lg"
+                style={{ background: "white" }}
               >
-                <Users className="w-8 h-8" style={{ color: "oklch(0.62 0.22 230)" }} />
+                <img
+                  src="/manus-storage/vital_ease_logo_6f2c2e56.png"
+                  alt="Vital Ease Logo"
+                  className="w-full h-full object-contain p-1"
+                />
               </div>
               <h3
                 className="text-xl font-bold mb-2"
@@ -1170,10 +1178,10 @@ export default function Home() {
                   letterSpacing: "0.05em",
                 }}
               >
-                Ability to Ease
+                Vital Ease
               </h3>
               <p className="text-sm leading-relaxed" style={{ color: "oklch(0.82 0.05 230)" }}>
-                In partnership with Ability to Ease, we provide tailored cleaning and facility services that support accessibility and ease of living for individuals and organisations with specific needs.
+                In partnership with Vital Ease, we provide tailored cleaning and facility services that support accessibility and ease of living for individuals and organisations with specific needs.
               </p>
               <div
                 className="mt-4 inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider"
@@ -1483,7 +1491,7 @@ export default function Home() {
                 </h4>
                 <div className="space-y-1.5">
                   <div className="text-sm" style={{ color: "oklch(0.78 0.05 230)" }}>Alpha Facility Group</div>
-                  <div className="text-sm" style={{ color: "oklch(0.78 0.05 230)" }}>Ability to Ease</div>
+                  <div className="text-sm" style={{ color: "oklch(0.78 0.05 230)" }}>Vital Ease</div>
                   <div className="text-sm" style={{ color: "oklch(0.78 0.05 230)" }}>Yarra Cleaning Services</div>
                 </div>
               </div>
