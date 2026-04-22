@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://www.nexusfacility.au/sitemap.xml
+
+# Disallow admin/api routes from indexing
+Disallow: /api/
+Disallow: /api/trpc/

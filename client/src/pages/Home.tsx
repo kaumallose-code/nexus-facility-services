@@ -53,6 +53,7 @@ const NAV_LINKS = [
   { label: "Services", href: "#services" },
   { label: "Pricing", href: "#pricing" },
   { label: "Partners", href: "#partners" },
+  { label: "Service Areas", href: "#service-areas" },
   { label: "Reviews", href: "#reviews" },
   { label: "Contact Us", href: "#contact" },
 ];
@@ -523,7 +524,7 @@ export default function Home() {
               className="mb-6 max-w-xl text-lg leading-relaxed"
               style={{ color: "oklch(0.90 0.03 230)", fontFamily: "'DM Sans', sans-serif" }}
             >
-              Nexus Facility Services delivers professional commercial and domestic cleaning across Melbourne — with precision, reliability, and zero shortcuts.
+              Nexus Facility Services delivers professional commercial and domestic cleaning across Melbourne's south-east — Berwick, Cranbourne, Dandenong, Pakenham, Clyde North &amp; surrounds. Precision, reliability, zero shortcuts.
             </p>
 
             {/* Pricing highlight */}
@@ -1142,6 +1143,119 @@ export default function Home() {
                 </div>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── Service Areas Section ── */}
+      <section id="service-areas" className="py-20 section-light">
+        <div className="container">
+          <div className="text-center mb-12 fade-up">
+            <div
+              className="text-xs font-bold uppercase tracking-widest mb-3"
+              style={{ color: "oklch(0.35 0.18 240)", fontFamily: "'Barlow Condensed', sans-serif" }}
+            >
+              Where We Work
+            </div>
+            <h2
+              className="mb-4"
+              style={{ fontFamily: "'Barlow Condensed', sans-serif", fontWeight: 800, fontSize: "clamp(2rem, 5vw, 3rem)", color: "oklch(0.18 0.08 245)" }}
+            >
+              SERVING MELBOURNE'S SOUTH-EAST
+            </h2>
+            <p className="max-w-2xl mx-auto" style={{ color: "oklch(0.40 0.06 245)", lineHeight: 1.7 }}>
+              Nexus Facility Services covers all suburbs within a <strong>40km radius of Clyde North 3978</strong>, with a focus on the high-growth commercial and industrial corridors of Melbourne's south-east. Available 7 days a week.
+            </p>
+          </div>
+
+          {/* Suburb Grid */}
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 mb-14 fade-up">
+            {[
+              { suburb: "Clyde North", postcode: "3978", tag: "Base Location" },
+              { suburb: "Berwick", postcode: "3806", tag: "Commercial Hub" },
+              { suburb: "Cranbourne", postcode: "3977", tag: "Industrial Zone" },
+              { suburb: "Dandenong", postcode: "3175", tag: "Major Precinct" },
+              { suburb: "Dandenong South", postcode: "3175", tag: "Industrial Hub" },
+              { suburb: "Pakenham", postcode: "3810", tag: "Growth Corridor" },
+              { suburb: "Narre Warren", postcode: "3805", tag: "Business District" },
+              { suburb: "Hallam", postcode: "3803", tag: "Industrial Area" },
+              { suburb: "Lyndhurst", postcode: "3975", tag: "Logistics Hub" },
+              { suburb: "Endeavour Hills", postcode: "3802", tag: "Commercial Zone" },
+              { suburb: "Hampton Park", postcode: "3976", tag: "Residential" },
+              { suburb: "Beaconsfield", postcode: "3807", tag: "Growth Area" },
+              { suburb: "Officer", postcode: "3809", tag: "New Development" },
+              { suburb: "Rowville", postcode: "3178", tag: "Business Park" },
+              { suburb: "Scoresby", postcode: "3179", tag: "Industrial" },
+              { suburb: "Frankston", postcode: "3199", tag: "Coastal Hub" },
+            ].map(({ suburb, postcode, tag }) => (
+              <div
+                key={suburb}
+                className="p-4 rounded"
+                style={{ background: "oklch(0.96 0.01 240)", border: "1px solid oklch(0.88 0.04 240)" }}
+              >
+                <div className="flex items-start justify-between mb-1">
+                  <span className="font-bold text-sm" style={{ color: "oklch(0.22 0.12 245)", fontFamily: "'Barlow Condensed', sans-serif", fontSize: "1rem" }}>
+                    {suburb}
+                  </span>
+                  <MapPin className="w-3.5 h-3.5 mt-0.5 flex-shrink-0" style={{ color: "oklch(0.35 0.18 240)" }} />
+                </div>
+                <div className="text-xs" style={{ color: "oklch(0.55 0.05 245)" }}>{postcode}</div>
+                <div
+                  className="text-xs mt-1 font-semibold uppercase tracking-wide"
+                  style={{ color: "oklch(0.35 0.18 240)", fontSize: "0.65rem" }}
+                >
+                  {tag}
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Commercial Focus Callout */}
+          <div
+            className="rounded-lg p-8 fade-up"
+            style={{ background: "oklch(0.22 0.10 245)", color: "white" }}
+          >
+            <div className="grid md:grid-cols-2 gap-8 items-center">
+              <div>
+                <div
+                  className="text-xs font-bold uppercase tracking-widest mb-3"
+                  style={{ color: "oklch(0.62 0.22 230)", fontFamily: "'Barlow Condensed', sans-serif" }}
+                >
+                  Commercial Focus
+                </div>
+                <h3
+                  className="text-2xl font-bold mb-4"
+                  style={{ fontFamily: "'Barlow Condensed', sans-serif", fontWeight: 800 }}
+                >
+                  DANDENONG SOUTH &amp; BERWICK INDUSTRIAL PRECINCTS
+                </h3>
+                <p className="text-sm mb-4" style={{ color: "oklch(0.82 0.05 230)", lineHeight: 1.7 }}>
+                  The Dandenong South industrial precinct is one of Victoria's largest manufacturing and logistics hubs, home to hundreds of warehouses, factories, and corporate offices. Nexus Facility Services provides specialised <strong>commercial cleaning in Dandenong South</strong>, including industrial floor scrubbing, high-pressure washing, and after-hours office cleaning.
+                </p>
+                <p className="text-sm" style={{ color: "oklch(0.82 0.05 230)", lineHeight: 1.7 }}>
+                  Berwick's growing commercial strip and Cranbourne's retail and medical precincts are also key focus areas. We understand the unique cleaning requirements of each environment — from sterile medical facilities to heavy-duty warehouse floors.
+                </p>
+              </div>
+              <div className="grid grid-cols-2 gap-3">
+                {[
+                  { area: "Dandenong South", desc: "Industrial & warehouse cleaning, factory floors, loading docks" },
+                  { area: "Berwick", desc: "Office, retail, medical centre & strata cleaning" },
+                  { area: "Cranbourne", desc: "Retail strip, office parks & industrial estate cleaning" },
+                  { area: "Pakenham", desc: "Commercial, new development & construction clean-ups" },
+                ].map(({ area, desc }) => (
+                  <div
+                    key={area}
+                    className="p-4 rounded"
+                    style={{ background: "oklch(0.30 0.12 245)", border: "1px solid oklch(0.75 0.18 210 / 0.2)" }}
+                  >
+                    <div className="font-bold text-sm mb-1" style={{ color: "oklch(0.62 0.22 230)", fontFamily: "'Barlow Condensed', sans-serif" }}>
+                      {area}
+                    </div>
+                    <div className="text-xs" style={{ color: "oklch(0.75 0.05 230)" }}>{desc}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       </section>
