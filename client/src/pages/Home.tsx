@@ -1115,53 +1115,112 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-8 max-w-3xl mx-auto fade-up">
-            {[
-              {
-                icon: Building2,
-                name: "Alpha Facility Group",
-                desc: "We are proud to be an active partner with Alpha Facility Group, collaborating to deliver comprehensive facility management and cleaning solutions for commercial clients across Melbourne.",
-              },
-              {
-                icon: Users,
-                name: "Ability to Ease",
-                desc: "In partnership with Ability to Ease, we provide tailored cleaning and facility services that support accessibility and ease of living for individuals and organisations with specific needs.",
-              },
-            ].map(({ icon: Icon, name, desc }) => (
+          <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto fade-up">
+            {/* Alpha Facility Group */}
+            <div
+              className="p-8 text-center"
+              style={{ border: "1px solid oklch(0.75 0.18 210 / 0.25)", background: "oklch(0.30 0.12 245)" }}
+            >
               <div
-                key={name}
-                className="p-8 text-center"
-                style={{ border: "1px solid oklch(0.75 0.18 210 / 0.25)", background: "oklch(0.30 0.12 245)" }}
+                className="w-16 h-16 mx-auto mb-4 flex items-center justify-center"
+                style={{ background: "oklch(0.75 0.18 210 / 0.12)" }}
               >
-                <div
-                  className="w-16 h-16 mx-auto mb-4 flex items-center justify-center"
-                  style={{ background: "oklch(0.75 0.18 210 / 0.12)" }}
-                >
-                  <Icon className="w-8 h-8" style={{ color: "oklch(0.62 0.22 230)" }} />
-                </div>
-                <h3
-                  className="text-xl font-bold mb-2"
-                  style={{
-                    fontFamily: "'Barlow Condensed', sans-serif",
-                    color: "white",
-                    textTransform: "uppercase",
-                    letterSpacing: "0.05em",
-                  }}
-                >
-                  {name}
-                </h3>
-                <p className="text-sm leading-relaxed" style={{ color: "oklch(0.82 0.05 230)" }}>
-                  {desc}
-                </p>
-                <div
-                  className="mt-4 inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider"
-                  style={{ color: "oklch(0.62 0.22 230)", fontFamily: "'Barlow Condensed', sans-serif" }}
-                >
-                  <CheckCircle className="w-3.5 h-3.5" />
-                  Active Partner
-                </div>
+                <Building2 className="w-8 h-8" style={{ color: "oklch(0.62 0.22 230)" }} />
               </div>
-            ))}
+              <h3
+                className="text-xl font-bold mb-2"
+                style={{
+                  fontFamily: "'Barlow Condensed', sans-serif",
+                  color: "white",
+                  textTransform: "uppercase",
+                  letterSpacing: "0.05em",
+                }}
+              >
+                Alpha Facility Group
+              </h3>
+              <p className="text-sm leading-relaxed" style={{ color: "oklch(0.82 0.05 230)" }}>
+                We are proud to be an active partner with Alpha Facility Group, collaborating to deliver comprehensive facility management and cleaning solutions for commercial clients across Melbourne.
+              </p>
+              <div
+                className="mt-4 inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider"
+                style={{ color: "oklch(0.62 0.22 230)", fontFamily: "'Barlow Condensed', sans-serif" }}
+              >
+                <CheckCircle className="w-3.5 h-3.5" />
+                Active Partner
+              </div>
+            </div>
+
+            {/* Ability to Ease */}
+            <div
+              className="p-8 text-center"
+              style={{ border: "1px solid oklch(0.75 0.18 210 / 0.25)", background: "oklch(0.30 0.12 245)" }}
+            >
+              <div
+                className="w-16 h-16 mx-auto mb-4 flex items-center justify-center"
+                style={{ background: "oklch(0.75 0.18 210 / 0.12)" }}
+              >
+                <Users className="w-8 h-8" style={{ color: "oklch(0.62 0.22 230)" }} />
+              </div>
+              <h3
+                className="text-xl font-bold mb-2"
+                style={{
+                  fontFamily: "'Barlow Condensed', sans-serif",
+                  color: "white",
+                  textTransform: "uppercase",
+                  letterSpacing: "0.05em",
+                }}
+              >
+                Ability to Ease
+              </h3>
+              <p className="text-sm leading-relaxed" style={{ color: "oklch(0.82 0.05 230)" }}>
+                In partnership with Ability to Ease, we provide tailored cleaning and facility services that support accessibility and ease of living for individuals and organisations with specific needs.
+              </p>
+              <div
+                className="mt-4 inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider"
+                style={{ color: "oklch(0.62 0.22 230)", fontFamily: "'Barlow Condensed', sans-serif" }}
+              >
+                <CheckCircle className="w-3.5 h-3.5" />
+                Active Partner
+              </div>
+            </div>
+
+            {/* Yarra Cleaning Services */}
+            <div
+              className="p-8 text-center"
+              style={{ border: "1px solid oklch(0.75 0.18 210 / 0.25)", background: "oklch(0.30 0.12 245)" }}
+            >
+              <div
+                className="w-20 h-20 mx-auto mb-4 flex items-center justify-center overflow-hidden rounded-full"
+                style={{ background: "white" }}
+              >
+                <img
+                  src="/manus-storage/yarra_cleaning_logo_80bb61c0.jpg"
+                  alt="Yarra Cleaning Services Logo"
+                  className="w-full h-full object-contain p-1"
+                />
+              </div>
+              <h3
+                className="text-xl font-bold mb-2"
+                style={{
+                  fontFamily: "'Barlow Condensed', sans-serif",
+                  color: "white",
+                  textTransform: "uppercase",
+                  letterSpacing: "0.05em",
+                }}
+              >
+                Yarra Cleaning Services
+              </h3>
+              <p className="text-sm leading-relaxed" style={{ color: "oklch(0.82 0.05 230)" }}>
+                Partnering with Yarra Cleaning Services to extend our reach and deliver high-quality cleaning solutions across Melbourne's Yarra region and surrounding areas.
+              </p>
+              <div
+                className="mt-4 inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider"
+                style={{ color: "oklch(0.62 0.22 230)", fontFamily: "'Barlow Condensed', sans-serif" }}
+              >
+                <CheckCircle className="w-3.5 h-3.5" />
+                Active Partner
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -1425,6 +1484,7 @@ export default function Home() {
                 <div className="space-y-1.5">
                   <div className="text-sm" style={{ color: "oklch(0.78 0.05 230)" }}>Alpha Facility Group</div>
                   <div className="text-sm" style={{ color: "oklch(0.78 0.05 230)" }}>Ability to Ease</div>
+                  <div className="text-sm" style={{ color: "oklch(0.78 0.05 230)" }}>Yarra Cleaning Services</div>
                 </div>
               </div>
             </div>
