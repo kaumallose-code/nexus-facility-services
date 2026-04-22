@@ -93,7 +93,7 @@ function getBotResponse(step: BotStep, userInput: string, data: QuoteData): {
     case "ask_suburb": {
       const hrs = data.size?.includes("Small") ? "2–3" : data.size?.includes("Medium") ? "3–5" : "5–8";
       return {
-        text: `Excellent! Here's your estimated quote summary:\n\n📋 **Service:** ${data.service}\n📐 **Size:** ${data.size}\n🔁 **Frequency:** ${data.frequency}\n📍 **Suburb:** ${userInput}\n⏱ **Estimated hours:** ${hrs} hrs\n💰 **Rate:** $39/hour\n\nOne of our team will call ${data.name} on ${data.phone} within 24 hours to confirm your booking. You can also call us directly on **0404 934 544**.`,
+        text: `Excellent! Here's your estimated quote summary:\n\n📋 **Service:** ${data.service}\n📐 **Size:** ${data.size}\n🔁 **Frequency:** ${data.frequency}\n📍 **Suburb:** ${userInput}\n⏱ **Estimated hours:** ${hrs} hrs\n💰 **Rate:** $39/hour\n\nOne of our team will call ${data.name} on ${data.phone} within 24 hours to confirm your booking. You can also call us directly on **0477 376 440**.`,
         options: ["📞 Call us now", "✅ That's all, thanks!"],
         nextStep: "summary",
       };
@@ -101,7 +101,7 @@ function getBotResponse(step: BotStep, userInput: string, data: QuoteData): {
     case "summary":
       if (userInput.includes("Call")) {
         return {
-          text: `You can reach us directly on **0404 934 544** or email **admin.hr@nexusfacility.au**. We look forward to speaking with you! 😊`,
+          text: `You can reach us directly on **0477 376 440** or email **admin.hr@nexusfacility.au**. We look forward to speaking with you! 😊`,
           nextStep: "done",
         };
       }
@@ -111,7 +111,7 @@ function getBotResponse(step: BotStep, userInput: string, data: QuoteData): {
       };
     default:
       return {
-        text: "Is there anything else I can help you with? Feel free to call us on **0404 934 544** anytime.",
+        text: "Is there anything else I can help you with? Feel free to call us on **0477 376 440** anytime.",
         nextStep: "done",
       };
   }
@@ -227,7 +227,7 @@ export default function QuoteBot() {
 
     // Handle phone call option
     if (text.includes("Call us now")) {
-      setTimeout(() => window.open("tel:0404934544"), 1200);
+      setTimeout(() => window.open("tel:0477376440"), 1200);
     }
   };
 
@@ -426,7 +426,7 @@ export default function QuoteBot() {
             {currentStep === "done" ? (
               <div className="flex gap-2">
                 <a
-                  href="tel:0404934544"
+                  href="tel:0477376440"
                   className="flex-1 flex items-center justify-center gap-2 py-2.5 text-xs font-bold"
                   style={{
                     background: "oklch(0.62 0.22 230)",
