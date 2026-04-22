@@ -61,7 +61,7 @@ async function sendEnquiryEmail(data: {
         </div>
       </div>
       <div style="padding:12px;background:#f8f9fa;text-align:center;font-size:12px;color:#888">
-        © ${new Date().getFullYear()} Nexus Facility Services · admin.hr@nexusfacility.au · 0477 376 440
+        © ${new Date().getFullYear()} Nexus Facility Services · admin.hr@nexusfacility.au · 0404 934 544
       </div>
     </div>
   `;
