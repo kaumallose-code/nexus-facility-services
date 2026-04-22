@@ -36,15 +36,14 @@ import QuoteBot from "@/components/QuoteBot";
 import { trpc } from "@/lib/trpc";
 
 // ─── Constants ────────────────────────────────────────────────────────────────
-const LOGO_URL =
-  "https://d2xsxph8kpxj0f.cloudfront.net/310519663396125342/LsnnQBd3D9ZpGUiGw6PBwg/nexus_logo_v2-hJBxbsDVWDUjNZvjQaKPs7.webp";
+const LOGO_URL = "/manus-storage/nexus_logo_v3_fa9cb82a.jpg";
 const HERO_BG =
   "https://d2xsxph8kpxj0f.cloudfront.net/310519663396125342/LsnnQBd3D9ZpGUiGw6PBwg/hero_bg-kFiQrM3b2UU5fuEJutxt9C.webp";
 const SERVICES_BG =
   "https://d2xsxph8kpxj0f.cloudfront.net/310519663396125342/LsnnQBd3D9ZpGUiGw6PBwg/services_bg-VDh6VyAGw4Fo5PpmAv8BJR.webp";
 
-const PHONE = "0404 934 544";
-const PHONE_HREF = "tel:0404934544";
+const PHONE = "0477 376 440";
+const PHONE_HREF = "tel:0477376440";
 const EMAIL = "admin.hr@nexusfacility.au";
 
 const NAV_LINKS = [
@@ -1485,7 +1484,7 @@ function ContactForm() {
         </h3>
         <p className="text-sm" style={{ color: "oklch(0.82 0.05 230)" }}>
           We've received your enquiry and will be in touch shortly. For urgent matters, please call{" "}
-          <a href="tel:0404934544" style={{ color: "oklch(0.62 0.22 230)" }} className="font-semibold">
+          <a href="tel:0477376440" style={{ color: "oklch(0.62 0.22 230)" }} className="font-semibold">
             {PHONE}
           </a>{" "}
           or email{" "}
@@ -1575,7 +1574,7 @@ function ContactForm() {
 
       <p className="text-xs text-center mt-4" style={{ color: "oklch(0.42 0.06 245)" }}>
         Or call us:{" "}
-        <a href="tel:0404934544" style={{ color: "oklch(0.62 0.22 230)" }} className="font-semibold">{PHONE}</a>
+        <a href="tel:0477376440" style={{ color: "oklch(0.62 0.22 230)" }} className="font-semibold">{PHONE}</a>
         {" "}· Email:{" "}
         <a href={`mailto:${EMAIL}`} style={{ color: "oklch(0.62 0.22 230)" }} className="font-semibold">{EMAIL}</a>
       </p>
