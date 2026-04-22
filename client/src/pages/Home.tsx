@@ -175,39 +175,60 @@ const SPECIALTY_PRICING = [
 
 const REVIEWS = [
   {
-    name: "Grant Keenan",
-    badge: "Local Guide · 165 reviews",
+    name: "Casey M",
+    badge: "4 reviews",
     rating: 5,
-    text: "I can not recommend and express gratitude enough to Nexus Facility Group and Vinu in particular. Called out to do a very deep clean of my elderly mother's house, Vinu worked constantly with care and compassion to ensure the house has been returned to its original pristine condition. Offering a range of services across both domestic and commercial cleaning, you will not go wrong giving the team here a call. Thanks Vinu and team and we won't hesitate in calling you when we next require your services.",
-    date: "11 months ago",
+    text: "Very happy with the team at Nexus Facility Group and the quality of the clean. House is sparkling! Communication spot on, friendly service too. Thank you.",
+    date: "3 weeks ago",
+  },
+  {
+    name: "Marisa Orfanidis",
+    badge: "Local Guide · 13 reviews",
+    rating: 5,
+    text: "Great service and immaculate job. Will definitely be using regularly.",
+    date: "6 days ago",
+  },
+  {
+    name: "Amila Samarakoon",
+    badge: "3 reviews",
+    rating: 5,
+    text: "I recently had a great experience with Nexus Facility Group. The team is reliable and easy to deal with. They show up on time, and get the job done well. I would happily recommend Nexus Facility Group to anyone in Melbourne!",
+    date: "1 day ago",
+  },
+  {
+    name: "White B.",
+    badge: "1 review",
+    rating: 5,
+    text: "The team was punctual and did an incredible job. They didn't just do the basics; they scrubbed the shower until it sparkled and even folded the towels beautifully. Awesome services.",
+    date: "a month ago",
+  },
+  {
+    name: "Magret Silva",
+    badge: "1 review",
+    rating: 5,
+    text: "Highly recommend.",
+    date: "a month ago",
+  },
+  {
+    name: "Janak Kasun",
+    badge: "1 review",
+    rating: 5,
+    text: "Good service highly recommended.",
+    date: "a month ago",
   },
   {
     name: "Julie West",
     badge: "9 reviews",
     rating: 5,
     text: "We engaged Nexus for the cleaning, stripping and polishing of our clinic floors. They did a wonderful job and were very professional. Would certainly recommend and use again in the future.",
-    date: "10 months ago",
+    date: "11 months ago",
   },
   {
-    name: "White B.",
-    badge: "Google Review",
+    name: "Grant Keenan",
+    badge: "Local Guide · 166 reviews",
     rating: 5,
-    text: "The team was punctual and did an incredible job. They didn't just do the basics; they scrubbed the shower until it sparkled and even folded the towels beautifully. Awesome services — highly recommend Nexus Facility Services!",
-    date: "1 day ago",
-  },
-  {
-    name: "Janak Kasun",
-    badge: "Google Review",
-    rating: 5,
-    text: "Good service, highly recommended.",
-    date: "1 day ago",
-  },
-  {
-    name: "Kiah Ashton",
-    badge: "Local Guide · Level 1",
-    rating: 5,
-    text: "Excellent cleaning service — gave a 5-star rating for the outstanding work done by the Nexus team.",
-    date: "4 days ago",
+    text: "I can not recommend and express gratitude enough to Nexus Facility Group and Vinu in particular. Called out to do a very deep clean of my elderly mother's house, Vinu worked constantly with care and compassion to ensure the house has been returned to its original pristine condition. Offering a range of services across both domestic and commercial cleaning, you will not go wrong giving the team here a call. Thanks Vinu and team.",
+    date: "a year ago",
   },
 ];
 
@@ -1174,7 +1195,7 @@ export default function Home() {
                 5.0
               </span>
               <span style={{ color: "oklch(0.42 0.06 245)" }} className="text-sm">
-                · 5 Google Reviews
+                · 11 Google Reviews
               </span>
             </div>
           </div>
