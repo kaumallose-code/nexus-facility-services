@@ -36,8 +36,7 @@ import QuoteBot from "@/components/QuoteBot";
 import { trpc } from "@/lib/trpc";
 
 // ─── Constants ────────────────────────────────────────────────────────────────
-const LOGO_URL =
-  "https://d2xsxph8kpxj0f.cloudfront.net/310519663396125342/LsnnQBd3D9ZpGUiGw6PBwg/nexus_logo_v2-hJBxbsDVWDUjNZvjQaKPs7.webp";
+const LOGO_URL = "/manus-storage/nexus_logo_v3_381d151c.jpg";
 const HERO_BG =
   "https://d2xsxph8kpxj0f.cloudfront.net/310519663396125342/LsnnQBd3D9ZpGUiGw6PBwg/hero_bg-kFiQrM3b2UU5fuEJutxt9C.webp";
 const SERVICES_BG =
