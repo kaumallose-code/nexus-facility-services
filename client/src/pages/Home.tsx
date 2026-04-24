@@ -1249,66 +1249,159 @@ export default function Home() {
               className="text-4xl md:text-5xl font-black uppercase mb-4"
               style={{ color: "oklch(0.97 0.01 240)", fontFamily: "'Barlow Condensed', sans-serif", letterSpacing: "-0.02em" }}
             >
-              Serving South-East Melbourne
+              Serving Melbourne &amp; Surrounds
             </h2>
             <p className="text-lg max-w-2xl mx-auto" style={{ color: "oklch(0.78 0.05 230)" }}>
-              Based in <strong style={{ color: "oklch(0.62 0.22 230)" }}>Clyde North (3978)</strong>, we cover all suburbs within a 40km radius — from Dandenong's industrial precincts to Pakenham's growing commercial corridors.
+              Based in <strong style={{ color: "oklch(0.62 0.22 230)" }}>Clyde North (3978)</strong>, we cover commercial and domestic cleaning across a <strong style={{ color: "#fff" }}>50km radius</strong> — from Melbourne CBD to Koo Wee Rup, Dromana, and Hastings.
             </p>
           </div>
 
-          {/* Commercial Focus Callout */}
-          <div
-            className="rounded-2xl p-6 mb-10 flex flex-col md:flex-row items-center gap-4"
-            style={{ background: "oklch(0.18 0.06 240)", border: "1px solid oklch(0.28 0.08 240)" }}
-          >
-            <div className="flex-shrink-0 w-12 h-12 rounded-xl flex items-center justify-center" style={{ background: "oklch(0.22 0.12 230)" }}>
-              <Building2 className="w-6 h-6" style={{ color: "oklch(0.62 0.22 230)" }} />
-            </div>
-            <div>
-              <h3 className="font-bold text-lg mb-1" style={{ color: "oklch(0.97 0.01 240)", fontFamily: "'Barlow Condensed', sans-serif" }}>
-                Commercial Cleaning Specialists — Dandenong South Industrial Precinct
-              </h3>
-              <p className="text-sm" style={{ color: "oklch(0.78 0.05 230)" }}>
-                Dandenong South is Victoria's largest industrial precinct with over 3,000 businesses. Nexus Facility Services provides dedicated commercial and industrial cleaning contracts across Dandenong South, Hallam, Lyndhurst and Keysborough — including warehouses, factories, logistics hubs and office complexes.
-              </p>
-            </div>
+          {/* Zone Callout Banners */}
+          <div className="grid md:grid-cols-3 gap-4 mb-10">
+            {[
+              {
+                icon: Building2,
+                title: "Dandenong South Industrial Precinct",
+                desc: "Victoria's largest industrial zone with 3,000+ businesses. We specialise in warehouse, factory and logistics hub cleaning contracts — commercial and domestic cleaning from $39/hr.",
+                accent: "oklch(0.62 0.22 230)",
+              },
+              {
+                icon: Zap,
+                title: "Mornington Peninsula — Low Competition Zone",
+                desc: "Baxter, Somerville, Hastings, Dromana and Rosebud have strong demand for commercial and domestic cleaning with far fewer providers than metro Melbourne. Ideal for new commercial contracts.",
+                accent: "oklch(0.72 0.18 145)",
+              },
+              {
+                icon: MapPin,
+                title: "Westernport & Regional Growth Areas",
+                desc: "Koo Wee Rup, Lang Lang, Tooradin and Bunyip are fast-growing regional towns with limited cleaning competition. We serve commercial and domestic clients across the entire Westernport corridor.",
+                accent: "oklch(0.72 0.18 60)",
+              },
+            ].map((zone) => (
+              <div
+                key={zone.title}
+                className="rounded-2xl p-5 flex flex-col gap-3"
+                style={{ background: "oklch(0.18 0.06 240)", border: "1px solid oklch(0.28 0.08 240)" }}
+              >
+                <div className="flex items-center gap-3">
+                  <div className="flex-shrink-0 w-10 h-10 rounded-xl flex items-center justify-center" style={{ background: "oklch(0.22 0.12 230)" }}>
+                    <zone.icon className="w-5 h-5" style={{ color: zone.accent }} />
+                  </div>
+                  <h3 className="font-bold text-base leading-tight" style={{ color: "oklch(0.97 0.01 240)", fontFamily: "'Barlow Condensed', sans-serif" }}>
+                    {zone.title}
+                  </h3>
+                </div>
+                <p className="text-sm leading-relaxed" style={{ color: "oklch(0.78 0.05 230)" }}>{zone.desc}</p>
+              </div>
+            ))}
           </div>
 
-          {/* Suburb Grid */}
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 mb-10">
+          {/* Suburb Grid — 5 geographic zones */}
+          <div className="space-y-8 mb-10">
             {[
-              { name: "Berwick", type: "Commercial & Domestic", highlight: true },
-              { name: "Cranbourne", type: "Commercial & Domestic", highlight: true },
-              { name: "Dandenong South", type: "Industrial & Commercial", highlight: true },
-              { name: "Pakenham", type: "Commercial & Domestic", highlight: true },
-              { name: "Narre Warren", type: "Office & Retail", highlight: false },
-              { name: "Hallam", type: "Industrial & Warehouse", highlight: false },
-              { name: "Endeavour Hills", type: "Domestic & Office", highlight: false },
-              { name: "Lyndhurst", type: "Industrial & Commercial", highlight: false },
-              { name: "Springvale", type: "Commercial & Retail", highlight: false },
-              { name: "Noble Park", type: "Office & Domestic", highlight: false },
-              { name: "Keysborough", type: "Industrial & Commercial", highlight: false },
-              { name: "Beaconsfield", type: "Domestic & Commercial", highlight: false },
-              { name: "Officer", type: "Domestic & Commercial", highlight: false },
-              { name: "Clyde North", type: "Domestic & Commercial", highlight: false },
-              { name: "Dandenong", type: "Commercial & Retail", highlight: false },
-              { name: "Mornington Peninsula", type: "Domestic & Holiday", highlight: false },
-            ].map((suburb) => (
-              <div
-                key={suburb.name}
-                className="rounded-xl p-4 flex flex-col gap-1"
-                style={{
-                  background: suburb.highlight ? "oklch(0.20 0.10 230)" : "oklch(0.18 0.04 240)",
-                  border: suburb.highlight ? "1px solid oklch(0.40 0.18 230)" : "1px solid oklch(0.24 0.05 240)",
-                }}
-              >
-                <div className="flex items-center gap-1.5">
-                  <MapPin className="w-3.5 h-3.5 flex-shrink-0" style={{ color: "oklch(0.62 0.22 230)" }} />
-                  <span className="font-bold text-sm" style={{ color: "oklch(0.97 0.01 240)", fontFamily: "'Barlow Condensed', sans-serif" }}>
-                    {suburb.name}
+              {
+                zone: "Casey & Cardinia Corridor",
+                note: "Our home base — commercial & domestic cleaning from $39/hr",
+                suburbs: [
+                  { name: "Clyde North", type: "Commercial & Domestic", highlight: true },
+                  { name: "Berwick", type: "Commercial & Domestic", highlight: true },
+                  { name: "Cranbourne", type: "Commercial & Domestic", highlight: true },
+                  { name: "Pakenham", type: "Commercial & Domestic", highlight: true },
+                  { name: "Officer", type: "Commercial & Domestic", highlight: false },
+                  { name: "Beaconsfield", type: "Commercial & Domestic", highlight: false },
+                  { name: "Narre Warren", type: "Commercial & Domestic", highlight: false },
+                  { name: "Endeavour Hills", type: "Commercial & Domestic", highlight: false },
+                ],
+              },
+              {
+                zone: "Dandenong Industrial Belt",
+                note: "Warehouses, factories, logistics hubs — industrial & commercial cleaning",
+                suburbs: [
+                  { name: "Dandenong South", type: "Industrial & Commercial", highlight: true },
+                  { name: "Dandenong", type: "Commercial & Domestic", highlight: true },
+                  { name: "Hallam", type: "Industrial & Commercial", highlight: false },
+                  { name: "Lyndhurst", type: "Industrial & Commercial", highlight: false },
+                  { name: "Keysborough", type: "Industrial & Commercial", highlight: false },
+                  { name: "Springvale", type: "Commercial & Domestic", highlight: false },
+                  { name: "Noble Park", type: "Commercial & Domestic", highlight: false },
+                  { name: "Cheltenham", type: "Commercial & Domestic", highlight: false },
+                ],
+              },
+              {
+                zone: "Mornington Peninsula — Low Competition ⭐",
+                note: "High demand, fewer competitors — commercial & domestic cleaning available now",
+                suburbs: [
+                  { name: "Baxter", type: "Commercial & Domestic", highlight: true },
+                  { name: "Somerville", type: "Commercial & Domestic", highlight: true },
+                  { name: "Hastings", type: "Commercial & Domestic", highlight: true },
+                  { name: "Dromana", type: "Commercial & Domestic", highlight: true },
+                  { name: "Langwarrin", type: "Commercial & Domestic", highlight: false },
+                  { name: "Frankston", type: "Commercial & Domestic", highlight: false },
+                  { name: "Mornington", type: "Commercial & Domestic", highlight: false },
+                  { name: "Rosebud", type: "Commercial & Domestic", highlight: false },
+                ],
+              },
+              {
+                zone: "Westernport & Regional — Low Competition ⭐",
+                note: "Fast-growing regional towns with minimal cleaning competition",
+                suburbs: [
+                  { name: "Koo Wee Rup", type: "Commercial & Domestic", highlight: true },
+                  { name: "Lang Lang", type: "Commercial & Domestic", highlight: true },
+                  { name: "Tooradin", type: "Commercial & Domestic", highlight: true },
+                  { name: "Bunyip", type: "Commercial & Domestic", highlight: false },
+                  { name: "Garfield", type: "Commercial & Domestic", highlight: false },
+                  { name: "Nar Nar Goon", type: "Commercial & Domestic", highlight: false },
+                  { name: "Caldermeade", type: "Commercial & Domestic", highlight: false },
+                  { name: "Yannathan", type: "Commercial & Domestic", highlight: false },
+                ],
+              },
+              {
+                zone: "Melbourne CBD & Inner South-East",
+                note: "Office towers, retail and strata — commercial cleaning specialists",
+                suburbs: [
+                  { name: "Melbourne CBD", type: "Commercial & Office", highlight: true },
+                  { name: "South Yarra", type: "Commercial & Domestic", highlight: false },
+                  { name: "Prahran", type: "Commercial & Domestic", highlight: false },
+                  { name: "St Kilda", type: "Commercial & Domestic", highlight: false },
+                  { name: "Clayton", type: "Commercial & Domestic", highlight: false },
+                  { name: "Moorabbin", type: "Commercial & Domestic", highlight: false },
+                  { name: "Mentone", type: "Commercial & Domestic", highlight: false },
+                  { name: "Carrum Downs", type: "Commercial & Domestic", highlight: false },
+                ],
+              },
+            ].map((zoneGroup) => (
+              <div key={zoneGroup.zone}>
+                <div className="flex flex-col sm:flex-row sm:items-center gap-2 mb-4">
+                  <h3
+                    className="text-lg font-black uppercase"
+                    style={{ color: "oklch(0.62 0.22 230)", fontFamily: "'Barlow Condensed', sans-serif" }}
+                  >
+                    {zoneGroup.zone}
+                  </h3>
+                  <span className="text-xs px-3 py-1 rounded-full" style={{ background: "oklch(0.20 0.06 240)", color: "oklch(0.65 0.05 230)" }}>
+                    {zoneGroup.note}
                   </span>
                 </div>
-                <span className="text-xs" style={{ color: "oklch(0.65 0.05 230)" }}>{suburb.type}</span>
+                <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-3">
+                  {zoneGroup.suburbs.map((suburb) => (
+                    <div
+                      key={suburb.name}
+                      className="rounded-xl p-3 flex flex-col gap-1"
+                      style={{
+                        background: suburb.highlight ? "oklch(0.20 0.10 230)" : "oklch(0.18 0.04 240)",
+                        border: suburb.highlight ? "1px solid oklch(0.40 0.18 230)" : "1px solid oklch(0.24 0.05 240)",
+                      }}
+                    >
+                      <div className="flex items-center gap-1">
+                        <MapPin className="w-3 h-3 flex-shrink-0" style={{ color: "oklch(0.62 0.22 230)" }} />
+                        <span className="font-bold text-xs leading-tight" style={{ color: "oklch(0.97 0.01 240)", fontFamily: "'Barlow Condensed', sans-serif" }}>
+                          {suburb.name}
+                        </span>
+                      </div>
+                      <span className="text-xs" style={{ color: "oklch(0.60 0.05 230)", fontSize: "0.65rem" }}>{suburb.type}</span>
+                    </div>
+                  ))}
+                </div>
               </div>
             ))}
           </div>
@@ -1325,11 +1418,15 @@ export default function Home() {
               {[
                 {
                   q: "How much does commercial cleaning cost in Melbourne's south-east?",
-                  a: "Nexus Facility Services charges from $39 per hour for commercial cleaning across Berwick, Cranbourne, Dandenong, Pakenham and surrounding suburbs. Specialty services such as steam cleaning start from $100, and floor polishing or pressure washing from $200. Contact us on 0477 376 440 for a free tailored quote.",
+                  a: "Nexus Facility Services charges from $39 per hour for commercial and domestic cleaning across Berwick, Cranbourne, Dandenong, Pakenham, Hastings, Koo Wee Rup and surrounding suburbs. Specialty services such as steam cleaning start from $100, and floor polishing or pressure washing from $200. Contact us on 0477 376 440 for a free tailored quote.",
+                },
+                {
+                  q: "Do you clean in Koo Wee Rup, Hastings and Dromana?",
+                  a: "Yes! We cover the full 50km radius from our Clyde North base, including Koo Wee Rup, Lang Lang, Tooradin, Hastings, Dromana, Baxter, Somerville and all Mornington Peninsula suburbs. Both commercial and domestic cleaning are available in these areas.",
                 },
                 {
                   q: "Do you offer free window cleaning with commercial contracts?",
-                  a: "Yes! We offer complimentary window cleaning when you sign a new commercial cleaning contract with Nexus Facility Services. This applies to all new commercial clients across our service area.",
+                  a: "Yes! We offer complimentary window cleaning when you sign a new commercial cleaning contract with Nexus Facility Services. This applies to all new commercial clients across our entire 50km service area.",
                 },
                 {
                   q: "Are you available for after-hours and weekend cleaning?",
@@ -1338,6 +1435,10 @@ export default function Home() {
                 {
                   q: "Do you service Dandenong South industrial businesses?",
                   a: "Absolutely. Dandenong South is one of our primary commercial zones. We provide industrial cleaning, warehouse cleaning, and office cleaning contracts throughout the Dandenong South industrial precinct and surrounding areas including Hallam, Lyndhurst and Keysborough.",
+                },
+                {
+                  q: "Do you clean in Melbourne CBD?",
+                  a: "Yes, we service Melbourne CBD and inner south-east suburbs including South Yarra, Prahran, St Kilda, Clayton and Moorabbin. We specialise in commercial office cleaning, strata cleaning, and end-of-lease cleaning for CBD and inner-city properties.",
                 },
               ].map((faq, i) => (
                 <div
