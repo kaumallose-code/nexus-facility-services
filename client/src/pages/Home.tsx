@@ -1267,14 +1267,14 @@ export default function Home() {
               },
               {
                 icon: Zap,
-                title: "Mornington Peninsula — Low Competition Zone",
-                desc: "Baxter, Somerville, Hastings, Dromana and Rosebud have strong demand for commercial and domestic cleaning with far fewer providers than metro Melbourne. Ideal for new commercial contracts.",
+                title: "Mornington Peninsula",
+                desc: "Serving Baxter, Somerville, Hastings, Dromana, Langwarrin, Frankston, Mornington and Rosebud with professional commercial and domestic cleaning, 7 days a week.",
                 accent: "oklch(0.72 0.18 145)",
               },
               {
                 icon: MapPin,
-                title: "Westernport & Regional Growth Areas",
-                desc: "Koo Wee Rup, Lang Lang, Tooradin and Bunyip are fast-growing regional towns with limited cleaning competition. We serve commercial and domestic clients across the entire Westernport corridor.",
+                title: "Westernport & Regional Areas",
+                desc: "Covering Koo Wee Rup, Lang Lang, Tooradin, Bunyip, Garfield and surrounding regional towns with reliable commercial and domestic cleaning services.",
                 accent: "oklch(0.72 0.18 60)",
               },
             ].map((zone) => (
@@ -1328,8 +1328,8 @@ export default function Home() {
                 ],
               },
               {
-                zone: "Mornington Peninsula — Low Competition ⭐",
-                note: "High demand, fewer competitors — commercial & domestic cleaning available now",
+                zone: "Mornington Peninsula",
+                note: "Commercial & domestic cleaning — 7 days a week",
                 suburbs: [
                   { name: "Baxter", type: "Commercial & Domestic", highlight: true },
                   { name: "Somerville", type: "Commercial & Domestic", highlight: true },
@@ -1342,8 +1342,8 @@ export default function Home() {
                 ],
               },
               {
-                zone: "Westernport & Regional — Low Competition ⭐",
-                note: "Fast-growing regional towns with minimal cleaning competition",
+                zone: "Westernport & Regional Areas",
+                note: "Commercial & domestic cleaning across the Westernport corridor",
                 suburbs: [
                   { name: "Koo Wee Rup", type: "Commercial & Domestic", highlight: true },
                   { name: "Lang Lang", type: "Commercial & Domestic", highlight: true },
