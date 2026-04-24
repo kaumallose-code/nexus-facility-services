@@ -52,6 +52,7 @@ const NAV_LINKS = [
   { label: "Services", href: "#services" },
   { label: "Pricing", href: "#pricing" },
   { label: "Partners", href: "#partners" },
+  { label: "Areas", href: "#service-areas" },
   { label: "Reviews", href: "#reviews" },
   { label: "Contact Us", href: "#contact" },
 ];
@@ -1233,6 +1234,128 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ── Service Areas Section ── */}
+      <section id="service-areas" className="py-20" style={{ background: "oklch(0.13 0.03 240)" }}>
+        <div className="container">
+          <div className="text-center mb-12 fade-up">
+            <div
+              className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest mb-4"
+              style={{ background: "oklch(0.22 0.06 240)", color: "oklch(0.62 0.22 230)", fontFamily: "'Barlow Condensed', sans-serif" }}
+            >
+              <MapPin className="w-3.5 h-3.5" />
+              Service Areas
+            </div>
+            <h2
+              className="text-4xl md:text-5xl font-black uppercase mb-4"
+              style={{ color: "oklch(0.97 0.01 240)", fontFamily: "'Barlow Condensed', sans-serif", letterSpacing: "-0.02em" }}
+            >
+              Serving South-East Melbourne
+            </h2>
+            <p className="text-lg max-w-2xl mx-auto" style={{ color: "oklch(0.78 0.05 230)" }}>
+              Based in <strong style={{ color: "oklch(0.62 0.22 230)" }}>Clyde North (3978)</strong>, we cover all suburbs within a 40km radius — from Dandenong's industrial precincts to Pakenham's growing commercial corridors.
+            </p>
+          </div>
+
+          {/* Commercial Focus Callout */}
+          <div
+            className="rounded-2xl p-6 mb-10 flex flex-col md:flex-row items-center gap-4"
+            style={{ background: "oklch(0.18 0.06 240)", border: "1px solid oklch(0.28 0.08 240)" }}
+          >
+            <div className="flex-shrink-0 w-12 h-12 rounded-xl flex items-center justify-center" style={{ background: "oklch(0.22 0.12 230)" }}>
+              <Building2 className="w-6 h-6" style={{ color: "oklch(0.62 0.22 230)" }} />
+            </div>
+            <div>
+              <h3 className="font-bold text-lg mb-1" style={{ color: "oklch(0.97 0.01 240)", fontFamily: "'Barlow Condensed', sans-serif" }}>
+                Commercial Cleaning Specialists — Dandenong South Industrial Precinct
+              </h3>
+              <p className="text-sm" style={{ color: "oklch(0.78 0.05 230)" }}>
+                Dandenong South is Victoria's largest industrial precinct with over 3,000 businesses. Nexus Facility Services provides dedicated commercial and industrial cleaning contracts across Dandenong South, Hallam, Lyndhurst and Keysborough — including warehouses, factories, logistics hubs and office complexes.
+              </p>
+            </div>
+          </div>
+
+          {/* Suburb Grid */}
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 mb-10">
+            {[
+              { name: "Berwick", type: "Commercial & Domestic", highlight: true },
+              { name: "Cranbourne", type: "Commercial & Domestic", highlight: true },
+              { name: "Dandenong South", type: "Industrial & Commercial", highlight: true },
+              { name: "Pakenham", type: "Commercial & Domestic", highlight: true },
+              { name: "Narre Warren", type: "Office & Retail", highlight: false },
+              { name: "Hallam", type: "Industrial & Warehouse", highlight: false },
+              { name: "Endeavour Hills", type: "Domestic & Office", highlight: false },
+              { name: "Lyndhurst", type: "Industrial & Commercial", highlight: false },
+              { name: "Springvale", type: "Commercial & Retail", highlight: false },
+              { name: "Noble Park", type: "Office & Domestic", highlight: false },
+              { name: "Keysborough", type: "Industrial & Commercial", highlight: false },
+              { name: "Beaconsfield", type: "Domestic & Commercial", highlight: false },
+              { name: "Officer", type: "Domestic & Commercial", highlight: false },
+              { name: "Clyde North", type: "Domestic & Commercial", highlight: false },
+              { name: "Dandenong", type: "Commercial & Retail", highlight: false },
+              { name: "Mornington Peninsula", type: "Domestic & Holiday", highlight: false },
+            ].map((suburb) => (
+              <div
+                key={suburb.name}
+                className="rounded-xl p-4 flex flex-col gap-1"
+                style={{
+                  background: suburb.highlight ? "oklch(0.20 0.10 230)" : "oklch(0.18 0.04 240)",
+                  border: suburb.highlight ? "1px solid oklch(0.40 0.18 230)" : "1px solid oklch(0.24 0.05 240)",
+                }}
+              >
+                <div className="flex items-center gap-1.5">
+                  <MapPin className="w-3.5 h-3.5 flex-shrink-0" style={{ color: "oklch(0.62 0.22 230)" }} />
+                  <span className="font-bold text-sm" style={{ color: "oklch(0.97 0.01 240)", fontFamily: "'Barlow Condensed', sans-serif" }}>
+                    {suburb.name}
+                  </span>
+                </div>
+                <span className="text-xs" style={{ color: "oklch(0.65 0.05 230)" }}>{suburb.type}</span>
+              </div>
+            ))}
+          </div>
+
+          {/* FAQ for SEO */}
+          <div className="max-w-3xl mx-auto">
+            <h3
+              className="text-2xl font-black uppercase mb-6 text-center"
+              style={{ color: "oklch(0.97 0.01 240)", fontFamily: "'Barlow Condensed', sans-serif" }}
+            >
+              Frequently Asked Questions
+            </h3>
+            <div className="space-y-4">
+              {[
+                {
+                  q: "How much does commercial cleaning cost in Melbourne's south-east?",
+                  a: "Nexus Facility Services charges from $39 per hour for commercial cleaning across Berwick, Cranbourne, Dandenong, Pakenham and surrounding suburbs. Specialty services such as steam cleaning start from $100, and floor polishing or pressure washing from $200. Contact us on 0477 376 440 for a free tailored quote.",
+                },
+                {
+                  q: "Do you offer free window cleaning with commercial contracts?",
+                  a: "Yes! We offer complimentary window cleaning when you sign a new commercial cleaning contract with Nexus Facility Services. This applies to all new commercial clients across our service area.",
+                },
+                {
+                  q: "Are you available for after-hours and weekend cleaning?",
+                  a: "Yes, we operate 7 days a week and can accommodate after-hours, early morning, and weekend cleaning to minimise disruption to your business operations.",
+                },
+                {
+                  q: "Do you service Dandenong South industrial businesses?",
+                  a: "Absolutely. Dandenong South is one of our primary commercial zones. We provide industrial cleaning, warehouse cleaning, and office cleaning contracts throughout the Dandenong South industrial precinct and surrounding areas including Hallam, Lyndhurst and Keysborough.",
+                },
+              ].map((faq, i) => (
+                <div
+                  key={i}
+                  className="rounded-xl p-5"
+                  style={{ background: "oklch(0.18 0.04 240)", border: "1px solid oklch(0.24 0.05 240)" }}
+                >
+                  <h4 className="font-bold mb-2" style={{ color: "oklch(0.62 0.22 230)", fontFamily: "'Barlow Condensed', sans-serif", fontSize: "1.05rem" }}>
+                    {faq.q}
+                  </h4>
+                  <p className="text-sm leading-relaxed" style={{ color: "oklch(0.78 0.05 230)" }}>{faq.a}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* ── Reviews Section ── */}
       <section id="reviews" className="py-20 section-light">
         <div className="container">
@@ -1264,6 +1387,23 @@ export default function Home() {
               <span style={{ color: "oklch(0.42 0.06 245)" }} className="text-sm">
                 · 11 Google Reviews
               </span>
+            </div>
+            <div className="mt-5">
+              <a
+                href="https://www.google.com/maps/place/Nexus+Facility+Services/@-38.0638235,145.2850292,11z"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-bold transition-all hover:scale-105"
+                style={{
+                  background: "oklch(0.27 0.11 245)",
+                  color: "#fff",
+                  fontFamily: "'DM Sans', sans-serif",
+                  boxShadow: "0 2px 12px oklch(0.27 0.11 245 / 0.35)",
+                }}
+              >
+                <Star className="w-4 h-4 fill-yellow-400 text-yellow-400" />
+                Leave Us a Google Review
+              </a>
             </div>
           </div>
 
