@@ -380,8 +380,8 @@ export default function Home() {
               Available 7 Days a Week
             </span>
             <span className="flex items-center gap-1.5">
-              <DollarSign className="w-3.5 h-3.5" style={{ color: "oklch(0.62 0.22 230)" }} />
-             From $40/hour
+              <Shield className="w-3.5 h-3.5" style={{ color: "oklch(0.62 0.22 230)" }} />
+              Fully Insured
             </span>
           </div>
           <div className="flex items-center gap-3">
@@ -581,20 +581,6 @@ export default function Home() {
               Nexus Facility Services delivers professional commercial and domestic cleaning across Melbourne — with precision, reliability, and zero shortcuts.
             </p>
 
-            {/* Pricing highlight */}
-            <div
-              className="inline-flex items-center gap-3 mb-8 px-5 py-3"
-              style={{
-                background: "oklch(0.75 0.18 210 / 0.12)",
-                border: "1px solid oklch(0.75 0.18 210 / 0.4)",
-              }}
-            >
-              <DollarSign className="w-5 h-5" style={{ color: "oklch(0.62 0.22 230)" }} />
-              <span style={{ color: "white", fontFamily: "'Barlow Condensed', sans-serif", fontWeight: 700, fontSize: "1.1rem" }}>
-                From <span style={{ color: "oklch(0.62 0.22 230)" }}>$40/hour</span> — Transparent, No Hidden Fees
-              </span>
-            </div>
-
             <div className="flex flex-wrap gap-4 mb-10">
               <a
                 href="#contact"
@@ -686,14 +672,14 @@ export default function Home() {
                 Nexus Facility Services is a Melbourne-based cleaning company dedicated to delivering exceptional results for both commercial and domestic clients. From shopping centres and corporate offices to family homes and medical clinics, we bring the same level of professionalism and attention to detail to every job.
               </p>
               <p className="text-base leading-relaxed mb-8" style={{ color: "oklch(0.30 0.06 245)" }}>
-                Our team is fully insured, background-checked, and trained in the latest cleaning techniques and safety standards. We offer transparent, competitive pricing starting from just <strong style={{ color: "oklch(0.2 0.1 210)" }}>$40 per hour</strong> with no hidden fees.
+                Our team is fully insured, background-checked, and trained in the latest cleaning techniques and safety standards. Every job is completed to the highest standard with no shortcuts and no hidden costs.
               </p>
               <div className="grid grid-cols-2 gap-4 mb-8">
                 {[
                   "Commercial & Domestic",
                   "Fully Insured",
                   "Background Checked",
-                  "From $40/hour",
+                  "5-Star Google Rating",
                   "7 Days a Week",
                   "All Melbourne Suburbs",
                 ].map((item) => (
@@ -1610,7 +1596,7 @@ export default function Home() {
                 <span style={{ color: "oklch(0.62 0.22 230)" }}>Free Quote</span>
               </h2>
               <p className="text-base leading-relaxed mb-8" style={{ color: "oklch(0.82 0.05 230)" }}>
-                If it feels uncomfortable or looks dirty, it's jeopardising your relationship with customers or tenants. Get in touch and find out how we can help — starting from just <strong style={{ color: "oklch(0.62 0.22 230)" }}>$40/hour</strong>.
+                If it feels uncomfortable or looks dirty, it's jeopardising your relationship with customers or tenants. Get in touch today for a free, no-obligation quote tailored to your property.
               </p>
 
               <div className="space-y-4">
@@ -1697,7 +1683,7 @@ export default function Home() {
                 <img src={LOGO_URL} alt="Nexus Facility Services" className="h-14 w-auto object-contain" />
               </div>
               <p className="text-sm leading-relaxed" style={{ color: "oklch(0.78 0.05 230)" }}>
-                Professional domestic, general, commercial, industrial and end of lease cleaning across Melbourne. Fully insured, background-checked, and committed to excellence. From $40/hour.
+                Professional domestic, general, commercial, industrial and end of lease cleaning across Melbourne. Fully insured, background-checked, and committed to excellence.
               </p>
             </div>
 
@@ -1752,8 +1738,8 @@ export default function Home() {
                   Melbourne, VIC, Australia
                 </div>
                 <div className="flex items-center gap-3 text-sm" style={{ color: "oklch(0.85 0.04 230)" }}>
-                  <DollarSign className="w-4 h-4 flex-shrink-0" style={{ color: "oklch(0.62 0.22 230)" }} />
-                  From $40/hour — No hidden fees
+                  <Clock className="w-4 h-4 flex-shrink-0" style={{ color: "oklch(0.62 0.22 230)" }} />
+                  Available 7 Days a Week
                 </div>
               </div>
 
