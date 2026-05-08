@@ -752,48 +752,221 @@ export default function Home() {
       </section>
 
 
-      {/* ── Free Window Cleaning Offer Banner ── */}
-      <section className="py-10" style={{ background: "oklch(0.62 0.22 230)" }}>
+      {/* ── Industry-Specific Commercial Offer Section ── */}
+      <section id="commercial-offer" className="py-20" style={{ background: "oklch(0.08 0.04 245)" }}>
         <div className="container">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-6">
-            <div className="flex items-center gap-4">
-              <div
-                className="w-14 h-14 flex items-center justify-center flex-shrink-0"
-                style={{ background: "oklch(0.06 0.02 240 / 0.15)" }}
-              >
-                <Wrench className="w-7 h-7" style={{ color: "oklch(0.20 0.10 245)" }} />
-              </div>
-              <div>
-                <div
-                  style={{
-                    fontFamily: "'Barlow Condensed', sans-serif",
-                    fontWeight: 800,
-                    fontSize: "clamp(1.4rem, 3vw, 2rem)",
-                    color: "oklch(0.20 0.10 245)",
-                    textTransform: "uppercase",
-                    lineHeight: 1.1,
-                  }}
-                >
-                  FREE Window Cleaning — Exclusive Commercial Offer
-                </div>
-                <p className="text-sm mt-1" style={{ color: "oklch(0.32 0.12 245)" }}>
-                  Sign up for a commercial cleaning contract and receive a complimentary window cleaning service when we start. Limited offer — call us today.
-                </p>
-              </div>
+          {/* Header */}
+          <div className="text-center mb-14 fade-up">
+            <div
+              className="inline-flex items-center gap-2 px-4 py-1.5 mb-4 text-xs font-bold uppercase tracking-widest"
+              style={{
+                background: "oklch(0.62 0.22 230 / 0.12)",
+                border: "1px solid oklch(0.62 0.22 230 / 0.3)",
+                color: "oklch(0.62 0.22 230)",
+                fontFamily: "'Barlow Condensed', sans-serif",
+              }}
+            >
+              <Sparkles className="w-3.5 h-3.5" />
+              New Commercial Contract Exclusive
             </div>
+            <h2
+              className="mb-4"
+              style={{
+                fontFamily: "'Barlow Condensed', sans-serif",
+                fontWeight: 800,
+                fontSize: "clamp(2.2rem, 4vw, 3.4rem)",
+                color: "white",
+                textTransform: "uppercase",
+                lineHeight: 1.05,
+              }}
+            >
+              Every New Contract Gets a{" "}
+              <span style={{ color: "oklch(0.62 0.22 230)" }}>Free Service</span>
+              <br />Tailored to Your Industry
+            </h2>
+            <p className="max-w-2xl mx-auto text-base" style={{ color: "oklch(0.72 0.05 230)" }}>
+              Sign a new commercial cleaning contract with Nexus Facility Services and receive a complimentary specialised service every 6 months — matched to your industry's specific needs.
+            </p>
+          </div>
+
+          {/* Industry Cards Grid */}
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5 mb-12 fade-up">
+            {[
+              {
+                icon: Shield,
+                industry: "Medical Centres & Hospitals",
+                tag: "Healthcare",
+                offer: "Antibacterial Fogging",
+                offerDetail: "Full-facility antibacterial fogging every 6 months to eliminate pathogens and maintain a sterile environment for patients and staff.",
+                accent: "oklch(0.55 0.20 160)",
+                accentBg: "oklch(0.55 0.20 160 / 0.08)",
+                tagBg: "oklch(0.55 0.20 160 / 0.15)",
+              },
+              {
+                icon: Users,
+                industry: "Child Care Centres",
+                tag: "Education",
+                offer: "Entrance Carpet Steam Clean",
+                offerDetail: "Deep steam cleaning of all entrance and play area carpets every 6 months — removing allergens, bacteria and stains for a safe child environment.",
+                accent: "oklch(0.70 0.18 50)",
+                accentBg: "oklch(0.70 0.18 50 / 0.08)",
+                tagBg: "oklch(0.70 0.18 50 / 0.15)",
+              },
+              {
+                icon: Building2,
+                industry: "Warehouses & Logistics",
+                tag: "Industrial",
+                offer: "Kitchen Floor Scrubbing",
+                offerDetail: "Heavy-duty machine scrubbing of kitchen and break room floors every 6 months — cutting through grease, grime and industrial residue.",
+                accent: "oklch(0.62 0.22 230)",
+                accentBg: "oklch(0.62 0.22 230 / 0.08)",
+                tagBg: "oklch(0.62 0.22 230 / 0.15)",
+              },
+              {
+                icon: Award,
+                industry: "Offices & Corporate Spaces",
+                tag: "Commercial",
+                offer: "External Window Cleaning",
+                offerDetail: "Professional streak-free external window clean every 6 months — keeping your corporate image sharp and your workspace bright.",
+                accent: "oklch(0.65 0.20 290)",
+                accentBg: "oklch(0.65 0.20 290 / 0.08)",
+                tagBg: "oklch(0.65 0.20 290 / 0.15)",
+              },
+              {
+                icon: Layers,
+                industry: "Shopping Centres",
+                tag: "Retail",
+                offer: "Deep Car Park Cleaning",
+                offerDetail: "Comprehensive high-pressure car park scrubbing and degreasing every 6 months — improving safety, appearance and first impressions for shoppers.",
+                accent: "oklch(0.62 0.22 10)",
+                accentBg: "oklch(0.62 0.22 10 / 0.08)",
+                tagBg: "oklch(0.62 0.22 10 / 0.15)",
+              },
+              {
+                icon: HomeIcon,
+                industry: "Apartment Complexes",
+                tag: "Residential",
+                offer: "Deep Car Park Cleaning",
+                offerDetail: "Full underground or surface car park pressure wash and line marking refresh every 6 months — keeping residents proud of where they live.",
+                accent: "oklch(0.60 0.18 120)",
+                accentBg: "oklch(0.60 0.18 120 / 0.08)",
+                tagBg: "oklch(0.60 0.18 120 / 0.15)",
+              },
+            ].map(({ icon: Icon, industry, tag, offer, offerDetail, accent, accentBg, tagBg }) => (
+              <div
+                key={industry}
+                className="relative flex flex-col overflow-hidden transition-transform hover:-translate-y-1"
+                style={{
+                  background: "oklch(0.13 0.05 245)",
+                  border: `1px solid ${accent}40`,
+                }}
+              >
+                {/* Accent top bar */}
+                <div className="h-1 w-full" style={{ background: accent }} />
+
+                <div className="p-6 flex flex-col flex-1">
+                  {/* Tag + Icon row */}
+                  <div className="flex items-center justify-between mb-4">
+                    <span
+                      className="text-xs font-bold uppercase tracking-wider px-2.5 py-1"
+                      style={{ background: tagBg, color: accent, fontFamily: "'Barlow Condensed', sans-serif" }}
+                    >
+                      {tag}
+                    </span>
+                    <div
+                      className="w-10 h-10 flex items-center justify-center"
+                      style={{ background: accentBg }}
+                    >
+                      <Icon className="w-5 h-5" style={{ color: accent }} />
+                    </div>
+                  </div>
+
+                  {/* Industry name */}
+                  <h3
+                    className="mb-3"
+                    style={{
+                      fontFamily: "'Barlow Condensed', sans-serif",
+                      fontWeight: 700,
+                      fontSize: "1.2rem",
+                      color: "white",
+                      textTransform: "uppercase",
+                      letterSpacing: "0.03em",
+                      lineHeight: 1.2,
+                    }}
+                  >
+                    {industry}
+                  </h3>
+
+                  {/* Offer callout */}
+                  <div
+                    className="flex items-center gap-2 px-3 py-2 mb-3"
+                    style={{ background: accentBg, borderLeft: `3px solid ${accent}` }}
+                  >
+                    <Sparkles className="w-3.5 h-3.5 flex-shrink-0" style={{ color: accent }} />
+                    <span
+                      className="text-sm font-bold uppercase tracking-wide"
+                      style={{ color: accent, fontFamily: "'Barlow Condensed', sans-serif" }}
+                    >
+                      FREE: {offer}
+                    </span>
+                  </div>
+
+                  {/* Detail */}
+                  <p className="text-sm flex-1" style={{ color: "oklch(0.72 0.05 230)", lineHeight: 1.6 }}>
+                    {offerDetail}
+                  </p>
+
+                  {/* Every 6 months badge */}
+                  <div className="mt-4 flex items-center gap-2">
+                    <Clock className="w-3.5 h-3.5" style={{ color: "oklch(0.55 0.06 245)" }} />
+                    <span className="text-xs" style={{ color: "oklch(0.55 0.06 245)" }}>Every 6 months — included in contract</span>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Bottom CTA */}
+          <div
+            className="fade-up text-center px-8 py-10"
+            style={{
+              background: "oklch(0.62 0.22 230 / 0.08)",
+              border: "1px solid oklch(0.62 0.22 230 / 0.25)",
+            }}
+          >
+            <div
+              className="mb-2 font-bold uppercase tracking-widest text-xs"
+              style={{ color: "oklch(0.62 0.22 230)", fontFamily: "'Barlow Condensed', sans-serif" }}
+            >
+              Limited Availability — New Contracts Only
+            </div>
+            <h3
+              className="mb-3"
+              style={{
+                fontFamily: "'Barlow Condensed', sans-serif",
+                fontWeight: 800,
+                fontSize: "clamp(1.6rem, 3vw, 2.4rem)",
+                color: "white",
+                textTransform: "uppercase",
+              }}
+            >
+              Ready to Lock In Your Industry Offer?
+            </h3>
+            <p className="text-sm mb-6 max-w-xl mx-auto" style={{ color: "oklch(0.72 0.05 230)" }}>
+              Contact us today to discuss your commercial cleaning contract. All offers are included at no extra cost — valid for new contracts signed in 2025.
+            </p>
             <a
               href="#contact"
               onClick={(e) => { e.preventDefault(); scrollTo("#contact"); }}
-              className="flex-shrink-0 flex items-center gap-2 px-6 py-3 font-bold text-sm uppercase tracking-wider transition-all"
+              className="inline-flex items-center gap-2 px-8 py-3.5 font-bold text-sm uppercase tracking-wider transition-all hover:opacity-90"
               style={{
-                background: "oklch(0.20 0.10 245)",
-                color: "oklch(0.62 0.22 230)",
+                background: "oklch(0.62 0.22 230)",
+                color: "oklch(0.10 0.05 245)",
                 fontFamily: "'Barlow Condensed', sans-serif",
                 letterSpacing: "0.08em",
-                whiteSpace: "nowrap",
               }}
             >
-              Claim This Offer
+              Get a Free Quote
               <ArrowRight className="w-4 h-4" />
             </a>
           </div>
@@ -1137,8 +1310,8 @@ export default function Home() {
                   a: "Yes! We cover the full 50km radius from our Clyde North base, including Koo Wee Rup, Lang Lang, Tooradin, Hastings, Dromana, Baxter, Somerville and all Mornington Peninsula suburbs. Both commercial and domestic cleaning are available in these areas.",
                 },
                 {
-                  q: "Do you offer free window cleaning with commercial contracts?",
-                  a: "Yes! We offer complimentary window cleaning when you sign a new commercial cleaning contract with Nexus Facility Services. This applies to all new commercial clients across our entire 50km service area.",
+                  q: "What free services do you offer with new commercial contracts?",
+                  a: "Every new commercial cleaning contract includes a complimentary specialised service every 6 months, tailored to your industry. Medical centres and hospitals receive antibacterial fogging; child care centres receive entrance carpet steam cleaning; warehouses receive kitchen floor scrubbing; offices receive external window cleaning; and shopping centres and apartment complexes receive deep car park cleaning. Contact us to find out which offer applies to your business.",
                 },
                 {
                   q: "Are you available for after-hours and weekend cleaning?",
