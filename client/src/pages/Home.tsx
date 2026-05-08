@@ -1451,8 +1451,38 @@ export default function Home() {
             </div>
           </div>
 
+          {/* ── Accreditation / Trust Badges ── */}
           <div
-            className="pt-6 flex flex-col md:flex-row items-center justify-between gap-3 text-xs"
+            className="py-6 mb-2 flex flex-col md:flex-row items-center justify-center gap-8"
+            style={{ borderTop: "1px solid oklch(0.75 0.18 210 / 0.1)" }}
+          >
+            <div className="text-xs font-bold uppercase tracking-widest text-center" style={{ color: "oklch(0.55 0.06 245)", fontFamily: "'Barlow Condensed', sans-serif" }}>
+              Regulated &amp; Insured By
+            </div>
+            <div className="flex items-center gap-8 flex-wrap justify-center">
+              <div className="flex flex-col items-center gap-2">
+                <img
+                  src="/manus-storage/worksafe-victoria-logo_df1a6846.png"
+                  alt="WorkSafe Victoria — Regulated"
+                  className="h-10 w-auto object-contain"
+                  style={{ filter: "brightness(1)" }}
+                />
+                <span className="text-xs" style={{ color: "oklch(0.55 0.06 245)" }}>Regulated by WorkSafe Victoria</span>
+              </div>
+              <div className="flex flex-col items-center gap-2">
+                <img
+                  src="/manus-storage/racv-business-insurance-logo_75dee186.jpg"
+                  alt="RACV Business Insurance"
+                  className="h-10 w-auto object-contain rounded"
+                  style={{ background: "white", padding: "4px 8px" }}
+                />
+                <span className="text-xs" style={{ color: "oklch(0.55 0.06 245)" }}>Insured with RACV</span>
+              </div>
+            </div>
+          </div>
+
+          <div
+            className="pt-4 flex flex-col md:flex-row items-center justify-between gap-3 text-xs"
             style={{ borderTop: "1px solid oklch(0.75 0.18 210 / 0.1)", color: "oklch(0.38 0.06 245)" }}
           >
             <span>© {new Date().getFullYear()} Nexus Facility Services. All rights reserved.</span>
