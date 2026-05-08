@@ -3,7 +3,7 @@
  * Design: Bold Dark-Mode Industrial (cleaned.au inspired)
  * Colors: Deep navy backgrounds, electric cyan accents, white text
  * Fonts: Barlow Condensed (headings) + DM Sans (body)
- * Updated: New logo (white/blue), service photos, $39/hr pricing, QuoteBot
+ * Updated: New logo (white/blue), service photos, $40/hr pricing, QuoteBot
  */
 
 import { useEffect, useRef, useState } from "react";
@@ -59,18 +59,39 @@ const NAV_LINKS = [
 
 const SERVICES = [
   {
-    icon: Building2,
-    label: "Commercial Cleaning",
-    desc: "Offices, retail spaces, warehouses and corporate facilities.",
-    img: "https://d2xsxph8kpxj0f.cloudfront.net/310519663396125342/LsnnQBd3D9ZpGUiGw6PBwg/svc_commercial_v2-LpEKwd5ocUenUXBG94ayFW.webp",
-    price: "From $39/hr",
-  },
-  {
     icon: HomeIcon,
     label: "Domestic Cleaning",
-    desc: "Thorough residential cleaning tailored to your home.",
+    desc: "Thorough residential cleaning tailored to your home — kitchens, bathrooms, living areas and more.",
     img: "https://d2xsxph8kpxj0f.cloudfront.net/310519663396125342/LsnnQBd3D9ZpGUiGw6PBwg/svc_domestic_v2-9YM3QtzCXTxaDCjvGcDqPr.webp",
-    price: "From $39/hr",
+    price: "From $40/hr",
+  },
+  {
+    icon: Sparkles,
+    label: "General Cleaning",
+    desc: "Regular maintenance cleaning for homes and businesses — flexible scheduling, 7 days a week.",
+    img: "https://d2xsxph8kpxj0f.cloudfront.net/310519663396125342/LsnnQBd3D9ZpGUiGw6PBwg/svc_general_v2-iDwebkcgzUKwjq5vw9cjDb.webp",
+    price: "From $40/hr",
+  },
+  {
+    icon: Building2,
+    label: "Commercial Cleaning",
+    desc: "Offices, retail spaces, warehouses and corporate facilities — scheduled contracts available.",
+    img: "https://d2xsxph8kpxj0f.cloudfront.net/310519663396125342/LsnnQBd3D9ZpGUiGw6PBwg/svc_commercial_v2-LpEKwd5ocUenUXBG94ayFW.webp",
+    price: "From $40/hr",
+  },
+  {
+    icon: Zap,
+    label: "Industrial Cleaning",
+    desc: "Specialised cleaning for factories, warehouses, logistics hubs and industrial sites across Melbourne.",
+    img: "https://d2xsxph8kpxj0f.cloudfront.net/310519663396125342/LsnnQBd3D9ZpGUiGw6PBwg/svc_commercial_v2-LpEKwd5ocUenUXBG94ayFW.webp",
+    price: "From $40/hr",
+  },
+  {
+    icon: Shield,
+    label: "End of Lease Cleaning",
+    desc: "Bond-back guaranteed deep cleans for rental properties — we cover every corner so you get your bond back.",
+    img: "https://d2xsxph8kpxj0f.cloudfront.net/310519663396125342/LsnnQBd3D9ZpGUiGw6PBwg/svc_endoflease_v2-RqLXusXXq7ajrgp8J6rtfh.webp",
+    price: "From $40/hr",
   },
   {
     icon: Droplets,
@@ -94,32 +115,11 @@ const SERVICES = [
     price: "From $200",
   },
   {
-    icon: Sparkles,
-    label: "General Cleaning",
-    desc: "Regular maintenance cleaning for homes and businesses.",
-    img: "https://d2xsxph8kpxj0f.cloudfront.net/310519663396125342/LsnnQBd3D9ZpGUiGw6PBwg/svc_general_v2-iDwebkcgzUKwjq5vw9cjDb.webp",
-    price: "From $39/hr",
-  },
-  {
     icon: Wrench,
     label: "Window Cleaning",
     desc: "Streak-free window cleaning for commercial and residential properties.",
     img: "https://d2xsxph8kpxj0f.cloudfront.net/310519663396125342/LsnnQBd3D9ZpGUiGw6PBwg/svc_window_v2-n9fs7Tgc2sLwziEw4KoFMx.webp",
     price: "From $200",
-  },
-  {
-    icon: Zap,
-    label: "Industrial Cleaning",
-    desc: "Specialised cleaning for factories, warehouses and industrial sites.",
-    img: "https://d2xsxph8kpxj0f.cloudfront.net/310519663396125342/LsnnQBd3D9ZpGUiGw6PBwg/svc_commercial_v2-LpEKwd5ocUenUXBG94ayFW.webp",
-    price: "Custom Quote",
-  },
-  {
-    icon: Shield,
-    label: "End of Lease Cleaning",
-    desc: "Bond-back guaranteed deep cleans for rental properties.",
-    img: "https://d2xsxph8kpxj0f.cloudfront.net/310519663396125342/LsnnQBd3D9ZpGUiGw6PBwg/svc_endoflease_v2-RqLXusXXq7ajrgp8J6rtfh.webp",
-    price: "Custom Quote",
   },
 ];
 
@@ -134,7 +134,7 @@ const PRICING_PLANS = [
   {
     name: "Domestic Cleaning",
     icon: HomeIcon,
-    rate: "$39",
+    rate: "$40",
     unit: "/hour",
     desc: "Perfect for homes, apartments and residential properties.",
     features: [
@@ -142,7 +142,7 @@ const PRICING_PLANS = [
       "Kitchen & bathroom deep clean",
       "Vacuuming & mopping",
       "Dusting & surface wipe-down",
-      "End of lease cleaning",
+      "Flexible scheduling, 7 days",
       "Free quote included",
     ],
     highlight: false,
@@ -151,7 +151,7 @@ const PRICING_PLANS = [
   {
     name: "Commercial Cleaning",
     icon: Building2,
-    rate: "$39",
+    rate: "$40",
     unit: "/hour",
     desc: "Ideal for offices, retail, medical and commercial spaces.",
     features: [
@@ -164,6 +164,40 @@ const PRICING_PLANS = [
     ],
     highlight: true,
     badge: "Most Popular",
+  },
+  {
+    name: "Industrial Cleaning",
+    icon: Zap,
+    rate: "$40",
+    unit: "/hour",
+    desc: "Factories, warehouses, logistics hubs and industrial sites.",
+    features: [
+      "Factory & warehouse cleaning",
+      "Logistics hub maintenance",
+      "Heavy-duty floor scrubbing",
+      "Scheduled site contracts",
+      "WHS-compliant procedures",
+      "Free site assessment",
+    ],
+    highlight: false,
+    badge: null,
+  },
+  {
+    name: "End of Lease Cleaning",
+    icon: Shield,
+    rate: "$40",
+    unit: "/hour",
+    desc: "Bond-back guaranteed deep cleans for rental properties.",
+    features: [
+      "Full property deep clean",
+      "Kitchen & oven cleaning",
+      "Bathroom & tile scrubbing",
+      "Carpet & floor cleaning",
+      "Bond-back guarantee",
+      "Free quote included",
+    ],
+    highlight: false,
+    badge: null,
   },
 ];
 
@@ -347,7 +381,7 @@ export default function Home() {
             </span>
             <span className="flex items-center gap-1.5">
               <DollarSign className="w-3.5 h-3.5" style={{ color: "oklch(0.62 0.22 230)" }} />
-              From $39/hour
+             From $40/hour
             </span>
           </div>
           <div className="flex items-center gap-3">
@@ -557,7 +591,7 @@ export default function Home() {
             >
               <DollarSign className="w-5 h-5" style={{ color: "oklch(0.62 0.22 230)" }} />
               <span style={{ color: "white", fontFamily: "'Barlow Condensed', sans-serif", fontWeight: 700, fontSize: "1.1rem" }}>
-                From <span style={{ color: "oklch(0.62 0.22 230)" }}>$39/hour</span> — Transparent, No Hidden Fees
+                From <span style={{ color: "oklch(0.62 0.22 230)" }}>$40/hour</span> — Transparent, No Hidden Fees
               </span>
             </div>
 
@@ -652,14 +686,14 @@ export default function Home() {
                 Nexus Facility Services is a Melbourne-based cleaning company dedicated to delivering exceptional results for both commercial and domestic clients. From shopping centres and corporate offices to family homes and medical clinics, we bring the same level of professionalism and attention to detail to every job.
               </p>
               <p className="text-base leading-relaxed mb-8" style={{ color: "oklch(0.30 0.06 245)" }}>
-                Our team is fully insured, background-checked, and trained in the latest cleaning techniques and safety standards. We offer transparent, competitive pricing starting from just <strong style={{ color: "oklch(0.2 0.1 210)" }}>$39 per hour</strong> with no hidden fees.
+                Our team is fully insured, background-checked, and trained in the latest cleaning techniques and safety standards. We offer transparent, competitive pricing starting from just <strong style={{ color: "oklch(0.2 0.1 210)" }}>$40 per hour</strong> with no hidden fees.
               </p>
               <div className="grid grid-cols-2 gap-4 mb-8">
                 {[
                   "Commercial & Domestic",
                   "Fully Insured",
                   "Background Checked",
-                  "From $39/hour",
+                  "From $40/hour",
                   "7 Days a Week",
                   "All Melbourne Suburbs",
                 ].map((item) => (
@@ -863,7 +897,7 @@ export default function Home() {
               Simple, Honest <span style={{ color: "oklch(0.62 0.22 230)" }}>Pricing</span>
             </h2>
             <p className="max-w-2xl mx-auto text-base" style={{ color: "oklch(0.38 0.06 245)" }}>
-              No hidden fees, no surprises. We charge a simple hourly rate so you always know exactly what you're paying for. All services start from just <strong>$39/hour</strong>.
+              No hidden fees, no surprises. We charge a simple hourly rate so you always know exactly what you're paying for. Domestic, General, Commercial, Industrial and End of Lease cleaning all start from just <strong>$40/hour</strong>.
             </p>
           </div>
 
@@ -1262,7 +1296,7 @@ export default function Home() {
               {
                 icon: Building2,
                 title: "Dandenong South Industrial Precinct",
-                desc: "Victoria's largest industrial zone with 3,000+ businesses. We specialise in warehouse, factory and logistics hub cleaning contracts — commercial and domestic cleaning from $39/hr.",
+                desc: "Victoria's largest industrial zone with 3,000+ businesses. We specialise in warehouse, factory and logistics hub cleaning contracts — commercial and domestic cleaning from $40/hr.",
                 accent: "oklch(0.62 0.22 230)",
               },
               {
@@ -1301,7 +1335,7 @@ export default function Home() {
             {[
               {
                 zone: "Casey & Cardinia Corridor",
-                note: "Our home base — commercial & domestic cleaning from $39/hr",
+                note: "Our home base — all cleaning services from $40/hr",
                 suburbs: [
                   { name: "Clyde North", type: "Commercial & Domestic", highlight: true },
                   { name: "Berwick", type: "Commercial & Domestic", highlight: true },
@@ -1418,7 +1452,7 @@ export default function Home() {
               {[
                 {
                   q: "How much does commercial cleaning cost in Melbourne's south-east?",
-                  a: "Nexus Facility Services charges from $39 per hour for commercial and domestic cleaning across Berwick, Cranbourne, Dandenong, Pakenham, Hastings, Koo Wee Rup and surrounding suburbs. Specialty services such as steam cleaning start from $100, and floor polishing or pressure washing from $200. Contact us on 0477 376 440 for a free tailored quote.",
+                  a: "Nexus Facility Services charges from $40 per hour for domestic, general, commercial, industrial and end of lease cleaning across Berwick, Cranbourne, Dandenong, Pakenham, Hastings, Koo Wee Rup and surrounding suburbs. Specialty services such as steam cleaning start from $100, and floor polishing or pressure washing from $200. Contact us on 0477 376 440 for a free tailored quote.",
                 },
                 {
                   q: "Do you clean in Koo Wee Rup, Hastings and Dromana?",
@@ -1576,7 +1610,7 @@ export default function Home() {
                 <span style={{ color: "oklch(0.62 0.22 230)" }}>Free Quote</span>
               </h2>
               <p className="text-base leading-relaxed mb-8" style={{ color: "oklch(0.82 0.05 230)" }}>
-                If it feels uncomfortable or looks dirty, it's jeopardising your relationship with customers or tenants. Get in touch and find out how we can help — starting from just <strong style={{ color: "oklch(0.62 0.22 230)" }}>$39/hour</strong>.
+                If it feels uncomfortable or looks dirty, it's jeopardising your relationship with customers or tenants. Get in touch and find out how we can help — starting from just <strong style={{ color: "oklch(0.62 0.22 230)" }}>$40/hour</strong>.
               </p>
 
               <div className="space-y-4">
@@ -1663,7 +1697,7 @@ export default function Home() {
                 <img src={LOGO_URL} alt="Nexus Facility Services" className="h-14 w-auto object-contain" />
               </div>
               <p className="text-sm leading-relaxed" style={{ color: "oklch(0.78 0.05 230)" }}>
-                Professional commercial and domestic cleaning services across Melbourne. Fully insured, background-checked, and committed to excellence. From $39/hour.
+                Professional domestic, general, commercial, industrial and end of lease cleaning across Melbourne. Fully insured, background-checked, and committed to excellence. From $40/hour.
               </p>
             </div>
 
@@ -1719,7 +1753,7 @@ export default function Home() {
                 </div>
                 <div className="flex items-center gap-3 text-sm" style={{ color: "oklch(0.85 0.04 230)" }}>
                   <DollarSign className="w-4 h-4 flex-shrink-0" style={{ color: "oklch(0.62 0.22 230)" }} />
-                  From $39/hour — No hidden fees
+                  From $40/hour — No hidden fees
                 </div>
               </div>
 
