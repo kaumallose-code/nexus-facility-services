@@ -699,36 +699,6 @@ export default function Home() {
               </a>
             </div>
 
-            <div className="fade-up grid grid-cols-2 gap-4">
-              {[
-                { icon: Building2, title: "Commercial Cleaning", desc: "Offices, retail, medical, and corporate facilities." },
-                { icon: HomeIcon, title: "Domestic Cleaning", desc: "Homes, apartments, and end-of-lease cleans." },
-                { icon: Layers, title: "Floor Polishing", desc: "Strip, seal and polish all floor types." },
-                { icon: Wind, title: "Pressure Washing", desc: "Driveways, facades and outdoor areas." },
-              ].map(({ icon: Icon, title, desc }) => (
-                <div
-                  key={title}
-                  className="p-5 rounded-sm"
-                  style={{ background: "oklch(0.96 0.01 230)", border: "1px solid oklch(0.88 0.04 230)" }}
-                >
-                  <div
-                    className="w-10 h-10 flex items-center justify-center mb-3"
-                    style={{ background: "oklch(0.75 0.18 210 / 0.12)" }}
-                  >
-                    <Icon className="w-5 h-5" style={{ color: "oklch(0.62 0.22 230)" }} />
-                  </div>
-                  <h3
-                    className="font-bold text-sm mb-1"
-                    style={{ fontFamily: "'Barlow Condensed', sans-serif", color: "oklch(0.27 0.11 245)", fontSize: "1rem" }}
-                  >
-                    {title}
-                  </h3>
-                  <p className="text-xs leading-relaxed" style={{ color: "oklch(0.38 0.06 245)" }}>
-                    {desc}
-                  </p>
-                </div>
-              ))}
-            </div>
           </div>
         </div>
       </section>
