@@ -65,19 +65,27 @@ const SERVICES = [
 
 export default function ServicesPage() {
   return (
-    <div className="min-h-screen" style={{ background: "oklch(0.10 0.05 245)" }}>
-      {/* Hero Section with Background Photo */}
-      <section
-        className="relative py-32 flex items-center justify-center"
+    <div className="min-h-screen relative">
+      {/* Full-page background photo with transparency overlay */}
+      <div
+        className="fixed inset-0 z-0"
         style={{
           backgroundImage: `url(${SERVICES_BG})`,
           backgroundSize: "cover",
           backgroundPosition: "center",
-          backgroundAttachment: "fixed",
+          backgroundRepeat: "no-repeat",
         }}
-      >
-        <div className="absolute inset-0 bg-black/70" />
-        <div className="relative z-10 text-center px-4">
+      />
+      {/* Dark transparent overlay so text is readable */}
+      <div
+        className="fixed inset-0 z-0"
+        style={{ background: "rgba(5, 15, 30, 0.82)" }}
+      />
+
+      {/* Page content on top of background */}
+      <div className="relative z-10">
+        {/* Hero Section */}
+        <section className="py-28 px-4 text-center">
           <h1
             className="text-5xl md:text-6xl font-bold mb-4 uppercase tracking-wider"
             style={{
@@ -95,97 +103,100 @@ export default function ServicesPage() {
             hospitals, offices to warehouses — we deliver spotless results every
             time.
           </p>
-        </div>
-      </section>
+        </section>
 
-      {/* Services Grid */}
-      <section className="py-20 px-4">
-        <div className="max-w-6xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {SERVICES.map((svc, i) => (
-              <div
-                key={i}
-                className="group relative rounded-xl p-8 transition-all duration-300 hover:-translate-y-1"
-                style={{
-                  background: "oklch(0.15 0.04 245)",
-                  border: `1px solid oklch(0.25 0.04 245)`,
-                }}
-              >
-                {/* Icon */}
+        {/* Services Grid */}
+        <section className="pb-20 px-4">
+          <div className="max-w-6xl mx-auto">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {SERVICES.map((svc, i) => (
                 <div
-                  className="w-14 h-14 rounded-lg flex items-center justify-center mb-5"
-                  style={{ background: `${svc.color}20` }}
-                >
-                  <svc.icon size={28} style={{ color: svc.color }} />
-                </div>
-
-                {/* Title */}
-                <h3
-                  className="text-xl font-bold mb-3 uppercase tracking-wide"
+                  key={i}
+                  className="group relative rounded-xl p-8 transition-all duration-300 hover:-translate-y-1 backdrop-blur-sm"
                   style={{
-                    color: "oklch(0.95 0.01 240)",
-                    fontFamily: "'Barlow Condensed', sans-serif",
+                    background: "rgba(10, 25, 50, 0.75)",
+                    border: `1px solid rgba(100, 150, 220, 0.15)`,
                   }}
                 >
-                  {svc.label}
-                </h3>
+                  {/* Icon */}
+                  <div
+                    className="w-14 h-14 rounded-lg flex items-center justify-center mb-5"
+                    style={{ background: `${svc.color}20` }}
+                  >
+                    <svc.icon size={28} style={{ color: svc.color }} />
+                  </div>
 
-                {/* Description */}
-                <p
-                  className="text-sm leading-relaxed"
-                  style={{ color: "oklch(0.72 0.05 230)" }}
-                >
-                  {svc.desc}
-                </p>
+                  {/* Title */}
+                  <h3
+                    className="text-xl font-bold mb-3 uppercase tracking-wide"
+                    style={{
+                      color: "oklch(0.95 0.01 240)",
+                      fontFamily: "'Barlow Condensed', sans-serif",
+                    }}
+                  >
+                    {svc.label}
+                  </h3>
 
-                {/* Accent line */}
-                <div
-                  className="absolute bottom-0 left-8 right-8 h-0.5 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                  style={{ background: svc.color }}
-                />
-              </div>
-            ))}
+                  {/* Description */}
+                  <p
+                    className="text-sm leading-relaxed"
+                    style={{ color: "oklch(0.72 0.05 230)" }}
+                  >
+                    {svc.desc}
+                  </p>
+
+                  {/* Accent line */}
+                  <div
+                    className="absolute bottom-0 left-8 right-8 h-0.5 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                    style={{ background: svc.color }}
+                  />
+                </div>
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* CTA Section */}
-      <section className="py-16 px-4" style={{ background: "oklch(0.13 0.05 245)" }}>
-        <div className="max-w-3xl mx-auto text-center">
-          <h2
-            className="text-3xl font-bold mb-4 uppercase"
-            style={{
-              color: "oklch(0.95 0.01 240)",
-              fontFamily: "'Barlow Condensed', sans-serif",
-            }}
-          >
-            Need a Custom Cleaning Solution?
-          </h2>
-          <p className="mb-8" style={{ color: "oklch(0.72 0.05 230)" }}>
-            Every space is different. Contact us for a free, no-obligation quote
-            tailored to your specific cleaning requirements.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link
-              href="/contact"
-              className="inline-flex items-center justify-center gap-2 px-8 py-3 rounded-md font-bold uppercase tracking-wider text-white transition-all"
-              style={{ background: "oklch(0.55 0.20 230)" }}
-            >
-              Get a Free Quote
-            </Link>
-            <a
-              href="tel:0477376440"
-              className="inline-flex items-center justify-center gap-2 px-8 py-3 rounded-md font-bold uppercase tracking-wider transition-all"
+        {/* CTA Section */}
+        <section
+          className="py-16 px-4 backdrop-blur-sm"
+          style={{ background: "rgba(5, 15, 30, 0.7)" }}
+        >
+          <div className="max-w-3xl mx-auto text-center">
+            <h2
+              className="text-3xl font-bold mb-4 uppercase"
               style={{
-                color: "oklch(0.65 0.20 230)",
-                border: "2px solid oklch(0.65 0.20 230)",
+                color: "oklch(0.95 0.01 240)",
+                fontFamily: "'Barlow Condensed', sans-serif",
               }}
             >
-              Call 0477 376 440
-            </a>
+              Need a Custom Cleaning Solution?
+            </h2>
+            <p className="mb-8" style={{ color: "oklch(0.72 0.05 230)" }}>
+              Every space is different. Contact us for a free, no-obligation quote
+              tailored to your specific cleaning requirements.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Link
+                href="/contact"
+                className="inline-flex items-center justify-center gap-2 px-8 py-3 rounded-md font-bold uppercase tracking-wider text-white transition-all"
+                style={{ background: "oklch(0.55 0.20 230)" }}
+              >
+                Get a Free Quote
+              </Link>
+              <a
+                href="tel:0477376440"
+                className="inline-flex items-center justify-center gap-2 px-8 py-3 rounded-md font-bold uppercase tracking-wider transition-all"
+                style={{
+                  color: "oklch(0.65 0.20 230)",
+                  border: "2px solid oklch(0.65 0.20 230)",
+                }}
+              >
+                Call 0477 376 440
+              </a>
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      </div>
     </div>
   );
 }
