@@ -81,6 +81,53 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      {/* Regulated & Insured Trust Badges */}
+      <section className="py-16 border-t" style={{ borderColor: "oklch(0.75 0.18 210 / 0.15)" }}>
+        <div className="container text-center">
+          <h2 className="text-2xl font-bold mb-3 uppercase tracking-wide" style={{ color: "oklch(0.95 0.01 240)", fontFamily: "'Barlow Condensed', sans-serif" }}>
+            Regulated & Fully Insured
+          </h2>
+          <p className="text-sm mb-10 max-w-xl mx-auto" style={{ color: "oklch(0.72 0.05 230)" }}>
+            We comply with all Australian rules and regulations. Our operations are licensed, insured, and monitored by official authorities.
+          </p>
+          <div className="flex flex-wrap items-center justify-center gap-10 md:gap-16">
+            {/* Labour Hire Authority */}
+            <div className="flex flex-col items-center gap-3">
+              <div className="bg-white rounded-lg p-4 flex items-center justify-center" style={{ width: "180px", height: "90px" }}>
+                <img
+                  src="/manus-storage/labour_hire_authority_logo_07661299.png"
+                  alt="Labour Hire Authority - Licensed"
+                  className="max-h-full max-w-full object-contain"
+                />
+              </div>
+              <span className="text-xs font-semibold uppercase tracking-wider" style={{ color: "oklch(0.72 0.05 230)" }}>Licensed Provider</span>
+            </div>
+            {/* WorkSafe Victoria */}
+            <div className="flex flex-col items-center gap-3">
+              <div className="bg-white rounded-lg p-4 flex items-center justify-center" style={{ width: "180px", height: "90px" }}>
+                <img
+                  src="/manus-storage/worksafe_victoria_logo_d7f5a528.jpg"
+                  alt="WorkSafe Victoria - Regulated"
+                  className="max-h-full max-w-full object-contain"
+                />
+              </div>
+              <span className="text-xs font-semibold uppercase tracking-wider" style={{ color: "oklch(0.72 0.05 230)" }}>WorkSafe Regulated</span>
+            </div>
+            {/* RACV Business Insurance */}
+            <div className="flex flex-col items-center gap-3">
+              <div className="bg-white rounded-lg p-4 flex items-center justify-center" style={{ width: "180px", height: "90px" }}>
+                <img
+                  src="/manus-storage/racv_business_insurance_logo_c1945941.jpg"
+                  alt="RACV Business Insurance - Fully Insured"
+                  className="max-h-full max-w-full object-contain"
+                />
+              </div>
+              <span className="text-xs font-semibold uppercase tracking-wider" style={{ color: "oklch(0.72 0.05 230)" }}>Fully Insured</span>
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
   );
 }
