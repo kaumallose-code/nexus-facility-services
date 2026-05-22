@@ -3,7 +3,7 @@ import { Link } from "wouter";
 
 const PHONE = "0477 376 440";
 const PHONE_HREF = "tel:0477376440";
-const GOOGLE_MAPS_URL = "https://maps.app.goo.gl/M2mQMwSReirMjDf76?g_st=iw";
+const GOOGLE_MAPS_URL = "https://maps.app.goo.gl/ihTt8RP5MBdjkkLw9?g_st=ic";
 
 export default function ReviewsPage() {
   return (
@@ -45,7 +45,7 @@ export default function ReviewsPage() {
                 5.0 Stars
               </p>
               <p style={{ color: "oklch(0.72 0.05 230)" }}>
-                Based on verified customer reviews
+                Based on 11 verified Google reviews
               </p>
             </div>
           </div>
@@ -60,7 +60,7 @@ export default function ReviewsPage() {
               }}
             >
               <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3148.7234567890!2d145.1234567890!3d-37.9876543210!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ad642b5d5d5d5d5%3A0x1234567890abcdef!2sNexus%20Facility%20Services!5e0!3m2!1sen!2sau!4v1234567890123"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3151.8386516005147!2d145.2622041!3d-38.2496873!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2d9e0a442a24fd4b%3A0xdbfcb7cf76c75b75!2sNexus%20Facility%20Services!5e0!3m2!1sen!2sau!4v1716203400000"
                 width="100%"
                 height="450"
                 style={{ border: 0 }}
@@ -96,33 +96,57 @@ export default function ReviewsPage() {
                 fontFamily: "'Barlow Condensed', sans-serif",
               }}
             >
-              Recent Reviews
+              Google Reviews
             </h2>
             <div className="grid md:grid-cols-2 gap-6">
               {[
                 {
-                  name: "Sarah Johnson",
+                  name: "White B.",
                   rating: 5,
-                  text: "Absolutely fantastic service! The team was professional, punctual, and thorough. Our office has never looked better. Highly recommend!",
-                  service: "Commercial Cleaning",
+                  text: "The team was punctual and did an incredible job. They didn't just do the basics; they scrubbed the shower until it sparkled and even folded the towels beautifully. Awesome services!",
+                  date: "2 months ago",
                 },
                 {
-                  name: "Michael Chen",
+                  name: "Amila Samarakoon",
                   rating: 5,
-                  text: "End of lease cleaning was perfect. They got our bond back in full. Amazing attention to detail and very responsive to our questions.",
-                  service: "End of Lease Cleaning",
+                  text: "Recently had a great experience with Nexus Facility Group. The team is reliable and easy to deal with. They arrive on time and get the job done well. I would happily recommend Nexus Facility Group to anyone in Melbourne!",
+                  date: "4 weeks ago",
                 },
                 {
-                  name: "Emma Williams",
+                  name: "Marisa Orfanidis",
                   rating: 5,
-                  text: "Regular domestic cleaning service has been a game-changer. Reliable, affordable, and they treat my home with care. 5 stars!",
-                  service: "Domestic Cleaning",
+                  text: "Excellent service and excellent work. Will definitely be used on a regular basis.",
+                  date: "1 month ago",
                 },
                 {
-                  name: "David Martinez",
+                  name: "Casey M",
                   rating: 5,
-                  text: "Industrial cleaning for our warehouse was exceptional. Professional crew, efficient work, and competitive pricing. Will use again.",
-                  service: "Industrial Cleaning",
+                  text: "Very happy with the Nexus Facility Group team and the quality of cleaning. The house is sparkling! Friendly and welcoming service too. Thank you.",
+                  date: "1 month ago",
+                },
+                {
+                  name: "Julie West",
+                  rating: 5,
+                  text: "We hired Nexus to clean, strip and polish the floors of our clinic. They did great work and were very professional. I would definitely recommend them and will use them again in the future.",
+                  date: "1 year ago",
+                },
+                {
+                  name: "Grant Keenan",
+                  rating: 5,
+                  text: "I cannot praise the Nexus Facility Group and Vino enough. Vino was called to do a deep clean of my elderly mother's home and she worked carefully and compassionately to restore the house to its former clean state. Whether it's residential or commercial cleaning, you won't go wrong calling this team. Thank you Vino and team, we won't hesitate to call you next time we need your service.",
+                  date: "1 year ago",
+                },
+                {
+                  name: "janak kasun",
+                  rating: 5,
+                  text: "Good service highly recommended.",
+                  date: "2 months ago",
+                },
+                {
+                  name: "Magret Silva",
+                  rating: 5,
+                  text: "Highly recommend.",
+                  date: "2 months ago",
                 },
               ].map((review, idx) => (
                 <div
@@ -139,7 +163,7 @@ export default function ReviewsPage() {
                         {review.name}
                       </p>
                       <p className="text-xs" style={{ color: "oklch(0.72 0.05 230)" }}>
-                        {review.service}
+                        {review.date}
                       </p>
                     </div>
                     <div className="flex gap-0.5">
