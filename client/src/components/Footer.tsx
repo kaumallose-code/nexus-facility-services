@@ -4,6 +4,7 @@ import { Link } from "wouter";
 const LOGO_URL = "/manus-storage/nexus_logo_v3_fa9cb82a.jpg";
 const RACV_LOGO = "/manus-storage/racv_business_insurance_logo_c1945941.jpg";
 const WORKSAFE_LOGO = "/manus-storage/worksafe_victoria_logo_d7f5a528.jpg";
+const LABOUR_HIRE_LOGO = "/manus-storage/labour_hire_authority_logo_07661299.png";
 
 const PHONE = "0477 376 440";
 const PHONE_HREF = "tel:0477376440";
@@ -109,6 +110,14 @@ export default function Footer() {
               </div>
               <p className="text-xs mt-2" style={{ color: "oklch(0.72 0.05 230)" }}>
                 Regulated by WorkSafe Victoria
+              </p>
+            </div>
+            <div className="text-center">
+              <div className="bg-white rounded-lg p-3 flex items-center justify-center mx-auto" style={{ width: "150px", height: "75px" }}>
+                <img src={LABOUR_HIRE_LOGO} alt="Labour Hire Authority" className="max-h-full max-w-full object-contain" />
+              </div>
+              <p className="text-xs mt-2" style={{ color: "oklch(0.72 0.05 230)" }}>
+                Licensed Labour Hire Provider
               </p>
             </div>
           </div>
