@@ -21,7 +21,7 @@ export default function Navigation() {
   const [location] = useLocation();
 
   return (
-    <nav style={{ background: "oklch(0.10 0.05 245)", borderBottom: "1px solid oklch(0.75 0.18 210 / 0.15)" }}>
+    <nav className="relative z-50" style={{ background: "oklch(0.10 0.05 245)", borderBottom: "1px solid oklch(0.75 0.18 210 / 0.15)" }}>
       <div className="container flex items-center justify-between h-16">
         <Link href="/" className="flex items-center gap-1.5 hover:opacity-80 transition-opacity">
           <img src={LOGO_URL} alt="Nexus Facility Group" className="h-8 w-8 object-contain" />
