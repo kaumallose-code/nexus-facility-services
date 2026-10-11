@@ -24,7 +24,7 @@ export default function Navigation() {
     <nav style={{ background: "oklch(0.10 0.05 245)", borderBottom: "1px solid oklch(0.75 0.18 210 / 0.15)" }}>
       <div className="container flex items-center justify-between h-16">
         <Link href="/" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
-          <img src={LOGO_URL} alt="Nexus Facility Group" className="h-10 w-auto" />
+          <img src={LOGO_URL} alt="Nexus Facility Group" className="h-8 md:h-9 w-auto" />
         </Link>
 
         <div className="hidden md:flex items-center gap-1">

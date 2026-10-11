@@ -4,3 +4,4 @@
 - [x] Add accessible informative tooltips to the RACV, WorkSafe Victoria, and Labour Hire Authority footer badges
 - [x] Replace the website favicon and touch icons with the provided Nexus Facility Group logo
 - [x] Replace visible Nexus Facility Services branding with Nexus Facility Group branding across the website, including logos and displayed company name
+- [x] Reduce the Nexus Facility Group logo size in the website header to the previous compact proportions
