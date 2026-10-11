@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link, useLocation } from "wouter";
 import { Menu, X } from "lucide-react";
 
-const LOGO_URL = "/manus-storage/nexus_facility_group_logo_cropped_387d05e3.png";
+const LOGO_URL = "/manus-storage/nexus_facility_group_logo_714c02df.png";
 
 const NAV_LINKS = [
   { label: "Home", href: "/" },
@@ -23,8 +23,8 @@ export default function Navigation() {
   return (
     <nav style={{ background: "oklch(0.10 0.05 245)", borderBottom: "1px solid oklch(0.75 0.18 210 / 0.15)" }}>
       <div className="container flex items-center justify-between h-16">
-        <Link href="/" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
-          <img src={LOGO_URL} alt="Nexus Facility Group" className="h-8 md:h-9 w-auto" />
+        <Link href="/" className="flex items-center gap-1.5 hover:opacity-80 transition-opacity">
+          <img src={LOGO_URL} alt="Nexus Facility Group" className="h-8 w-8 object-contain" />
         </Link>
 
         <div className="hidden md:flex items-center gap-1">
