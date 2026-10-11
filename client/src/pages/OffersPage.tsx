@@ -126,7 +126,7 @@ export default function Page() {
               <span style={{ color: "oklch(0.62 0.22 230)" }}>FOR NEW 12-MONTH CONTRACTS</span>
             </h1>
             <p className="text-lg md:text-xl leading-relaxed max-w-3xl mx-auto mb-8" style={{ color: "oklch(0.82 0.04 230)" }}>
-              Partner with Nexus Facility Services and receive high-value maintenance services — performed every 6 months — completely free of charge for the life of your contract.
+              Partner with Nexus Facility Group and receive high-value maintenance services — performed every 6 months — completely free of charge for the life of your contract.
             </p>
             <div className="flex flex-wrap items-center justify-center gap-6 text-sm" style={{ color: "oklch(0.78 0.05 230)" }}>
               <span className="flex items-center gap-2">

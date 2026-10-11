@@ -11,7 +11,7 @@ const REGIONS = [
   {
     name: "Melbourne CBD & Inner City",
     description:
-      "Nexus Facility Services provides premium commercial cleaning across Melbourne's central business district and surrounding inner-city suburbs. From high-rise office towers to boutique retail spaces, medical clinics, and hospitality venues — we deliver consistent, reliable cleaning services in the heart of Melbourne.",
+      "Nexus Facility Group provides premium commercial cleaning across Melbourne's central business district and surrounding inner-city suburbs. From high-rise office towers to boutique retail spaces, medical clinics, and hospitality venues — we deliver consistent, reliable cleaning services in the heart of Melbourne.",
     suburbs: [
       "Melbourne CBD", "Southbank", "Docklands", "South Melbourne", "North Melbourne",
       "West Melbourne", "East Melbourne", "Carlton", "Fitzroy", "Collingwood",
@@ -38,7 +38,7 @@ const REGIONS = [
   {
     name: "Western Melbourne",
     description:
-      "Nexus Facility Services is proud to serve Melbourne's thriving western suburbs — one of Australia's fastest-growing industrial and residential corridors. From large-scale warehouse cleaning in Truganina and Laverton North to childcare centre sanitisation in Point Cook and Tarneit, we understand the unique demands of the west.",
+      "Nexus Facility Group is proud to serve Melbourne's thriving western suburbs — one of Australia's fastest-growing industrial and residential corridors. From large-scale warehouse cleaning in Truganina and Laverton North to childcare centre sanitisation in Point Cook and Tarneit, we understand the unique demands of the west.",
     suburbs: [
       "Footscray", "Yarraville", "Seddon", "Williamstown", "Newport",
       "Altona", "Altona North", "Altona Meadows", "Laverton", "Laverton North",
@@ -73,7 +73,7 @@ const REGIONS = [
   {
     name: "Eastern Melbourne",
     description:
-      "From the established commercial precincts of Box Hill and Ringwood to the leafy suburbs of the Yarra Ranges, Nexus Facility Services delivers professional cleaning across Melbourne's eastern corridor. We service offices, medical centres, schools, and retail spaces with precision and reliability.",
+      "From the established commercial precincts of Box Hill and Ringwood to the leafy suburbs of the Yarra Ranges, Nexus Facility Group delivers professional cleaning across Melbourne's eastern corridor. We service offices, medical centres, schools, and retail spaces with precision and reliability.",
     suburbs: [
       "Hawthorn", "Kew", "Balwyn", "Balwyn North", "Camberwell",
       "Canterbury", "Surrey Hills", "Box Hill", "Box Hill North", "Box Hill South",
@@ -91,7 +91,7 @@ const REGIONS = [
   {
     name: "Bayside & Mornington Peninsula",
     description:
-      "Nexus Facility Services extends its premium cleaning solutions to Melbourne's prestigious bayside suburbs and the Mornington Peninsula. We understand the high standards expected by businesses in these areas — from boutique medical practices to corporate offices with bay views.",
+      "Nexus Facility Group extends its premium cleaning solutions to Melbourne's prestigious bayside suburbs and the Mornington Peninsula. We understand the high standards expected by businesses in these areas — from boutique medical practices to corporate offices with bay views.",
     suburbs: [
       "Brighton", "Brighton East", "Hampton", "Sandringham", "Black Rock",
       "Beaumaris", "Mordialloc", "Aspendale", "Edithvale", "Chelsea",
@@ -117,7 +117,7 @@ const REGIONS = [
   {
     name: "Gippsland & Latrobe Valley",
     description:
-      "Nexus Facility Services proudly serves the Gippsland region and Latrobe Valley, providing professional cleaning solutions to industrial facilities, healthcare centres, offices, and educational institutions across this vital regional corridor.",
+      "Nexus Facility Group proudly serves the Gippsland region and Latrobe Valley, providing professional cleaning solutions to industrial facilities, healthcare centres, offices, and educational institutions across this vital regional corridor.",
     suburbs: [
       "Warragul", "Drouin", "Moe", "Morwell", "Traralgon",
       "Sale", "Bairnsdale", "Wonthaggi", "Inverloch", "Phillip Island",
@@ -139,7 +139,7 @@ const REGIONS = [
   {
     name: "Bendigo & Goldfields",
     description:
-      "Nexus Facility Services provides comprehensive cleaning solutions to Bendigo and the surrounding Goldfields region. From heritage commercial buildings to modern healthcare facilities and industrial sites, we deliver professional results across this important regional centre.",
+      "Nexus Facility Group provides comprehensive cleaning solutions to Bendigo and the surrounding Goldfields region. From heritage commercial buildings to modern healthcare facilities and industrial sites, we deliver professional results across this important regional centre.",
     suburbs: [
       "Bendigo", "Kangaroo Flat", "Eaglehawk", "Strathdale", "Flora Hill",
       "Epsom", "Huntly", "Maiden Gully", "Golden Square", "Long Gully",
@@ -186,7 +186,7 @@ export default function Page() {
             <span style={{ color: "oklch(0.62 0.22 230)" }}>ACROSS VICTORIA</span>
           </h1>
           <p className="text-lg md:text-xl leading-relaxed max-w-3xl mx-auto mb-8" style={{ color: "oklch(0.82 0.04 230)" }}>
-            Nexus Facility Services delivers professional commercial, domestic, industrial, and healthcare cleaning to over <strong style={{ color: "oklch(0.97 0.01 240)" }}>{totalSuburbs}+ suburbs</strong> across Victoria. From Melbourne CBD to regional centres — wherever your facility is, we're there.
+            Nexus Facility Group delivers professional commercial, domestic, industrial, and healthcare cleaning to over <strong style={{ color: "oklch(0.97 0.01 240)" }}>{totalSuburbs}+ suburbs</strong> across Victoria. From Melbourne CBD to regional centres — wherever your facility is, we're there.
           </p>
           <div className="flex flex-wrap items-center justify-center gap-6 text-sm" style={{ color: "oklch(0.78 0.05 230)" }}>
             <span className="flex items-center gap-2">
@@ -286,7 +286,7 @@ export default function Page() {
               SERVICES AVAILABLE IN ALL AREAS
             </h2>
             <p className="text-base max-w-2xl mx-auto" style={{ color: "oklch(0.78 0.05 230)" }}>
-              Regardless of your location across Victoria, Nexus Facility Services delivers the full range of our professional cleaning solutions to your door.
+              Regardless of your location across Victoria, Nexus Facility Group delivers the full range of our professional cleaning solutions to your door.
             </p>
           </div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">

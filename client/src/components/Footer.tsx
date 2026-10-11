@@ -1,7 +1,7 @@
 import { Phone, Mail, ChevronRight } from "lucide-react";
 import { Link } from "wouter";
 
-const LOGO_URL = "/manus-storage/nexus_logo_v3_fa9cb82a.jpg";
+const LOGO_URL = "/manus-storage/nexus_facility_group_logo_cropped_387d05e3.png";
 const RACV_LOGO = "/manus-storage/racv_business_insurance_logo_c1945941.jpg";
 const WORKSAFE_LOGO = "/manus-storage/worksafe_victoria_logo_d7f5a528.jpg";
 const LABOUR_HIRE_LOGO = "/manus-storage/labour_hire_authority_logo_07661299.png";
@@ -73,7 +73,7 @@ export default function Footer() {
           {/* Brand */}
           <div>
             <div className="mb-4">
-              <img src={LOGO_URL} alt="Nexus Facility Services" className="h-14 w-auto object-contain" />
+              <img src={LOGO_URL} alt="Nexus Facility Group" className="h-14 w-auto object-contain" />
             </div>
             <p className="text-sm leading-relaxed" style={{ color: "oklch(0.78 0.05 230)" }}>
               Professional domestic, general, commercial, industrial and end of lease cleaning across Melbourne. Fully insured, background-checked, and committed to excellence.
@@ -162,13 +162,13 @@ export default function Footer() {
         {/* Copyright */}
         <div className="flex flex-col md:flex-row items-center justify-between">
           <p className="text-xs" style={{ color: "oklch(0.55 0.06 245)" }}>
-            © 2025 Nexus Facility Services. All rights reserved.
+            © 2025 Nexus Facility Group. All rights reserved.
           </p>
           <div className="flex items-center gap-4 mt-4 md:mt-0">
-            <a href="https://www.google.com/maps/place/Nexus+Facility+Services" target="_blank" rel="noopener noreferrer" className="text-xs transition-colors hover:text-white" style={{ color: "oklch(0.55 0.06 245)" }}>
+            <a href="https://www.google.com/maps/place/Nexus+Facility+Group" target="_blank" rel="noopener noreferrer" className="text-xs transition-colors hover:text-white" style={{ color: "oklch(0.55 0.06 245)" }}>
               Google Maps
             </a>
-            <a href="https://www.google.com/search?q=Nexus+Facility+Services" target="_blank" rel="noopener noreferrer" className="text-xs transition-colors hover:text-white" style={{ color: "oklch(0.55 0.06 245)" }}>
+            <a href="https://www.google.com/search?q=Nexus+Facility+Group" target="_blank" rel="noopener noreferrer" className="text-xs transition-colors hover:text-white" style={{ color: "oklch(0.55 0.06 245)" }}>
               Google Reviews
             </a>
           </div>

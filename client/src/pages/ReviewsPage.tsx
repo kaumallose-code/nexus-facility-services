@@ -22,7 +22,7 @@ export default function ReviewsPage() {
             What Our Clients Say
           </h1>
           <p style={{ color: "oklch(0.72 0.05 230)", maxWidth: "600px", margin: "0 auto" }}>
-            Real reviews from real customers who trust Nexus Facility Services for their cleaning needs across Melbourne.
+            Real reviews from real customers who trust Nexus Facility Group for their cleaning needs across Melbourne.
           </p>
         </div>
       </section>
@@ -60,7 +60,7 @@ export default function ReviewsPage() {
               }}
             >
               <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3151.8386516005147!2d145.2622041!3d-38.2496873!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2d9e0a442a24fd4b%3A0xdbfcb7cf76c75b75!2sNexus%20Facility%20Services!5e0!3m2!1sen!2sau!4v1716203400000"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3151.8386516005147!2d145.2622041!3d-38.2496873!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2d9e0a442a24fd4b%3A0xdbfcb7cf76c75b75!2sNexus%20Facility%20Group!5e0!3m2!1sen!2sau!4v1716203400000"
                 width="100%"
                 height="450"
                 style={{ border: 0 }}

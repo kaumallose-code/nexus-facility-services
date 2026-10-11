@@ -1,5 +1,5 @@
 /*
- * NEXUS FACILITY SERVICES — QuoteBot Component
+ * NEXUS FACILITY GROUP — QuoteBot Component
  * Design: Bold Dark-Mode Industrial
  * A conversational chatbot that guides users through getting a cleaning quote
  */
@@ -211,14 +211,14 @@ export default function QuoteBot() {
           headers: { "Content-Type": "application/json", Accept: "application/json" },
           body: JSON.stringify({
             access_key: WEB3FORMS_KEY,
-            subject: `New Quote Request from ${finalData.name} — Nexus Facility Services`,
+            subject: `New Quote Request from ${finalData.name} — Nexus Facility Group`,
             name: finalData.name,
             phone: finalData.phone,
             service: finalData.service || "Not specified",
             suburb: finalData.suburb || text,
             property_size: finalData.size || "Not specified",
             frequency: finalData.frequency || "Not specified",
-            from_name: "Nexus Facility Services QuoteBot",
+            from_name: "Nexus Facility Group QuoteBot",
             message: `QuoteBot enquiry\nService: ${finalData.service || 'Not specified'}\nSuburb: ${finalData.suburb || text}\nProperty Size: ${finalData.size || 'Not specified'}\nFrequency: ${finalData.frequency || 'Not specified'}`,
           }),
         }).catch(() => { /* silent fail — user already sees confirmation message */ });

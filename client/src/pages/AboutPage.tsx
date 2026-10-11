@@ -31,7 +31,7 @@ export default function AboutPage() {
                 Provider
               </h1>
               <p className="text-base leading-relaxed mb-5" style={{ color: "oklch(0.72 0.05 230)" }}>
-                Nexus Facility Services is a Melbourne-based cleaning company dedicated to delivering exceptional results for both commercial and domestic clients. From shopping centres and corporate offices to family homes and medical clinics, we bring the same level of professionalism and attention to detail to every job.
+                Nexus Facility Group is a Melbourne-based cleaning company dedicated to delivering exceptional results for both commercial and domestic clients. From shopping centres and corporate offices to family homes and medical clinics, we bring the same level of professionalism and attention to detail to every job.
               </p>
               <p className="text-base leading-relaxed mb-8" style={{ color: "oklch(0.72 0.05 230)" }}>
                 Our team is fully insured, background-checked, and trained in the latest cleaning techniques and safety standards. Every job is completed to the highest standard with no shortcuts and no hidden costs.

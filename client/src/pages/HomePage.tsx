@@ -1,7 +1,7 @@
 import { ArrowRight, Phone } from "lucide-react";
 import { Link } from "wouter";
 
-const LOGO_URL = "/manus-storage/nexus_logo_v3_fa9cb82a.jpg";
+const LOGO_URL = "/manus-storage/nexus_facility_group_logo_cropped_387d05e3.png";
 const HERO_BG = "https://d2xsxph8kpxj0f.cloudfront.net/310519663396125342/LsnnQBd3D9ZpGUiGw6PBwg/hero_bg-kFiQrM3b2UU5fuEJutxt9C.webp";
 
 const PHONE = "0477 376 440";
@@ -33,7 +33,7 @@ export default function HomePage() {
             CLEAN.
           </h1>
           <p className="text-lg mb-8 max-w-2xl mx-auto" style={{ color: "oklch(0.72 0.05 230)" }}>
-            Nexus Facility Services delivers professional commercial and domestic cleaning across Melbourne — with precision, reliability, and zero shortcuts.
+            Nexus Facility Group delivers professional commercial and domestic cleaning across Melbourne — with precision, reliability, and zero shortcuts.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
             <Link href="/contact" className="inline-flex items-center justify-center gap-2 px-8 py-4 font-bold text-sm uppercase tracking-wider transition-all hover:opacity-90" style={{ background: "oklch(0.62 0.22 230)", color: "oklch(0.10 0.05 245)", fontFamily: "'Barlow Condensed', sans-serif" }}>
