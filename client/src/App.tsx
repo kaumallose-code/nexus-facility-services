@@ -6,6 +6,7 @@ import { ThemeProvider } from "./contexts/ThemeContext";
 import Navigation from "./components/Navigation";
 import Footer from "./components/Footer";
 import QuoteBot from "./components/QuoteBot";
+import WelcomeOfferPopup from "./components/WelcomeOfferPopup";
 import HomePage from "./pages/HomePage";
 import AboutPage from "./pages/AboutPage";
 import ServicesPage from "./pages/ServicesPage";
@@ -48,6 +49,7 @@ function App() {
             </main>
             <Footer />
             <QuoteBot />
+            <WelcomeOfferPopup />
           </div>
         </TooltipProvider>
       </ThemeProvider>

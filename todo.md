@@ -12,3 +12,4 @@
 - [x] Verify the mobile menu opens and closes correctly on representative routed pages
 - [x] Verify shared header visibility on the Reviews page after the z-index fix
 - [x] Interactively open and close the mobile menu on a routed page and verify the dropdown is above page content
+- [x] Add a session-based welcome-offer image carousel pop-up using the provided promotional images
