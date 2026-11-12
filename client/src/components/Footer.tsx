@@ -5,6 +5,7 @@ const LOGO_URL = "/manus-storage/nexus_facility_group_logo_cropped_387d05e3.png"
 const RACV_LOGO = "/manus-storage/racv_business_insurance_logo_c1945941.jpg";
 const WORKSAFE_LOGO = "/manus-storage/worksafe_victoria_logo_d7f5a528.jpg";
 const LABOUR_HIRE_LOGO = "/manus-storage/labour_hire_authority_logo_07661299.png";
+const IICRC_LOGO = "/manus-storage/iicrc_accreditation_917afdcd.png";
 
 const PHONE = "0477 376 440";
 const PHONE_HREF = "tel:0477376440";
@@ -155,6 +156,13 @@ export default function Footer() {
               caption="Licensed Labour Hire Provider"
               tooltipId="trust-badge-labour-hire"
               explanation="The Labour Hire Authority regulates labour hire providers in Victoria, supporting transparent and compliant workforce practices."
+            />
+            <TrustBadge
+              logo={IICRC_LOGO}
+              alt="IICRC accreditation"
+              caption="IICRC Accreditation"
+              tooltipId="trust-badge-iicrc"
+              explanation="The IICRC is a recognised cleaning and restoration industry body. This accreditation badge communicates our alignment with professional cleaning standards."
             />
           </div>
         </div>

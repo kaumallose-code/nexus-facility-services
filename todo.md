@@ -30,4 +30,9 @@
 - [x] Configure the required server-side SMTP or email-provider credentials securely
 - [x] Verify both enquiry forms deliver successfully through the server-side path and show truthful failure states
 - [x] Simulate a server-side SMTP failure and verify both enquiry dialogs show an error instead of a false success
-- [ ] Publish and retest the server-side SMTP enquiry flow on the live site with the production configuration
+- [x] Publish and retest the server-side SMTP enquiry flow on the live site with the production configuration
+- [x] Add the provided IICRC accreditation logo to the shared compliance footer alongside RACV, WorkSafe Victoria, and Labour Hire Authority
+- [x] Retest both published live enquiry forms on nexusfacility.au and www.nexusfacility.au after publishing abcfe715
+- [x] Capture production success-state and request-response evidence for both server-side enquiry submissions
+- [x] Retest both Partner With Us and Request a Quote forms on nexusfacility.au with success-state and 200-response evidence for each
+- [x] Retest both forms when entered through www.nexusfacility.au, confirm canonical behavior, and capture success-state and 200-response evidence for each
