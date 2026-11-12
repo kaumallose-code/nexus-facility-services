@@ -11,29 +11,51 @@ async function sendEnquiryEmail(data: {
   name: string;
   phone: string;
   email?: string;
+  company?: string;
+  representativeName?: string;
+  cleaningRequirements?: string;
+  offeredRates?: string;
+  cleaningType?: string;
   service?: string;
   message?: string;
   suburb?: string;
   propertySize?: string;
-  source: "contact_form" | "quotebot";
+  source: "contact_form" | "quotebot" | "partner_form" | "commercial_form";
 }) {
-  const RECIPIENT = "admin.hr@nexusfacility.au";
+  const RECIPIENT = "hr.admin@nexusfacility.au";
 
   // Build a plain-text and HTML body
   const subject =
-    data.source === "quotebot"
-      ? `New Quote Request from ${data.name} — Nexus Facility Services`
-      : `New Enquiry from ${data.name} — Nexus Facility Services`;
+    data.source === "partner_form"
+      ? `New Partnership Enquiry from ${data.company || data.name} — Nexus Facility Group`
+      : data.source === "commercial_form"
+        ? `New Commercial Cleaning Quote from ${data.name} — Nexus Facility Group`
+        : data.source === "quotebot"
+          ? `New Quote Request from ${data.name} — Nexus Facility Group`
+          : `New Enquiry from ${data.name} — Nexus Facility Group`;
+
+  const sourceLabel =
+    data.source === "partner_form"
+      ? "Partner With Us Form"
+      : data.source === "commercial_form"
+        ? "Commercial Cleaning Quote Form"
+        : data.source === "quotebot"
+          ? "QuoteBot"
+          : "Contact Form";
 
   const rows = [
     ["Name", data.name],
+    ["Company", data.company || "—"],
+    ["Representative Name", data.representativeName || "—"],
     ["Phone", data.phone],
     ["Email", data.email || "—"],
-    ["Service", data.service || "—"],
+    ["Cleaning Type", data.cleaningType || data.service || "—"],
+    ["Cleaning Requirements", data.cleaningRequirements || "—"],
+    ["Rates Offered", data.offeredRates || "—"],
     ["Suburb", data.suburb || "—"],
     ["Property Size", data.propertySize || "—"],
-    ["Message", data.message || "—"],
-    ["Source", data.source === "quotebot" ? "QuoteBot" : "Contact Form"],
+    ["Comments / Message", data.message || "—"],
+    ["Source", sourceLabel],
   ];
 
   const htmlRows = rows
@@ -46,8 +68,8 @@ async function sendEnquiryEmail(data: {
   const html = `
     <div style="font-family:Arial,sans-serif;max-width:600px;margin:0 auto">
       <div style="background:#1a4fa0;padding:24px;text-align:center">
-        <h1 style="color:white;margin:0;font-size:22px">Nexus Facility Services</h1>
-        <p style="color:#a8c8ff;margin:4px 0 0">New ${data.source === "quotebot" ? "Quote Request" : "Enquiry"}</p>
+        <h1 style="color:white;margin:0;font-size:22px">Nexus Facility Group</h1>
+        <p style="color:#a8c8ff;margin:4px 0 0">New ${sourceLabel}</p>
       </div>
       <div style="padding:24px;background:#ffffff;border:1px solid #dce8f5">
         <table style="width:100%;border-collapse:collapse;font-size:14px">
@@ -61,7 +83,7 @@ async function sendEnquiryEmail(data: {
         </div>
       </div>
       <div style="padding:12px;background:#f8f9fa;text-align:center;font-size:12px;color:#888">
-        © ${new Date().getFullYear()} Nexus Facility Services · admin.hr@nexusfacility.au · 0477 376 440
+        © ${new Date().getFullYear()} Nexus Facility Group · hr.admin@nexusfacility.au · 0477 376 440
       </div>
     </div>
   `;
@@ -124,12 +146,17 @@ export const appRouter = router({
         z.object({
           name: z.string().min(1),
           phone: z.string().min(1),
-          email: z.string().optional(),
+          email: z.string().email().optional().or(z.literal("")),
+          company: z.string().optional(),
+          representativeName: z.string().optional(),
+          cleaningRequirements: z.string().optional(),
+          offeredRates: z.string().optional(),
+          cleaningType: z.string().optional(),
           service: z.string().optional(),
           message: z.string().optional(),
           suburb: z.string().optional(),
           propertySize: z.string().optional(),
-          source: z.enum(["contact_form", "quotebot"]).default("contact_form"),
+          source: z.enum(["contact_form", "quotebot", "partner_form", "commercial_form"]).default("contact_form"),
         })
       )
       .mutation(async ({ input }) => {

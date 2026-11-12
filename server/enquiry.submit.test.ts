@@ -67,6 +67,38 @@ describe("enquiry.submit", () => {
     expect(result).toEqual({ success: true });
   });
 
+  it("accepts a partnership enquiry with company and offered rate details", async () => {
+    const ctx = createPublicContext();
+    const caller = appRouter.createCaller(ctx);
+
+    const result = await caller.enquiry.submit({
+      name: "Alex Manager",
+      phone: "0422222222",
+      company: "Example Cleaning Company",
+      representativeName: "Alex Manager",
+      cleaningRequirements: "Relief team for three commercial sites across Melbourne.",
+      offeredRates: "$42 per hour, negotiable by scope.",
+      source: "partner_form",
+    });
+
+    expect(result).toEqual({ success: true });
+  });
+
+  it("accepts a commercial cleaning quote with cleaning type and comments", async () => {
+    const ctx = createPublicContext();
+    const caller = appRouter.createCaller(ctx);
+
+    const result = await caller.enquiry.submit({
+      name: "Taylor Business",
+      phone: "0433333333",
+      cleaningType: "Office cleaning",
+      message: "Please quote for twice-weekly cleaning of our office.",
+      source: "commercial_form",
+    });
+
+    expect(result).toEqual({ success: true });
+  });
+
   it("rejects submission when name is missing", async () => {
     const ctx = createPublicContext();
     const caller = appRouter.createCaller(ctx);

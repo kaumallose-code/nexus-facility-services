@@ -9,6 +9,7 @@ import {
   Users,
 } from "lucide-react";
 import { Link } from "wouter";
+import EnquiryFormDialog from "@/components/EnquiryFormDialog";
 
 const HERO_BG = "https://d2xsxph8kpxj0f.cloudfront.net/310519663396125342/LsnnQBd3D9ZpGUiGw6PBwg/hero_bg-kFiQrM3b2UU5fuEJutxt9C.webp";
 const PHONE = "0477 376 440";
@@ -59,12 +60,8 @@ export default function HomePage() {
             Nexus Facility Group delivers commercial and specialist cleaning services across Melbourne and Victoria. We work directly with businesses, property managers and builders, and provide reliable subcontracting support to cleaning and facility management companies.
           </p>
           <div className="flex flex-col justify-center gap-4 sm:flex-row">
-            <Link href="/contact" className="inline-flex items-center justify-center gap-2 px-8 py-4 text-sm font-bold uppercase tracking-wider transition-all hover:opacity-90" style={{ background: "oklch(0.62 0.22 230)", color: "oklch(0.10 0.05 245)", fontFamily: "'Barlow Condensed', sans-serif" }}>
-              Request a Quote <ArrowRight className="h-4 w-4" />
-            </Link>
-            <Link href="/contact" className="inline-flex items-center justify-center gap-2 border px-8 py-4 text-sm font-bold uppercase tracking-wider transition-all hover:bg-white/10" style={{ borderColor: "oklch(0.62 0.22 230)", color: "oklch(0.62 0.22 230)", fontFamily: "'Barlow Condensed', sans-serif" }}>
-              Partner With Us <Handshake className="h-4 w-4" />
-            </Link>
+            <EnquiryFormDialog mode="commercial" />
+            <EnquiryFormDialog mode="partner" />
           </div>
           <div className="mt-10 flex flex-wrap justify-center gap-6 text-sm" style={{ color: "oklch(0.72 0.05 230)" }}>
             {[
@@ -103,9 +100,7 @@ export default function HomePage() {
               <p className="mb-7 leading-relaxed" style={{ color: "oklch(0.74 0.05 230)" }}>
                 Tailored cleaning solutions for offices, childcare centres, retail spaces, warehouses and commercial properties. From ongoing cleaning to specialist projects, our team keeps your premises clean and well presented.
               </p>
-              <Link href="/contact" className="inline-flex items-center gap-2 text-sm font-bold uppercase tracking-wider" style={{ color: "oklch(0.62 0.22 230)", fontFamily: "'Barlow Condensed', sans-serif" }}>
-                Request a Quote <ArrowRight className="h-4 w-4" />
-              </Link>
+              <EnquiryFormDialog mode="commercial" />
             </article>
 
             <article className="border p-8 md:p-10" style={{ background: "oklch(0.13 0.05 245 / 0.92)", borderColor: "oklch(0.62 0.22 230 / 0.35)" }}>
@@ -116,9 +111,7 @@ export default function HomePage() {
               <p className="mb-7 leading-relaxed" style={{ color: "oklch(0.74 0.05 230)" }}>
                 Reliable cleaning teams to support your contracts across Victoria. With experienced cleaners and supervisors, we provide ongoing site coverage, additional staffing and specialist cleaning support while respecting your client relationships and service standards.
               </p>
-              <Link href="/contact" className="inline-flex items-center gap-2 text-sm font-bold uppercase tracking-wider" style={{ color: "oklch(0.62 0.22 230)", fontFamily: "'Barlow Condensed', sans-serif" }}>
-                Discuss a Partnership <ArrowRight className="h-4 w-4" />
-              </Link>
+              <EnquiryFormDialog mode="partner" />
             </article>
           </div>
         </div>
@@ -209,12 +202,8 @@ export default function HomePage() {
             Contact us for a direct customer quote or a subcontracting partnership discussion. We will help clarify the service, site location, timing and next steps.
           </p>
           <div className="mb-8 flex flex-col justify-center gap-4 sm:flex-row">
-            <Link href="/contact" className="inline-flex items-center justify-center gap-2 px-7 py-3 text-sm font-bold uppercase tracking-wider" style={{ background: "oklch(0.62 0.22 230)", color: "oklch(0.10 0.05 245)", fontFamily: "'Barlow Condensed', sans-serif" }}>
-              Request a Quote <ArrowRight className="h-4 w-4" />
-            </Link>
-            <Link href="/contact" className="inline-flex items-center justify-center gap-2 border px-7 py-3 text-sm font-bold uppercase tracking-wider" style={{ borderColor: "oklch(0.62 0.22 230)", color: "oklch(0.62 0.22 230)", fontFamily: "'Barlow Condensed', sans-serif" }}>
-              Discuss a Partnership <Handshake className="h-4 w-4" />
-            </Link>
+            <EnquiryFormDialog mode="commercial" />
+            <EnquiryFormDialog mode="partner" />
           </div>
           <div className="flex flex-col items-center justify-center gap-3 text-sm sm:flex-row sm:gap-8" style={{ color: "oklch(0.74 0.05 230)" }}>
             <a href={PHONE_HREF} className="inline-flex items-center gap-2 hover:underline"><Phone className="h-4 w-4" style={{ color: "oklch(0.62 0.22 230)" }} />{PHONE}</a>

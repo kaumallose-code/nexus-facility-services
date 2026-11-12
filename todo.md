@@ -14,3 +14,7 @@
 - [x] Interactively open and close the mobile menu on a routed page and verify the dropdown is above page content
 - [x] Add a session-based welcome-offer image carousel pop-up using the provided promotional images
 - [x] Add the attached text content to the Home page in a polished responsive section
+- [x] Add a Partner With Us form with company name, phone number, representative name, cleaning requirements, offered rates, and Send button routed to hr.admin@nexusfacility.au
+- [x] Add a Commercial Cleaning quote form with name, phone number, cleaning type, comments, and Send button routed to hr.admin@nexusfacility.au
+- [ ] Confirm the configured Web3Forms recipient delivers partnership and commercial quote submissions to hr.admin@nexusfacility.au (sandbox verification blocked by Web3Forms Cloudflare challenge)
+- [ ] Perform a real external submission test for both Home page enquiry forms after recipient confirmation (sandbox verification blocked by Web3Forms Cloudflare challenge)
