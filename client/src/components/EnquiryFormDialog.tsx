@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useId, useRef, useState } from "react";
 import { ArrowRight, Handshake, Loader2, Send } from "lucide-react";
 import {
   Dialog,
@@ -64,6 +64,20 @@ export default function EnquiryFormDialog({ mode }: { mode: FormMode }) {
   const [submitted, setSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submissionError, setSubmissionError] = useState(false);
+  const iframeRef = useRef<HTMLIFrameElement>(null);
+  const waitingForResponse = useRef(false);
+  const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const iframeName = `nexus-enquiry-${useId().replace(/:/g, "")}`;
+  const web3formsKey = import.meta.env.VITE_WEB3FORMS_KEY;
+  const successRedirect = typeof window === "undefined"
+    ? ""
+    : `${window.location.origin}/?enquiry=success`;
+
+  useEffect(() => {
+    return () => {
+      if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    };
+  }, []);
 
   const isPartner = mode === "partner";
   const update = (key: keyof FormState, value: string) => {
@@ -76,50 +90,45 @@ export default function EnquiryFormDialog({ mode }: { mode: FormMode }) {
       setForm(EMPTY_FORM);
       setSubmitted(false);
       setSubmissionError(false);
+      waitingForResponse.current = false;
+      if (timeoutRef.current) clearTimeout(timeoutRef.current);
     }
   };
 
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    setIsSubmitting(true);
     setSubmissionError(false);
 
-    const payload = isPartner
-      ? {
-          company: form.company,
-          representative_name: form.representativeName,
-          phone: form.phone,
-          cleaning_requirements: form.cleaningRequirements,
-          offered_rates: form.offeredRates,
-        }
-      : {
-          name: form.name,
-          phone: form.phone,
-          cleaning_type: form.cleaningType,
-          comments: form.message,
-        };
+    if (!web3formsKey || !successRedirect) {
+      setSubmissionError(true);
+      return;
+    }
+
+    // Native form submission avoids cross-origin JSON/CORS restrictions on the live domain.
+    // Web3Forms redirects the hidden iframe back to our origin only after acceptance.
+    waitingForResponse.current = true;
+    setIsSubmitting(true);
+    timeoutRef.current = setTimeout(() => {
+      if (!waitingForResponse.current) return;
+      waitingForResponse.current = false;
+      setIsSubmitting(false);
+      setSubmissionError(true);
+    }, 15000);
+    event.currentTarget.submit();
+  };
+
+  const handleIframeLoad = () => {
+    if (!waitingForResponse.current) return;
 
     try {
-      const response = await fetch("https://api.web3forms.com/submit", {
-        method: "POST",
-        headers: { "Content-Type": "application/json", Accept: "application/json" },
-        body: JSON.stringify({
-          access_key: import.meta.env.VITE_WEB3FORMS_KEY || "60b0c703-f29a-47e4-b929-39f1a114078a",
-          subject: isPartner
-            ? `New Partnership Enquiry from ${form.company} — Nexus Facility Group`
-            : `New Commercial Cleaning Quote from ${form.name} — Nexus Facility Group`,
-          from_name: "Nexus Facility Group Website",
-          ccemail: "hr.admin@nexusfacility.au",
-          ...payload,
-        }),
-      });
-      const result = await response.json();
-      if (!response.ok || result.success !== true) throw new Error("Submission failed");
+      const iframeUrl = iframeRef.current?.contentWindow?.location.href || "";
+      if (!iframeUrl.includes("enquiry=success")) return;
+      waitingForResponse.current = false;
+      if (timeoutRef.current) clearTimeout(timeoutRef.current);
+      setIsSubmitting(false);
       setSubmitted(true);
     } catch {
-      setSubmissionError(true);
-    } finally {
-      setIsSubmitting(false);
+      // The initial Web3Forms response is cross-origin. Wait for its same-origin success redirect.
     }
   };
 
@@ -173,35 +182,41 @@ export default function EnquiryFormDialog({ mode }: { mode: FormMode }) {
             </button>
           </div>
         ) : (
-          <form onSubmit={handleSubmit} className="space-y-5">
+          <form action="https://api.web3forms.com/submit" method="POST" target={iframeName} onSubmit={handleSubmit} className="space-y-5">
+            <input type="hidden" name="access_key" value={web3formsKey || ""} />
+            <input type="hidden" name="subject" value={isPartner ? "New Partnership Enquiry — Nexus Facility Group" : "New Commercial Cleaning Quote — Nexus Facility Group"} />
+            <input type="hidden" name="from_name" value="Nexus Facility Group Website" />
+            <input type="hidden" name="ccemail" value="hr.admin@nexusfacility.au" />
+            <input type="hidden" name="redirect" value={successRedirect} />
+            <input type="checkbox" name="botcheck" tabIndex={-1} aria-hidden="true" className="hidden" />
             {isPartner ? (
               <>
                 <Field label="Company name">
-                  <input required value={form.company} onChange={(event) => update("company", event.target.value)} className="w-full px-3 py-2.5 text-sm outline-none" style={inputStyle} />
+                  <input required name="company" value={form.company} onChange={(event) => update("company", event.target.value)} className="w-full px-3 py-2.5 text-sm outline-none" style={inputStyle} />
                 </Field>
                 <Field label="Representative name">
-                  <input required value={form.representativeName} onChange={(event) => update("representativeName", event.target.value)} className="w-full px-3 py-2.5 text-sm outline-none" style={inputStyle} />
+                  <input required name="representative_name" value={form.representativeName} onChange={(event) => update("representativeName", event.target.value)} className="w-full px-3 py-2.5 text-sm outline-none" style={inputStyle} />
                 </Field>
                 <Field label="Phone number">
-                  <input required type="tel" value={form.phone} onChange={(event) => update("phone", event.target.value)} className="w-full px-3 py-2.5 text-sm outline-none" style={inputStyle} />
+                  <input required type="tel" name="phone" value={form.phone} onChange={(event) => update("phone", event.target.value)} className="w-full px-3 py-2.5 text-sm outline-none" style={inputStyle} />
                 </Field>
                 <Field label="Cleaning requirements">
-                  <textarea required rows={4} value={form.cleaningRequirements} onChange={(event) => update("cleaningRequirements", event.target.value)} className="w-full resize-y px-3 py-2.5 text-sm outline-none" style={inputStyle} />
+                  <textarea required name="cleaning_requirements" rows={4} value={form.cleaningRequirements} onChange={(event) => update("cleaningRequirements", event.target.value)} className="w-full resize-y px-3 py-2.5 text-sm outline-none" style={inputStyle} />
                 </Field>
                 <Field label="Rates you would like to offer">
-                  <textarea required rows={3} value={form.offeredRates} onChange={(event) => update("offeredRates", event.target.value)} className="w-full resize-y px-3 py-2.5 text-sm outline-none" style={inputStyle} />
+                  <textarea required name="offered_rates" rows={3} value={form.offeredRates} onChange={(event) => update("offeredRates", event.target.value)} className="w-full resize-y px-3 py-2.5 text-sm outline-none" style={inputStyle} />
                 </Field>
               </>
             ) : (
               <>
                 <Field label="Name">
-                  <input required value={form.name} onChange={(event) => update("name", event.target.value)} className="w-full px-3 py-2.5 text-sm outline-none" style={inputStyle} />
+                  <input required name="name" value={form.name} onChange={(event) => update("name", event.target.value)} className="w-full px-3 py-2.5 text-sm outline-none" style={inputStyle} />
                 </Field>
                 <Field label="Phone number">
-                  <input required type="tel" value={form.phone} onChange={(event) => update("phone", event.target.value)} className="w-full px-3 py-2.5 text-sm outline-none" style={inputStyle} />
+                  <input required type="tel" name="phone" value={form.phone} onChange={(event) => update("phone", event.target.value)} className="w-full px-3 py-2.5 text-sm outline-none" style={inputStyle} />
                 </Field>
                 <Field label="Type of cleaning">
-                  <select required value={form.cleaningType} onChange={(event) => update("cleaningType", event.target.value)} className="w-full px-3 py-2.5 text-sm outline-none" style={inputStyle}>
+                  <select required name="cleaning_type" value={form.cleaningType} onChange={(event) => update("cleaningType", event.target.value)} className="w-full px-3 py-2.5 text-sm outline-none" style={inputStyle}>
                     <option value="" disabled>Select a service</option>
                     <option value="Commercial and office cleaning">Commercial and office cleaning</option>
                     <option value="Childcare and education cleaning">Childcare and education cleaning</option>
@@ -216,7 +231,7 @@ export default function EnquiryFormDialog({ mode }: { mode: FormMode }) {
                   </select>
                 </Field>
                 <Field label="Comments">
-                  <textarea required rows={5} value={form.message} onChange={(event) => update("message", event.target.value)} className="w-full resize-y px-3 py-2.5 text-sm outline-none" style={inputStyle} />
+                  <textarea required name="comments" rows={5} value={form.message} onChange={(event) => update("message", event.target.value)} className="w-full resize-y px-3 py-2.5 text-sm outline-none" style={inputStyle} />
                 </Field>
               </>
             )}
@@ -233,6 +248,7 @@ export default function EnquiryFormDialog({ mode }: { mode: FormMode }) {
             </button>
           </form>
         )}
+        <iframe ref={iframeRef} name={iframeName} title="Hidden enquiry submission target" className="hidden" aria-hidden="true" onLoad={handleIframeLoad} />
       </DialogContent>
     </Dialog>
   );

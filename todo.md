@@ -18,3 +18,7 @@
 - [x] Add a Commercial Cleaning quote form with name, phone number, cleaning type, comments, and Send button routed to hr.admin@nexusfacility.au
 - [ ] Confirm the configured Web3Forms recipient delivers partnership and commercial quote submissions to hr.admin@nexusfacility.au (sandbox verification blocked by Web3Forms Cloudflare challenge)
 - [ ] Perform a real external submission test for both Home page enquiry forms after recipient confirmation (sandbox verification blocked by Web3Forms Cloudflare challenge)
+- [x] Replace the JSON fetch submission with a native browser-compatible Web3Forms POST for both enquiry forms
+- [ ] Retest the published live enquiry forms after the compatibility fix is published
+- [x] Show enquiry success only after a confirmed native Web3Forms response rather than immediately after submit
+- [x] Handle native Web3Forms iframe failure or timeout without displaying a false success state
