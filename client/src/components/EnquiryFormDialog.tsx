@@ -164,7 +164,7 @@ export default function EnquiryFormDialog({ mode }: { mode: FormMode }) {
             {title}
           </DialogTitle>
           <DialogDescription style={{ color: "oklch(0.72 0.05 230)" }}>
-            {description} Submissions are sent to hr.admin@nexusfacility.au.
+            {description} Submissions are sent to admin.hr@nexusfacility.au.
           </DialogDescription>
         </DialogHeader>
 
@@ -186,7 +186,7 @@ export default function EnquiryFormDialog({ mode }: { mode: FormMode }) {
             <input type="hidden" name="access_key" value={web3formsKey || ""} />
             <input type="hidden" name="subject" value={isPartner ? "New Partnership Enquiry — Nexus Facility Group" : "New Commercial Cleaning Quote — Nexus Facility Group"} />
             <input type="hidden" name="from_name" value="Nexus Facility Group Website" />
-            <input type="hidden" name="ccemail" value="hr.admin@nexusfacility.au" />
+            <input type="hidden" name="ccemail" value="admin.hr@nexusfacility.au" />
             <input type="hidden" name="redirect" value={successRedirect} />
             <input type="checkbox" name="botcheck" tabIndex={-1} aria-hidden="true" className="hidden" />
             {isPartner ? (
@@ -238,7 +238,7 @@ export default function EnquiryFormDialog({ mode }: { mode: FormMode }) {
 
             {submissionError && (
               <p role="alert" className="text-sm" style={{ color: "oklch(0.72 0.18 25)" }}>
-                We could not send the enquiry. Please call 0477 376 440 or email hr.admin@nexusfacility.au.
+                We could not send the enquiry. Please call 0477 376 440 or email admin.hr@nexusfacility.au.
               </p>
             )}
 

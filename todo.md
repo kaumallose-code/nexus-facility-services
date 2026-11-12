@@ -14,11 +14,15 @@
 - [x] Interactively open and close the mobile menu on a routed page and verify the dropdown is above page content
 - [x] Add a session-based welcome-offer image carousel pop-up using the provided promotional images
 - [x] Add the attached text content to the Home page in a polished responsive section
-- [x] Add a Partner With Us form with company name, phone number, representative name, cleaning requirements, offered rates, and Send button routed to hr.admin@nexusfacility.au
-- [x] Add a Commercial Cleaning quote form with name, phone number, cleaning type, comments, and Send button routed to hr.admin@nexusfacility.au
-- [ ] Confirm the configured Web3Forms recipient delivers partnership and commercial quote submissions to hr.admin@nexusfacility.au (sandbox verification blocked by Web3Forms Cloudflare challenge)
-- [ ] Perform a real external submission test for both Home page enquiry forms after recipient confirmation (sandbox verification blocked by Web3Forms Cloudflare challenge)
+- [x] Add a Partner With Us form with company name, phone number, representative name, cleaning requirements, offered rates, and Send button routed to admin.hr@nexusfacility.au
+- [x] Add a Commercial Cleaning quote form with name, phone number, cleaning type, comments, and Send button routed to admin.hr@nexusfacility.au
+- [ ] Confirm the configured Web3Forms recipient delivers partnership and commercial quote submissions to admin.hr@nexusfacility.au (live verification blocked by Web3Forms domain restriction)
+- [ ] Perform a real external submission test for both Home page enquiry forms after recipient confirmation (live verification blocked by Web3Forms domain restriction)
 - [x] Replace the JSON fetch submission with a native browser-compatible Web3Forms POST for both enquiry forms
 - [ ] Retest the published live enquiry forms after the compatibility fix is published
 - [x] Show enquiry success only after a confirmed native Web3Forms response rather than immediately after submit
 - [x] Handle native Web3Forms iframe failure or timeout without displaying a false success state
+- [ ] Confirm that nexusfacility.au and www.nexusfacility.au are authorized domains for the configured Web3Forms access key
+- [ ] Re-run the live form tests after domain authorization and confirm the success redirect and admin.hr@nexusfacility.au recipient payload
+- [x] Update both enquiry-form payloads, copy, tests, and verification notes to use admin.hr@nexusfacility.au
+- [ ] Reconfirm the corrected admin.hr@nexusfacility.au recipient after the Web3Forms domain restriction is resolved
