@@ -1,4 +1,4 @@
-import { useEffect, useId, useRef, useState } from "react";
+import { useState, type ReactNode } from "react";
 import { ArrowRight, Handshake, Loader2, Send } from "lucide-react";
 import {
   Dialog,
@@ -8,6 +8,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { trpc } from "@/lib/trpc";
 
 type FormMode = "partner" | "commercial";
 
@@ -46,7 +47,7 @@ function Field({
 }: {
   label: string;
   required?: boolean;
-  children: React.ReactNode;
+  children: ReactNode;
 }) {
   return (
     <label className="block space-y-2">
@@ -64,20 +65,7 @@ export default function EnquiryFormDialog({ mode }: { mode: FormMode }) {
   const [submitted, setSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submissionError, setSubmissionError] = useState(false);
-  const iframeRef = useRef<HTMLIFrameElement>(null);
-  const waitingForResponse = useRef(false);
-  const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const iframeName = `nexus-enquiry-${useId().replace(/:/g, "")}`;
-  const web3formsKey = import.meta.env.VITE_WEB3FORMS_KEY;
-  const successRedirect = typeof window === "undefined"
-    ? ""
-    : `${window.location.origin}/?enquiry=success`;
-
-  useEffect(() => {
-    return () => {
-      if (timeoutRef.current) clearTimeout(timeoutRef.current);
-    };
-  }, []);
+  const submitEnquiry = trpc.enquiry.submit.useMutation();
 
   const isPartner = mode === "partner";
   const update = (key: keyof FormState, value: string) => {
@@ -90,45 +78,33 @@ export default function EnquiryFormDialog({ mode }: { mode: FormMode }) {
       setForm(EMPTY_FORM);
       setSubmitted(false);
       setSubmissionError(false);
-      waitingForResponse.current = false;
-      if (timeoutRef.current) clearTimeout(timeoutRef.current);
+      submitEnquiry.reset();
     }
   };
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setSubmissionError(false);
-
-    if (!web3formsKey || !successRedirect) {
-      setSubmissionError(true);
-      return;
-    }
-
-    // Native form submission avoids cross-origin JSON/CORS restrictions on the live domain.
-    // Web3Forms redirects the hidden iframe back to our origin only after acceptance.
-    waitingForResponse.current = true;
     setIsSubmitting(true);
-    timeoutRef.current = setTimeout(() => {
-      if (!waitingForResponse.current) return;
-      waitingForResponse.current = false;
-      setIsSubmitting(false);
-      setSubmissionError(true);
-    }, 15000);
-    event.currentTarget.submit();
-  };
-
-  const handleIframeLoad = () => {
-    if (!waitingForResponse.current) return;
 
     try {
-      const iframeUrl = iframeRef.current?.contentWindow?.location.href || "";
-      if (!iframeUrl.includes("enquiry=success")) return;
-      waitingForResponse.current = false;
-      if (timeoutRef.current) clearTimeout(timeoutRef.current);
-      setIsSubmitting(false);
+      await submitEnquiry.mutateAsync({
+        name: isPartner ? form.representativeName : form.name,
+        phone: form.phone,
+        email: "",
+        company: isPartner ? form.company : undefined,
+        representativeName: isPartner ? form.representativeName : undefined,
+        cleaningRequirements: isPartner ? form.cleaningRequirements : undefined,
+        offeredRates: isPartner ? form.offeredRates : undefined,
+        cleaningType: isPartner ? undefined : form.cleaningType,
+        message: isPartner ? undefined : form.message,
+        source: isPartner ? "partner_form" : "commercial_form",
+      });
       setSubmitted(true);
     } catch {
-      // The initial Web3Forms response is cross-origin. Wait for its same-origin success redirect.
+      setSubmissionError(true);
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -164,7 +140,7 @@ export default function EnquiryFormDialog({ mode }: { mode: FormMode }) {
             {title}
           </DialogTitle>
           <DialogDescription style={{ color: "oklch(0.72 0.05 230)" }}>
-            {description} Submissions are sent to admin.hr@nexusfacility.au.
+            {description} Submissions are sent securely to admin.hr@nexusfacility.au.
           </DialogDescription>
         </DialogHeader>
 
@@ -182,13 +158,7 @@ export default function EnquiryFormDialog({ mode }: { mode: FormMode }) {
             </button>
           </div>
         ) : (
-          <form action="https://api.web3forms.com/submit" method="POST" target={iframeName} onSubmit={handleSubmit} className="space-y-5">
-            <input type="hidden" name="access_key" value={web3formsKey || ""} />
-            <input type="hidden" name="subject" value={isPartner ? "New Partnership Enquiry — Nexus Facility Group" : "New Commercial Cleaning Quote — Nexus Facility Group"} />
-            <input type="hidden" name="from_name" value="Nexus Facility Group Website" />
-            <input type="hidden" name="ccemail" value="admin.hr@nexusfacility.au" />
-            <input type="hidden" name="redirect" value={successRedirect} />
-            <input type="checkbox" name="botcheck" tabIndex={-1} aria-hidden="true" className="hidden" />
+          <form onSubmit={handleSubmit} className="space-y-5">
             {isPartner ? (
               <>
                 <Field label="Company name">
@@ -248,7 +218,6 @@ export default function EnquiryFormDialog({ mode }: { mode: FormMode }) {
             </button>
           </form>
         )}
-        <iframe ref={iframeRef} name={iframeName} title="Hidden enquiry submission target" className="hidden" aria-hidden="true" onLoad={handleIframeLoad} />
       </DialogContent>
     </Dialog>
   );
