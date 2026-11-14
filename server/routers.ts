@@ -14,7 +14,6 @@ async function sendEnquiryEmail(data: {
   company?: string;
   representativeName?: string;
   cleaningRequirements?: string;
-  offeredRates?: string;
   cleaningType?: string;
   service?: string;
   message?: string;
@@ -51,7 +50,6 @@ async function sendEnquiryEmail(data: {
     ["Email", data.email || "—"],
     ["Cleaning Type", data.cleaningType || data.service || "—"],
     ["Cleaning Requirements", data.cleaningRequirements || "—"],
-    ["Rates Offered", data.offeredRates || "—"],
     ["Suburb", data.suburb || "—"],
     ["Property Size", data.propertySize || "—"],
     ["Comments / Message", data.message || "—"],
@@ -150,7 +148,6 @@ export const appRouter = router({
           company: z.string().optional(),
           representativeName: z.string().optional(),
           cleaningRequirements: z.string().optional(),
-          offeredRates: z.string().optional(),
           cleaningType: z.string().optional(),
           service: z.string().optional(),
           message: z.string().optional(),

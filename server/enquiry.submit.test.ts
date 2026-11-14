@@ -67,7 +67,7 @@ describe("enquiry.submit", () => {
     expect(result).toEqual({ success: true });
   });
 
-  it("accepts a partnership enquiry with company and offered rate details", async () => {
+  it("accepts a partnership enquiry with company and cleaning requirements", async () => {
     const ctx = createPublicContext();
     const caller = appRouter.createCaller(ctx);
 
@@ -77,7 +77,6 @@ describe("enquiry.submit", () => {
       company: "Example Cleaning Company",
       representativeName: "Alex Manager",
       cleaningRequirements: "Relief team for three commercial sites across Melbourne.",
-      offeredRates: "$42 per hour, negotiable by scope.",
       source: "partner_form",
     });
 

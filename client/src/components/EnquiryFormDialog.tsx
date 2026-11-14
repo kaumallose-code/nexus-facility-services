@@ -18,7 +18,6 @@ type FormState = {
   name: string;
   phone: string;
   cleaningRequirements: string;
-  offeredRates: string;
   cleaningType: string;
   message: string;
 };
@@ -29,7 +28,6 @@ const EMPTY_FORM: FormState = {
   name: "",
   phone: "",
   cleaningRequirements: "",
-  offeredRates: "",
   cleaningType: "",
   message: "",
 };
@@ -95,7 +93,6 @@ export default function EnquiryFormDialog({ mode }: { mode: FormMode }) {
         company: isPartner ? form.company : undefined,
         representativeName: isPartner ? form.representativeName : undefined,
         cleaningRequirements: isPartner ? form.cleaningRequirements : undefined,
-        offeredRates: isPartner ? form.offeredRates : undefined,
         cleaningType: isPartner ? undefined : form.cleaningType,
         message: isPartner ? undefined : form.message,
         source: isPartner ? "partner_form" : "commercial_form",
@@ -172,9 +169,6 @@ export default function EnquiryFormDialog({ mode }: { mode: FormMode }) {
                 </Field>
                 <Field label="Cleaning requirements">
                   <textarea required name="cleaning_requirements" rows={4} value={form.cleaningRequirements} onChange={(event) => update("cleaningRequirements", event.target.value)} className="w-full resize-y px-3 py-2.5 text-sm outline-none" style={inputStyle} />
-                </Field>
-                <Field label="Rates you would like to offer">
-                  <textarea required name="offered_rates" rows={3} value={form.offeredRates} onChange={(event) => update("offeredRates", event.target.value)} className="w-full resize-y px-3 py-2.5 text-sm outline-none" style={inputStyle} />
                 </Field>
               </>
             ) : (
