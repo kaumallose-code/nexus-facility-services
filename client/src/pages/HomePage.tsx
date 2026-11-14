@@ -25,6 +25,7 @@ const FLOOR_IMAGE = "/manus-storage/nexus-floor-stripping-sealing_9a38d672.jpg";
 const WINDOW_IMAGE = "/manus-storage/nexus-window-cleaning_2d37ad41.jpg";
 const POST_CONSTRUCTION_IMAGE = "/manus-storage/nexus-post-construction-cleaning-branded_b62bf726.jpg";
 const PRESSURE_WASHING_IMAGE = "/manus-storage/nexus-pressure-washing-branded_caaf0ca2.jpg";
+const CARPET_IMAGE = "/manus-storage/nexus-carpet-upholstery-steam-cleaning_5a39a508.jpg";
 const PHONE = "0477 376 440";
 const PHONE_HREF = "tel:0477376440";
 const EMAIL = "admin.hr@nexusfacility.au";
@@ -37,7 +38,7 @@ const SERVICE_CARDS = [
   { title: "Water Damage Restoration", description: "Assessment, extraction, drying and moisture-management support for affected properties.", image: WATER_IMAGE, href: "/water-damage-restoration" },
   { title: "Mould Remediation", description: "Careful assessment, containment and cleaning support guided by applicable S520 principles.", image: MOULD_IMAGE, href: "/mould-remediation" },
   { title: "Floor Stripping, Sealing & Polishing", description: "Floor care programs that restore presentation and protect hard-wearing surfaces.", image: FLOOR_IMAGE, href: "/services" },
-  { title: "Carpet & Upholstery Steam Cleaning", description: "Deep extraction for carpets, rugs and upholstery in homes and workplaces.", image: HOME_IMAGE, href: "/services" },
+  { title: "Carpet & Upholstery Steam Cleaning", description: "Deep extraction for carpets, rugs and upholstery in homes and workplaces.", image: CARPET_IMAGE, href: "/services" },
   { title: "Window & External Cleaning", description: "Professional internal, external and high-reach window cleaning support.", image: WINDOW_IMAGE, href: "/services" },
   { title: "Pressure Washing & Specialist Cleaning", description: "Exterior and specialist cleaning for paths, facades, driveways and shared areas.", image: PRESSURE_WASHING_IMAGE, href: "/services" },
 ];

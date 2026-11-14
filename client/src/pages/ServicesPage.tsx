@@ -11,6 +11,7 @@ const FLOOR_IMAGE = "/manus-storage/nexus-floor-stripping-sealing_9a38d672.jpg";
 const WINDOW_IMAGE = "/manus-storage/nexus-window-cleaning_2d37ad41.jpg";
 const POST_CONSTRUCTION_IMAGE = "/manus-storage/nexus-post-construction-cleaning-branded_b62bf726.jpg";
 const PRESSURE_WASHING_IMAGE = "/manus-storage/nexus-pressure-washing-branded_caaf0ca2.jpg";
+const CARPET_IMAGE = "/manus-storage/nexus-carpet-upholstery-steam-cleaning_5a39a508.jpg";
 
 const SERVICES = [
   { icon: Building2, label: "Commercial Cleaning", desc: "Professional cleaning for offices, retail spaces, medical centres, warehouses and corporate facilities.", image: SERVICES_BG, href: "/contact", color: "oklch(0.65 0.20 230)" },
@@ -20,7 +21,7 @@ const SERVICES = [
   { icon: Droplets, label: "Water Damage Restoration", desc: "Water damage assessment, extraction, structural drying, moisture monitoring and restoration support.", image: WATER_IMAGE, href: "/water-damage-restoration", color: "oklch(0.65 0.20 220)" },
   { icon: ShieldCheck, label: "Mould Remediation", desc: "Assessment, containment and appropriate cleaning methods guided by applicable ANSI/IICRC S520 principles.", image: MOULD_IMAGE, href: "/mould-remediation", color: "oklch(0.65 0.15 150)" },
   { icon: Layers, label: "Floor Stripping, Sealing & Polishing", desc: "Floor care programs that remove old coatings, protect surfaces and restore presentation.", image: FLOOR_IMAGE, href: "/contact", color: "oklch(0.65 0.20 330)" },
-  { icon: Droplets, label: "Carpet & Upholstery Steam Cleaning", desc: "Deep extraction for carpets, rugs and upholstery in commercial and residential environments.", image: HOME_IMAGE, href: "/contact", color: "oklch(0.65 0.20 280)" },
+  { icon: Droplets, label: "Carpet & Upholstery Steam Cleaning", desc: "Deep extraction for carpets, rugs and upholstery in commercial and residential environments.", image: CARPET_IMAGE, href: "/contact", color: "oklch(0.65 0.20 280)" },
   { icon: Sparkles, label: "Window & External Cleaning", desc: "Professional internal, external and high-reach window cleaning with streak-free results.", image: WINDOW_IMAGE, href: "/contact", color: "oklch(0.65 0.18 90)" },
   { icon: Wind, label: "Pressure Washing & Specialist Cleaning", desc: "High-pressure and specialist cleaning for paths, facades, driveways, car parks and shared areas.", image: PRESSURE_WASHING_IMAGE, href: "/contact", color: "oklch(0.65 0.12 200)" },
 ];
