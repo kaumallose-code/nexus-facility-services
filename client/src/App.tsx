@@ -16,6 +16,8 @@ import AreasPage from "./pages/AreasPage";
 import BlogPage from "./pages/BlogPage";
 import ContactPage from "./pages/ContactPage";
 import ReviewsPage from "./pages/ReviewsPage";
+import WaterDamageRestorationPage from "./pages/WaterDamageRestorationPage";
+import MouldRemediationPage from "./pages/MouldRemediationPage";
 import NotFound from "./pages/NotFound";
 
 function Router() {
@@ -24,6 +26,8 @@ function Router() {
       <Route path="/" component={HomePage} />
       <Route path="/about" component={AboutPage} />
       <Route path="/services" component={ServicesPage} />
+      <Route path="/water-damage-restoration" component={WaterDamageRestorationPage} />
+      <Route path="/mould-remediation" component={MouldRemediationPage} />
       <Route path="/offers" component={OffersPage} />
       <Route path="/pricing" component={PricingPage} />
       <Route path="/areas" component={AreasPage} />

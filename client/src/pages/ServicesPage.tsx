@@ -1,202 +1,35 @@
+import { ArrowRight, Building2, Droplets, HardHat, Layers, ShieldCheck, Sparkles, Wind } from "lucide-react";
 import { Link } from "wouter";
-import {
-  Building2,
-  Home,
-  HardHat,
-  Droplets,
-  CircleDot,
-  Layers,
-  Wind,
-  Sparkles,
-} from "lucide-react";
 
 const SERVICES_BG = "/manus-storage/services_bg_escalator_534aa57a.png";
+const WATER_IMAGE = "/manus-storage/nexus-water-restoration_61e888ba.jpg";
+const MOULD_IMAGE = "/manus-storage/nexus-mould-remediation_291a09b4.jpg";
+const VAN_IMAGE = "/manus-storage/nexus_van_warehouse_4e0b9698.jpg";
+const CHILDCARE_IMAGE = "/manus-storage/welcome_offer_childcare_48da7dbf.png";
+const HOME_IMAGE = "/manus-storage/welcome_offer_home_exterior_6a8f7cc5.png";
+const WINDOW_IMAGE = "/manus-storage/welcome_offer_windows_adf867f5.png";
 
 const SERVICES = [
-  {
-    icon: Building2,
-    label: "Commercial Cleaning",
-    desc: "Professional cleaning for offices, retail spaces, medical centres, warehouses and corporate facilities. Scheduled maintenance plans available 7 days a week.",
-    color: "oklch(0.65 0.20 230)",
-  },
-  {
-    icon: Home,
-    label: "Domestic Cleaning",
-    desc: "Thorough residential cleaning tailored to your home. Regular or one-off deep cleans for houses, apartments and townhouses across Melbourne.",
-    color: "oklch(0.65 0.15 160)",
-  },
-  {
-    icon: HardHat,
-    label: "Post Construction Cleaning",
-    desc: "Complete builders clean after renovations or new builds. We remove dust, debris and construction residue to leave your property move-in ready.",
-    color: "oklch(0.65 0.18 50)",
-  },
-  {
-    icon: Droplets,
-    label: "Carpet Steam Cleaning",
-    desc: "Deep steam extraction for carpets, rugs and upholstery. Removes stains, allergens and bacteria for a healthier indoor environment.",
-    color: "oklch(0.65 0.20 280)",
-  },
-  {
-    icon: CircleDot,
-    label: "Floor Scrubbing",
-    desc: "Industrial-grade floor scrubbing for commercial and industrial spaces. Restores tile, concrete and vinyl floors to their original condition.",
-    color: "oklch(0.65 0.15 30)",
-  },
-  {
-    icon: Layers,
-    label: "Floor Stripped & Sealed",
-    desc: "Complete floor strip, seal and polish service. We remove old coatings, apply fresh sealant and buff to a high-gloss finish for long-lasting protection.",
-    color: "oklch(0.65 0.20 330)",
-  },
-  {
-    icon: Wind,
-    label: "Pressure Washing",
-    desc: "High-pressure cleaning for driveways, facades, car parks, pathways and outdoor areas. Removes grime, mould and built-up dirt effectively.",
-    color: "oklch(0.65 0.12 200)",
-  },
-  {
-    icon: Sparkles,
-    label: "Window Cleaning",
-    desc: "Interior and exterior window cleaning for residential and commercial properties. Streak-free results using professional equipment and techniques.",
-    color: "oklch(0.65 0.18 90)",
-  },
+  { icon: Building2, label: "Commercial Cleaning", desc: "Professional cleaning for offices, retail spaces, medical centres, warehouses and corporate facilities.", image: SERVICES_BG, href: "/contact", color: "oklch(0.65 0.20 230)" },
+  { icon: Sparkles, label: "Childcare & Educational Facilities", desc: "Hygiene-focused cleaning programs for learning environments, shared facilities and high-touch areas.", image: CHILDCARE_IMAGE, href: "/contact", color: "oklch(0.65 0.15 160)" },
+  { icon: Wind, label: "Warehouse & Industrial Cleaning", desc: "Structured cleaning support for operational, staff, warehouse and high-traffic areas.", image: VAN_IMAGE, href: "/contact", color: "oklch(0.65 0.18 50)" },
+  { icon: HardHat, label: "Builders & Post-Construction", desc: "Dust, debris and construction-residue removal for renovations, handovers and make-good projects.", image: HOME_IMAGE, href: "/contact", color: "oklch(0.65 0.20 280)" },
+  { icon: Droplets, label: "Water Damage Restoration", desc: "Water damage assessment, extraction, structural drying, moisture monitoring and restoration support.", image: WATER_IMAGE, href: "/water-damage-restoration", color: "oklch(0.65 0.20 220)" },
+  { icon: ShieldCheck, label: "Mould Remediation", desc: "Assessment, containment and appropriate cleaning methods guided by applicable ANSI/IICRC S520 principles.", image: MOULD_IMAGE, href: "/mould-remediation", color: "oklch(0.65 0.15 150)" },
+  { icon: Layers, label: "Floor Stripping, Sealing & Polishing", desc: "Floor care programs that remove old coatings, protect surfaces and restore presentation.", image: SERVICES_BG, href: "/contact", color: "oklch(0.65 0.20 330)" },
+  { icon: Droplets, label: "Carpet & Upholstery Steam Cleaning", desc: "Deep extraction for carpets, rugs and upholstery in commercial and residential environments.", image: HOME_IMAGE, href: "/contact", color: "oklch(0.65 0.20 280)" },
+  { icon: Sparkles, label: "Window & External Cleaning", desc: "Professional internal, external and high-reach window cleaning with streak-free results.", image: WINDOW_IMAGE, href: "/contact", color: "oklch(0.65 0.18 90)" },
+  { icon: Wind, label: "Pressure Washing & Specialist Cleaning", desc: "High-pressure and specialist cleaning for paths, facades, driveways, car parks and shared areas.", image: VAN_IMAGE, href: "/contact", color: "oklch(0.65 0.12 200)" },
 ];
 
 export default function ServicesPage() {
   return (
-    <div className="min-h-screen relative">
-      {/* Full-page background photo with transparency overlay */}
-      <div
-        className="fixed inset-0 z-0"
-        style={{
-          backgroundImage: `url(${SERVICES_BG})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          backgroundRepeat: "no-repeat",
-        }}
-      />
-      {/* Dark transparent overlay so text is readable */}
-      <div
-        className="fixed inset-0 z-0"
-        style={{ background: "rgba(5, 15, 30, 0.82)" }}
-      />
+    <div className="min-h-screen" style={{ background: "oklch(0.10 0.05 245)" }}>
+      <section className="relative overflow-hidden border-b" style={{ borderColor: "oklch(0.75 0.18 210 / 0.15)" }}><div className="absolute inset-0 bg-cover bg-center opacity-25" style={{ backgroundImage: `url(${SERVICES_BG})` }} /><div className="relative container py-24 text-center"><p className="mb-4 text-xs font-bold uppercase tracking-[0.2em]" style={{ color: "oklch(0.62 0.22 230)" }}>Commercial · Specialist · Restoration</p><h1 className="mb-5 text-5xl font-black uppercase md:text-7xl" style={{ color: "oklch(0.95 0.01 240)", fontFamily: "'Barlow Condensed', sans-serif" }}>Our Services</h1><p className="mx-auto max-w-3xl text-lg leading-relaxed" style={{ color: "oklch(0.78 0.05 230)" }}>Professional cleaning, facility services, water damage restoration and mould remediation for commercial and residential properties across Melbourne and Victoria.</p></div></section>
 
-      {/* Page content on top of background */}
-      <div className="relative z-10">
-        {/* Hero Section */}
-        <section className="py-28 px-4 text-center">
-          <h1
-            className="text-5xl md:text-6xl font-bold mb-4 uppercase tracking-wider"
-            style={{
-              color: "oklch(0.95 0.01 240)",
-              fontFamily: "'Barlow Condensed', sans-serif",
-            }}
-          >
-            Our Services
-          </h1>
-          <p
-            className="text-lg md:text-xl max-w-2xl mx-auto"
-            style={{ color: "oklch(0.80 0.03 230)" }}
-          >
-            Professional cleaning solutions for every space. From homes to
-            hospitals, offices to warehouses — we deliver spotless results every
-            time.
-          </p>
-        </section>
+      <section className="py-20"><div className="container"><div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">{SERVICES.map((svc) => <article key={svc.label} className="group overflow-hidden border" style={{ background: "oklch(0.12 0.05 245)", borderColor: "oklch(0.75 0.18 210 / 0.16)" }}><div className="h-48 bg-cover bg-center transition-transform duration-300 group-hover:scale-105" style={{ backgroundImage: `linear-gradient(180deg, transparent, oklch(0.08 0.04 245 / 0.72)), url(${svc.image})` }} /><div className="p-7"><svc.icon className="mb-5 h-8 w-8" style={{ color: svc.color }} /><h2 className="mb-3 text-2xl font-black uppercase" style={{ color: "oklch(0.95 0.01 240)", fontFamily: "'Barlow Condensed', sans-serif" }}>{svc.label}</h2><p className="mb-6 min-h-14 text-sm leading-relaxed" style={{ color: "oklch(0.72 0.05 230)" }}>{svc.desc}</p><Link href={svc.href} className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider" style={{ color: svc.color, fontFamily: "'Barlow Condensed', sans-serif" }}>Learn More <ArrowRight className="h-4 w-4" /></Link></div></article>)}</div></div></section>
 
-        {/* Services Grid */}
-        <section className="pb-20 px-4">
-          <div className="max-w-6xl mx-auto">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {SERVICES.map((svc, i) => (
-                <div
-                  key={i}
-                  className="group relative rounded-xl p-8 transition-all duration-300 hover:-translate-y-1 backdrop-blur-sm"
-                  style={{
-                    background: "rgba(10, 25, 50, 0.75)",
-                    border: `1px solid rgba(100, 150, 220, 0.15)`,
-                  }}
-                >
-                  {/* Icon */}
-                  <div
-                    className="w-14 h-14 rounded-lg flex items-center justify-center mb-5"
-                    style={{ background: `${svc.color}20` }}
-                  >
-                    <svc.icon size={28} style={{ color: svc.color }} />
-                  </div>
-
-                  {/* Title */}
-                  <h3
-                    className="text-xl font-bold mb-3 uppercase tracking-wide"
-                    style={{
-                      color: "oklch(0.95 0.01 240)",
-                      fontFamily: "'Barlow Condensed', sans-serif",
-                    }}
-                  >
-                    {svc.label}
-                  </h3>
-
-                  {/* Description */}
-                  <p
-                    className="text-sm leading-relaxed"
-                    style={{ color: "oklch(0.72 0.05 230)" }}
-                  >
-                    {svc.desc}
-                  </p>
-
-                  {/* Accent line */}
-                  <div
-                    className="absolute bottom-0 left-8 right-8 h-0.5 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                    style={{ background: svc.color }}
-                  />
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* CTA Section */}
-        <section
-          className="py-16 px-4 backdrop-blur-sm"
-          style={{ background: "rgba(5, 15, 30, 0.7)" }}
-        >
-          <div className="max-w-3xl mx-auto text-center">
-            <h2
-              className="text-3xl font-bold mb-4 uppercase"
-              style={{
-                color: "oklch(0.95 0.01 240)",
-                fontFamily: "'Barlow Condensed', sans-serif",
-              }}
-            >
-              Need a Custom Cleaning Solution?
-            </h2>
-            <p className="mb-8" style={{ color: "oklch(0.72 0.05 230)" }}>
-              Every space is different. Contact us for a free, no-obligation quote
-              tailored to your specific cleaning requirements.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link
-                href="/contact"
-                className="inline-flex items-center justify-center gap-2 px-8 py-3 rounded-md font-bold uppercase tracking-wider text-white transition-all"
-                style={{ background: "oklch(0.55 0.20 230)" }}
-              >
-                Get a Free Quote
-              </Link>
-              <a
-                href="tel:0477376440"
-                className="inline-flex items-center justify-center gap-2 px-8 py-3 rounded-md font-bold uppercase tracking-wider transition-all"
-                style={{
-                  color: "oklch(0.65 0.20 230)",
-                  border: "2px solid oklch(0.65 0.20 230)",
-                }}
-              >
-                Call 0477 376 440
-              </a>
-            </div>
-          </div>
-        </section>
-      </div>
+      <section className="py-16" style={{ background: "oklch(0.08 0.04 245)" }}><div className="container grid gap-8 lg:grid-cols-[1fr_auto] lg:items-center"><div><p className="mb-3 text-xs font-bold uppercase tracking-[0.2em]" style={{ color: "oklch(0.62 0.22 230)" }}>Standards-aligned restoration support</p><h2 className="mb-4 text-4xl font-black uppercase" style={{ color: "oklch(0.95 0.01 240)", fontFamily: "'Barlow Condensed', sans-serif" }}>Need a restoration response?</h2><p className="max-w-3xl leading-relaxed" style={{ color: "oklch(0.72 0.05 230)" }}>Our restoration approach is guided by applicable ANSI/IICRC principles, with professional assessment, appropriate methods, safety, documentation and clear communication.</p></div><Link href="/contact" className="inline-flex items-center justify-center gap-2 px-7 py-4 text-sm font-bold uppercase tracking-wider" style={{ background: "oklch(0.62 0.22 230)", color: "oklch(0.10 0.05 245)", fontFamily: "'Barlow Condensed', sans-serif" }}>Request an Assessment <ArrowRight className="h-4 w-4" /></Link></div></section>
     </div>
   );
 }

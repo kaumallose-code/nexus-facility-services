@@ -5,7 +5,6 @@ const LOGO_URL = "/manus-storage/nexus_facility_group_logo_cropped_387d05e3.png"
 const RACV_LOGO = "/manus-storage/racv_business_insurance_logo_c1945941.jpg";
 const WORKSAFE_LOGO = "/manus-storage/worksafe_victoria_logo_d7f5a528.jpg";
 const LABOUR_HIRE_LOGO = "/manus-storage/labour_hire_authority_logo_07661299.png";
-const IICRC_LOGO = "/manus-storage/iicrc_accreditation_917afdcd.png";
 
 const PHONE = "0477 376 440";
 const PHONE_HREF = "tel:0477376440";
@@ -17,6 +16,8 @@ const SERVICES = [
   { label: "Commercial Cleaning" },
   { label: "Industrial Cleaning" },
   { label: "End of Lease Cleaning" },
+  { label: "Water Damage Restoration", href: "/water-damage-restoration" },
+  { label: "Mould Remediation", href: "/mould-remediation" },
 ];
 
 const PAGE_LINKS = [
@@ -77,7 +78,7 @@ export default function Footer() {
               <img src={LOGO_URL} alt="Nexus Facility Group" className="h-14 w-auto object-contain" />
             </div>
             <p className="text-sm leading-relaxed" style={{ color: "oklch(0.78 0.05 230)" }}>
-              Professional domestic, general, commercial, industrial and end of lease cleaning across Melbourne. Fully insured, background-checked, and committed to excellence.
+              Professional commercial, domestic, specialist cleaning and restoration support across Melbourne and Victoria. Fully insured, carefully coordinated and committed to clear communication.
             </p>
           </div>
 
@@ -89,7 +90,7 @@ export default function Footer() {
             <ul className="space-y-2">
               {SERVICES.map((s) => (
                 <li key={s.label}>
-                  <Link href="/services" className="text-sm transition-colors hover:text-white flex items-center gap-1.5" style={{ color: "oklch(0.78 0.05 230)" }}>
+                  <Link href={s.href || "/services"} className="text-sm transition-colors hover:text-white flex items-center gap-1.5" style={{ color: "oklch(0.78 0.05 230)" }}>
                     <ChevronRight className="w-3 h-3" style={{ color: "oklch(0.62 0.22 230)" }} />
                     {s.label}
                   </Link>
@@ -156,13 +157,6 @@ export default function Footer() {
               caption="Licensed Labour Hire Provider"
               tooltipId="trust-badge-labour-hire"
               explanation="The Labour Hire Authority regulates labour hire providers in Victoria, supporting transparent and compliant workforce practices."
-            />
-            <TrustBadge
-              logo={IICRC_LOGO}
-              alt="IICRC accreditation"
-              caption="IICRC Accreditation"
-              tooltipId="trust-badge-iicrc"
-              explanation="The IICRC is a recognised cleaning and restoration industry body. This accreditation badge communicates our alignment with professional cleaning standards."
             />
           </div>
         </div>

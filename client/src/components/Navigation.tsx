@@ -8,6 +8,7 @@ const NAV_LINKS = [
   { label: "Home", href: "/" },
   { label: "About Us", href: "/about" },
   { label: "Services", href: "/services" },
+  { label: "Restoration", href: "/water-damage-restoration" },
   { label: "Offers", href: "/offers" },
   { label: "Pricing", href: "/pricing" },
   { label: "Areas", href: "/areas" },

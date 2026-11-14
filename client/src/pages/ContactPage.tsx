@@ -1,19 +1,16 @@
+import { ArrowRight, Mail, MapPin, Phone, ShieldCheck } from "lucide-react";
 import { Link } from "wouter";
+import EnquiryFormDialog from "@/components/EnquiryFormDialog";
 
-export default function Page() {
+const PHONE = "0477 376 440";
+const EMAIL = "admin.hr@nexusfacility.au";
+
+export default function ContactPage() {
   return (
     <div className="min-h-screen" style={{ background: "oklch(0.10 0.05 245)" }}>
-      <section className="py-20">
-        <div className="container text-center">
-          <h1 className="text-4xl font-bold mb-4" style={{ color: "oklch(0.95 0.01 240)", fontFamily: "'Barlow Condensed', sans-serif" }}>
-            Page Coming Soon
-          </h1>
-          <p style={{ color: "oklch(0.72 0.05 230)" }}>This page is being built</p>
-          <Link href="/" className="inline-block mt-6 px-6 py-2 bg-blue-600 text-white rounded">
-            Back to Home
-          </Link>
-        </div>
-      </section>
+      <section className="border-b py-24" style={{ borderColor: "oklch(0.75 0.18 210 / 0.15)" }}><div className="container text-center"><p className="mb-4 text-xs font-bold uppercase tracking-[0.2em]" style={{ color: "oklch(0.62 0.22 230)" }}>Nexus Facility Group</p><h1 className="mb-5 text-5xl font-black uppercase md:text-7xl" style={{ color: "oklch(0.95 0.01 240)", fontFamily: "'Barlow Condensed', sans-serif" }}>Let’s discuss your requirements</h1><p className="mx-auto max-w-3xl text-lg leading-relaxed" style={{ color: "oklch(0.78 0.05 230)" }}>Request a commercial cleaning quote, water damage assessment, mould remediation discussion or subcontracting partnership conversation across Melbourne and Victoria.</p></div></section>
+
+      <section className="py-20"><div className="container grid gap-8 lg:grid-cols-[0.85fr_1.15fr] lg:items-start"><div className="space-y-4"><div className="border p-7" style={{ background: "oklch(0.13 0.05 245)", borderColor: "oklch(0.62 0.22 230 / 0.24)" }}><Phone className="mb-4 h-7 w-7" style={{ color: "oklch(0.62 0.22 230)" }} /><h2 className="mb-2 text-2xl font-black uppercase" style={{ color: "oklch(0.95 0.01 240)", fontFamily: "'Barlow Condensed', sans-serif" }}>Call our team</h2><a href="tel:0477376440" className="text-lg" style={{ color: "oklch(0.78 0.05 230)" }}>{PHONE}</a></div><div className="border p-7" style={{ background: "oklch(0.13 0.05 245)", borderColor: "oklch(0.62 0.22 230 / 0.24)" }}><Mail className="mb-4 h-7 w-7" style={{ color: "oklch(0.62 0.22 230)" }} /><h2 className="mb-2 text-2xl font-black uppercase" style={{ color: "oklch(0.95 0.01 240)", fontFamily: "'Barlow Condensed', sans-serif" }}>Email enquiries</h2><a href={`mailto:${EMAIL}`} className="break-all text-lg" style={{ color: "oklch(0.78 0.05 230)" }}>{EMAIL}</a></div><div className="border p-7" style={{ background: "oklch(0.13 0.05 245)", borderColor: "oklch(0.62 0.22 230 / 0.24)" }}><MapPin className="mb-4 h-7 w-7" style={{ color: "oklch(0.62 0.22 230)" }} /><h2 className="mb-2 text-2xl font-black uppercase" style={{ color: "oklch(0.95 0.01 240)", fontFamily: "'Barlow Condensed', sans-serif" }}>Service coverage</h2><p className="leading-relaxed" style={{ color: "oklch(0.72 0.05 230)" }}>Melbourne, metropolitan Victoria and Victorian regional areas by arrangement.</p></div></div><div className="border p-8" style={{ background: "oklch(0.12 0.05 245)", borderColor: "oklch(0.62 0.22 230 / 0.30)" }}><ShieldCheck className="mb-5 h-9 w-9" style={{ color: "oklch(0.62 0.22 230)" }} /><h2 className="mb-3 text-3xl font-black uppercase" style={{ color: "oklch(0.95 0.01 240)", fontFamily: "'Barlow Condensed', sans-serif" }}>Choose an enquiry pathway</h2><p className="mb-7 leading-relaxed" style={{ color: "oklch(0.72 0.05 230)" }}>Use the direct customer form for a cleaning or restoration conversation, or the partner form if you represent a cleaning, facility management, building or restoration business.</p><div className="flex flex-col gap-4 sm:flex-row"><EnquiryFormDialog mode="commercial" /><EnquiryFormDialog mode="partner" /></div><div className="mt-8 grid gap-3 sm:grid-cols-2"><Link href="/water-damage-restoration" className="flex items-center justify-between border p-4 text-sm font-bold uppercase" style={{ borderColor: "oklch(0.75 0.18 210 / 0.16)", color: "oklch(0.82 0.04 230)", fontFamily: "'Barlow Condensed', sans-serif" }}>Water Damage Restoration <ArrowRight className="h-4 w-4" /></Link><Link href="/mould-remediation" className="flex items-center justify-between border p-4 text-sm font-bold uppercase" style={{ borderColor: "oklch(0.75 0.18 210 / 0.16)", color: "oklch(0.82 0.04 230)", fontFamily: "'Barlow Condensed', sans-serif" }}>Mould Remediation <ArrowRight className="h-4 w-4" /></Link></div></div></div></section>
     </div>
   );
 }
