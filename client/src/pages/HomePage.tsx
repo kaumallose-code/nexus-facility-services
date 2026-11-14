@@ -23,6 +23,8 @@ const CHILDCARE_IMAGE = "/manus-storage/welcome_offer_childcare_48da7dbf.png";
 const HOME_IMAGE = "/manus-storage/welcome_offer_home_exterior_6a8f7cc5.png";
 const FLOOR_IMAGE = "/manus-storage/nexus-floor-stripping-sealing_9a38d672.jpg";
 const WINDOW_IMAGE = "/manus-storage/nexus-window-cleaning_2d37ad41.jpg";
+const POST_CONSTRUCTION_IMAGE = "/manus-storage/nexus-post-construction-cleaning_99f59bdb.jpg";
+const PRESSURE_WASHING_IMAGE = "/manus-storage/nexus-pressure-washing_5c73a39b.jpg";
 const PHONE = "0477 376 440";
 const PHONE_HREF = "tel:0477376440";
 const EMAIL = "admin.hr@nexusfacility.au";
@@ -31,13 +33,13 @@ const SERVICE_CARDS = [
   { title: "Commercial Cleaning", description: "Dependable cleaning programs for offices, retail, medical and commercial properties.", image: SERVICES_BG, href: "/services" },
   { title: "Childcare & Educational Facilities", description: "Practical hygiene-focused cleaning for learning environments and shared facilities.", image: CHILDCARE_IMAGE, href: "/services" },
   { title: "Warehouse & Industrial Cleaning", description: "Structured support for operational, staff, warehouse and high-traffic areas.", image: VAN_IMAGE, href: "/services" },
-  { title: "Builders & Post-Construction", description: "Dust, residue and construction clean-up for handovers, renovations and make-goods.", image: HOME_IMAGE, href: "/services" },
+  { title: "Builders & Post-Construction", description: "Dust, residue and construction clean-up for handovers, renovations and make-goods.", image: POST_CONSTRUCTION_IMAGE, href: "/services" },
   { title: "Water Damage Restoration", description: "Assessment, extraction, drying and moisture-management support for affected properties.", image: WATER_IMAGE, href: "/water-damage-restoration" },
   { title: "Mould Remediation", description: "Careful assessment, containment and cleaning support guided by applicable S520 principles.", image: MOULD_IMAGE, href: "/mould-remediation" },
   { title: "Floor Stripping, Sealing & Polishing", description: "Floor care programs that restore presentation and protect hard-wearing surfaces.", image: FLOOR_IMAGE, href: "/services" },
   { title: "Carpet & Upholstery Steam Cleaning", description: "Deep extraction for carpets, rugs and upholstery in homes and workplaces.", image: HOME_IMAGE, href: "/services" },
   { title: "Window & External Cleaning", description: "Professional internal, external and high-reach window cleaning support.", image: WINDOW_IMAGE, href: "/services" },
-  { title: "Pressure Washing & Specialist Cleaning", description: "Exterior and specialist cleaning for paths, facades, driveways and shared areas.", image: VAN_IMAGE, href: "/services" },
+  { title: "Pressure Washing & Specialist Cleaning", description: "Exterior and specialist cleaning for paths, facades, driveways and shared areas.", image: PRESSURE_WASHING_IMAGE, href: "/services" },
 ];
 
 const INDUSTRIES = [

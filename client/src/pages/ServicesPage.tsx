@@ -9,18 +9,20 @@ const CHILDCARE_IMAGE = "/manus-storage/welcome_offer_childcare_48da7dbf.png";
 const HOME_IMAGE = "/manus-storage/welcome_offer_home_exterior_6a8f7cc5.png";
 const FLOOR_IMAGE = "/manus-storage/nexus-floor-stripping-sealing_9a38d672.jpg";
 const WINDOW_IMAGE = "/manus-storage/nexus-window-cleaning_2d37ad41.jpg";
+const POST_CONSTRUCTION_IMAGE = "/manus-storage/nexus-post-construction-cleaning_99f59bdb.jpg";
+const PRESSURE_WASHING_IMAGE = "/manus-storage/nexus-pressure-washing_5c73a39b.jpg";
 
 const SERVICES = [
   { icon: Building2, label: "Commercial Cleaning", desc: "Professional cleaning for offices, retail spaces, medical centres, warehouses and corporate facilities.", image: SERVICES_BG, href: "/contact", color: "oklch(0.65 0.20 230)" },
   { icon: Sparkles, label: "Childcare & Educational Facilities", desc: "Hygiene-focused cleaning programs for learning environments, shared facilities and high-touch areas.", image: CHILDCARE_IMAGE, href: "/contact", color: "oklch(0.65 0.15 160)" },
   { icon: Wind, label: "Warehouse & Industrial Cleaning", desc: "Structured cleaning support for operational, staff, warehouse and high-traffic areas.", image: VAN_IMAGE, href: "/contact", color: "oklch(0.65 0.18 50)" },
-  { icon: HardHat, label: "Builders & Post-Construction", desc: "Dust, debris and construction-residue removal for renovations, handovers and make-good projects.", image: HOME_IMAGE, href: "/contact", color: "oklch(0.65 0.20 280)" },
+  { icon: HardHat, label: "Builders & Post-Construction", desc: "Dust, debris and construction-residue removal for renovations, handovers and make-good projects.", image: POST_CONSTRUCTION_IMAGE, href: "/contact", color: "oklch(0.65 0.20 280)" },
   { icon: Droplets, label: "Water Damage Restoration", desc: "Water damage assessment, extraction, structural drying, moisture monitoring and restoration support.", image: WATER_IMAGE, href: "/water-damage-restoration", color: "oklch(0.65 0.20 220)" },
   { icon: ShieldCheck, label: "Mould Remediation", desc: "Assessment, containment and appropriate cleaning methods guided by applicable ANSI/IICRC S520 principles.", image: MOULD_IMAGE, href: "/mould-remediation", color: "oklch(0.65 0.15 150)" },
   { icon: Layers, label: "Floor Stripping, Sealing & Polishing", desc: "Floor care programs that remove old coatings, protect surfaces and restore presentation.", image: FLOOR_IMAGE, href: "/contact", color: "oklch(0.65 0.20 330)" },
   { icon: Droplets, label: "Carpet & Upholstery Steam Cleaning", desc: "Deep extraction for carpets, rugs and upholstery in commercial and residential environments.", image: HOME_IMAGE, href: "/contact", color: "oklch(0.65 0.20 280)" },
   { icon: Sparkles, label: "Window & External Cleaning", desc: "Professional internal, external and high-reach window cleaning with streak-free results.", image: WINDOW_IMAGE, href: "/contact", color: "oklch(0.65 0.18 90)" },
-  { icon: Wind, label: "Pressure Washing & Specialist Cleaning", desc: "High-pressure and specialist cleaning for paths, facades, driveways, car parks and shared areas.", image: VAN_IMAGE, href: "/contact", color: "oklch(0.65 0.12 200)" },
+  { icon: Wind, label: "Pressure Washing & Specialist Cleaning", desc: "High-pressure and specialist cleaning for paths, facades, driveways, car parks and shared areas.", image: PRESSURE_WASHING_IMAGE, href: "/contact", color: "oklch(0.65 0.12 200)" },
 ];
 
 export default function ServicesPage() {
