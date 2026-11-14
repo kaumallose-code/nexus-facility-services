@@ -15,7 +15,7 @@ import { Link } from "wouter";
 import EnquiryFormDialog from "@/components/EnquiryFormDialog";
 
 const HERO_BG = "https://d2xsxph8kpxj0f.cloudfront.net/310519663396125342/LsnnQBd3D9ZpGUiGw6PBwg/hero_bg-kFiQrM3b2UU5fuEJutxt9C.webp";
-const WATER_IMAGE = "/manus-storage/nexus-water-restoration_61e888ba.jpg";
+const WATER_IMAGE = "/manus-storage/nexus-water-restoration-branded_0e0646a0.jpg";
 const MOULD_IMAGE = "/manus-storage/nexus-mould-remediation_291a09b4.jpg";
 const SERVICES_BG = "/manus-storage/services_bg_escalator_534aa57a.png";
 const VAN_IMAGE = "/manus-storage/nexus_van_warehouse_4e0b9698.jpg";

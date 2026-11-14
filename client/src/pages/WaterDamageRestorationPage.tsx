@@ -11,7 +11,7 @@ import {
 } from "lucide-react";
 import { Link } from "wouter";
 
-const WATER_IMAGE = "/manus-storage/nexus-water-restoration_61e888ba.jpg";
+const WATER_IMAGE = "/manus-storage/nexus-water-restoration-branded_0e0646a0.jpg";
 const PHONE = "0477 376 440";
 
 const SERVICES = [

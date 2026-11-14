@@ -2,7 +2,7 @@ import { ArrowRight, Building2, Droplets, HardHat, Layers, ShieldCheck, Sparkles
 import { Link } from "wouter";
 
 const SERVICES_BG = "/manus-storage/services_bg_escalator_534aa57a.png";
-const WATER_IMAGE = "/manus-storage/nexus-water-restoration_61e888ba.jpg";
+const WATER_IMAGE = "/manus-storage/nexus-water-restoration-branded_0e0646a0.jpg";
 const MOULD_IMAGE = "/manus-storage/nexus-mould-remediation_291a09b4.jpg";
 const VAN_IMAGE = "/manus-storage/nexus_van_warehouse_4e0b9698.jpg";
 const CHILDCARE_IMAGE = "/manus-storage/welcome_offer_childcare_48da7dbf.png";
