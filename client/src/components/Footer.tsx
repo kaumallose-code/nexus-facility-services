@@ -5,6 +5,7 @@ const LOGO_URL = "/manus-storage/nexus_facility_group_logo_cropped_387d05e3.png"
 const RACV_LOGO = "/manus-storage/racv_business_insurance_logo_c1945941.jpg";
 const WORKSAFE_LOGO = "/manus-storage/worksafe_victoria_logo_d7f5a528.jpg";
 const LABOUR_HIRE_LOGO = "/manus-storage/labour_hire_authority_logo_07661299.png";
+const IRCC_LOGO = "/manus-storage/IMG_5771_874147c7.PNG";
 
 const PHONE = "0477 376 440";
 const PHONE_HREF = "tel:0477376440";
@@ -157,6 +158,13 @@ export default function Footer() {
               caption="Licensed Labour Hire Provider"
               tooltipId="trust-badge-labour-hire"
               explanation="The Labour Hire Authority regulates labour hire providers in Victoria, supporting transparent and compliant workforce practices."
+            />
+            <TrustBadge
+              logo={IRCC_LOGO}
+              alt="IRCC logo"
+              caption="IRCC"
+              tooltipId="trust-badge-ircc"
+              explanation="IRCC logo supplied by Nexus Facility Group for display in its footer."
             />
           </div>
         </div>
