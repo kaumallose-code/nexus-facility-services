@@ -9,8 +9,8 @@ const CHILDCARE_IMAGE = "/manus-storage/welcome_offer_childcare_48da7dbf.png";
 const HOME_IMAGE = "/manus-storage/welcome_offer_home_exterior_6a8f7cc5.png";
 const FLOOR_IMAGE = "/manus-storage/nexus-floor-stripping-sealing_9a38d672.jpg";
 const WINDOW_IMAGE = "/manus-storage/nexus-window-cleaning_2d37ad41.jpg";
-const POST_CONSTRUCTION_IMAGE = "/manus-storage/nexus-post-construction-cleaning_99f59bdb.jpg";
-const PRESSURE_WASHING_IMAGE = "/manus-storage/nexus-pressure-washing_5c73a39b.jpg";
+const POST_CONSTRUCTION_IMAGE = "/manus-storage/nexus-post-construction-cleaning-branded_b62bf726.jpg";
+const PRESSURE_WASHING_IMAGE = "/manus-storage/nexus-pressure-washing-branded_caaf0ca2.jpg";
 
 const SERVICES = [
   { icon: Building2, label: "Commercial Cleaning", desc: "Professional cleaning for offices, retail spaces, medical centres, warehouses and corporate facilities.", image: SERVICES_BG, href: "/contact", color: "oklch(0.65 0.20 230)" },
