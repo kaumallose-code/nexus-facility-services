@@ -13,6 +13,7 @@ import { Link } from "wouter";
 
 const WATER_IMAGE = "/manus-storage/nexus-water-restoration-branded_0e0646a0.jpg";
 const PHONE = "0477 376 440";
+const SECONDARY_PHONE = "0404 934 544";
 
 const SERVICES = [
   "Water damage inspection and assessment",
@@ -52,6 +53,9 @@ export default function WaterDamageRestorationPage() {
               </Link>
               <a href="tel:0477376440" className="inline-flex items-center justify-center gap-2 border px-7 py-4 text-sm font-bold uppercase tracking-wider" style={{ borderColor: "oklch(0.62 0.22 230)", color: "oklch(0.62 0.22 230)", fontFamily: "'Barlow Condensed', sans-serif" }}>
                 <Phone className="h-4 w-4" /> {PHONE}
+              </a>
+              <a href="tel:0404934544" className="inline-flex items-center justify-center gap-2 border px-7 py-4 text-sm font-bold uppercase tracking-wider" style={{ borderColor: "oklch(0.62 0.22 230)", color: "oklch(0.62 0.22 230)", fontFamily: "'Barlow Condensed', sans-serif" }}>
+                <Phone className="h-4 w-4" /> {SECONDARY_PHONE}
               </a>
             </div>
           </div>

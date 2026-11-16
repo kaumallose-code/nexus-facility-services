@@ -202,7 +202,7 @@ export default function EnquiryFormDialog({ mode }: { mode: FormMode }) {
 
             {submissionError && (
               <p role="alert" className="text-sm" style={{ color: "oklch(0.72 0.18 25)" }}>
-                We could not send the enquiry. Please call 0477 376 440 or email admin.hr@nexusfacility.au.
+                We could not send the enquiry. Please call 0477 376 440 or 0404 934 544, or email admin.hr@nexusfacility.au.
               </p>
             )}
 

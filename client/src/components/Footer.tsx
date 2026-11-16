@@ -9,6 +9,8 @@ const IRCC_LOGO = "/manus-storage/IMG_5771_874147c7.PNG";
 
 const PHONE = "0477 376 440";
 const PHONE_HREF = "tel:0477376440";
+const SECONDARY_PHONE = "0404 934 544";
+const SECONDARY_PHONE_HREF = "tel:0404934544";
 const EMAIL = "admin.hr@nexusfacility.au";
 
 const SERVICES = [
@@ -126,6 +128,10 @@ export default function Footer() {
               <a href={PHONE_HREF} className="flex items-center gap-3 text-sm transition-colors hover:text-white" style={{ color: "oklch(0.85 0.04 230)" }}>
                 <Phone className="w-4 h-4 flex-shrink-0" style={{ color: "oklch(0.62 0.22 230)" }} />
                 {PHONE}
+              </a>
+              <a href={SECONDARY_PHONE_HREF} className="flex items-center gap-3 text-sm transition-colors hover:text-white" style={{ color: "oklch(0.85 0.04 230)" }}>
+                <Phone className="w-4 h-4 flex-shrink-0" style={{ color: "oklch(0.62 0.22 230)" }} />
+                {SECONDARY_PHONE}
               </a>
               <a href={`mailto:${EMAIL}`} className="flex items-center gap-3 text-sm transition-colors hover:text-white" style={{ color: "oklch(0.85 0.04 230)" }}>
                 <Mail className="w-4 h-4 flex-shrink-0" style={{ color: "oklch(0.62 0.22 230)" }} />

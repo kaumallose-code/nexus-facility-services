@@ -13,6 +13,7 @@ import { Link } from "wouter";
 
 const MOULD_IMAGE = "/manus-storage/nexus-mould-remediation_291a09b4.jpg";
 const PHONE = "0477 376 440";
+const SECONDARY_PHONE = "0404 934 544";
 
 const SERVICES = [
   "Mould inspection and preliminary assessment",
@@ -48,7 +49,7 @@ export default function MouldRemediationPage() {
             </p>
             <div className="flex flex-col gap-4 sm:flex-row">
               <Link href="/contact" className="inline-flex items-center justify-center gap-2 px-7 py-4 text-sm font-bold uppercase tracking-wider" style={{ background: "oklch(0.62 0.22 230)", color: "oklch(0.10 0.05 245)", fontFamily: "'Barlow Condensed', sans-serif" }}>Request a Mould Remediation Quote <ArrowRight className="h-4 w-4" /></Link>
-              <a href="tel:0477376440" className="inline-flex items-center justify-center gap-2 border px-7 py-4 text-sm font-bold uppercase tracking-wider" style={{ borderColor: "oklch(0.62 0.22 230)", color: "oklch(0.62 0.22 230)", fontFamily: "'Barlow Condensed', sans-serif" }}><Phone className="h-4 w-4" /> {PHONE}</a>
+              <a href="tel:0477376440" className="inline-flex items-center justify-center gap-2 border px-7 py-4 text-sm font-bold uppercase tracking-wider" style={{ borderColor: "oklch(0.62 0.22 230)", color: "oklch(0.62 0.22 230)", fontFamily: "'Barlow Condensed', sans-serif" }}><Phone className="h-4 w-4" /> {PHONE}</a><a href="tel:0404934544" className="inline-flex items-center justify-center gap-2 border px-7 py-4 text-sm font-bold uppercase tracking-wider" style={{ borderColor: "oklch(0.62 0.22 230)", color: "oklch(0.62 0.22 230)", fontFamily: "'Barlow Condensed', sans-serif" }}><Phone className="h-4 w-4" /> {SECONDARY_PHONE}</a>
             </div>
           </div>
           <div className="border p-7 backdrop-blur-sm" style={{ background: "oklch(0.08 0.04 245 / 0.82)", borderColor: "oklch(0.62 0.22 230 / 0.38)" }}>

@@ -3,6 +3,8 @@ import { Link } from "wouter";
 
 const PHONE = "0477 376 440";
 const PHONE_HREF = "tel:0477376440";
+const SECONDARY_PHONE = "0404 934 544";
+const SECONDARY_PHONE_HREF = "tel:0404934544";
 const GOOGLE_MAPS_URL = "https://maps.app.goo.gl/ihTt8RP5MBdjkkLw9?g_st=ic";
 
 export default function ReviewsPage() {
@@ -213,8 +215,8 @@ export default function ReviewsPage() {
               >
                 Get a Free Quote
               </Link>
-              <a
-                href={PHONE_HREF}
+                <a
+                  href={PHONE_HREF}
                 className="inline-flex items-center justify-center gap-2 px-8 py-3 font-bold text-sm uppercase tracking-wider border"
                 style={{
                   borderColor: "oklch(0.62 0.22 230)",
@@ -223,8 +225,16 @@ export default function ReviewsPage() {
                 }}
               >
                 <Phone className="w-4 h-4" />
-                {PHONE}
-              </a>
+                  {PHONE}
+                </a>
+                <a
+                  href={SECONDARY_PHONE_HREF}
+                  className="inline-flex items-center gap-2"
+                  style={{ color: "oklch(0.78 0.05 230)" }}
+                >
+                  <Phone className="h-4 w-4" />
+                  {SECONDARY_PHONE}
+                </a>
             </div>
           </div>
         </div>

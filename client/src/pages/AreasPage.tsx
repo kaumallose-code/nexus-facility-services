@@ -360,7 +360,7 @@ export default function Page() {
                 }}
               >
                 <Phone className="w-4 h-4" />
-                Call 0477 376 440
+                Call 0477 376 440 / 0404 934 544
               </a>
             </div>
             <p className="text-xs mt-6" style={{ color: "oklch(0.55 0.05 230)" }}>
