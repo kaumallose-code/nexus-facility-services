@@ -175,7 +175,7 @@ async function sendStaffCodeEmail(email: string, code: string, purpose: "setup" 
 function setStaffSessionCookie(ctx: { req: Parameters<typeof getSessionCookieOptions>[0]; res: { cookie: (name: string, value: string, options: Record<string, unknown>) => void } }) {
   const token = makeSessionToken();
   const expiresAt = new Date(Date.now() + 8 * 60 * 60 * 1000);
-  ctx.res.cookie(STAFF_SESSION_COOKIE, token, { ...getSessionCookieOptions(ctx.req), maxAge: 8 * 60 * 60 * 1000 });
+  ctx.res.cookie(STAFF_SESSION_COOKIE, token, { ...getSessionCookieOptions(ctx.req), sameSite: "lax", maxAge: 8 * 60 * 60 * 1000 });
   return { token, expiresAt };
 }
 
@@ -235,7 +235,7 @@ export const appRouter = router({
     }),
     me: publicProcedure.query(({ ctx }) => ctx.staff ?? null),
     logout: publicProcedure.mutation(({ ctx }) => {
-      ctx.res.clearCookie(STAFF_SESSION_COOKIE, { ...getSessionCookieOptions(ctx.req), maxAge: 0 });
+      ctx.res.clearCookie(STAFF_SESSION_COOKIE, { ...getSessionCookieOptions(ctx.req), sameSite: "lax", maxAge: 0 });
       return { success: true };
     }),
   }),

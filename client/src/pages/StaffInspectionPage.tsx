@@ -94,8 +94,8 @@ export default function StaffInspectionPage() {
 
   const requestLogin = trpc.staffAuth.requestLogin.useMutation({ onSuccess: () => { setAuthStep("code"); toast.success("A verification code was sent to your email."); }, onError: (error) => toast.error(error.message) });
   const requestSetup = trpc.staffAuth.requestSetup.useMutation({ onSuccess: () => { setAuthStep("code"); toast.success("A password setup code was sent to your email."); }, onError: (error) => toast.error(error.message) });
-  const verifyLogin = trpc.staffAuth.verifyLogin.useMutation({ onSuccess: async () => { await staffMe.refetch(); toast.success("Staff portal access verified."); }, onError: (error) => toast.error(error.message) });
-  const verifySetup = trpc.staffAuth.verifySetup.useMutation({ onSuccess: async () => { await staffMe.refetch(); toast.success("Account created and staff portal access verified."); }, onError: (error) => toast.error(error.message) });
+  const verifyLogin = trpc.staffAuth.verifyLogin.useMutation({ onSuccess: () => { window.location.reload(); }, onError: (error) => toast.error(error.message) });
+  const verifySetup = trpc.staffAuth.verifySetup.useMutation({ onSuccess: () => { window.location.reload(); }, onError: (error) => toast.error(error.message) });
   const logout = trpc.staffAuth.logout.useMutation({ onSuccess: async () => { await staffMe.refetch(); setAuthStep("credentials"); setPassword(""); setCode(""); } });
 
   const [form, setForm] = useState({ clientName: "", clientEmail: "", siteName: "", siteAddress: "", inspectionDate: today(), serviceType: "Commercial cleaning inspection", notes: "", correctiveActions: "" });
