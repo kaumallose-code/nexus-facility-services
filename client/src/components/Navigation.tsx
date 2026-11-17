@@ -17,6 +17,8 @@ const NAV_LINKS = [
   { label: "Contact", href: "/contact" },
 ];
 
+const STAFF_PORTAL_LINK = { label: "Staff Portal", href: "/staff-inspections" };
+
 export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
   const [location] = useLocation();
@@ -42,6 +44,16 @@ export default function Navigation() {
               {label}
             </Link>
           ))}
+          <Link
+            href={STAFF_PORTAL_LINK.href}
+            className="ml-1 px-3 py-2 text-xs font-bold uppercase tracking-wider transition-colors"
+            style={{
+              color: location === STAFF_PORTAL_LINK.href ? "oklch(0.75 0.85 90)" : "oklch(0.70 0.08 230)",
+              fontFamily: "'Barlow Condensed', sans-serif",
+            }}
+          >
+            {STAFF_PORTAL_LINK.label}
+          </Link>
         </div>
 
         <Link
@@ -88,6 +100,17 @@ export default function Navigation() {
                 {label}
               </Link>
             ))}
+            <Link
+              href={STAFF_PORTAL_LINK.href}
+              onClick={() => setIsOpen(false)}
+              className="block w-full px-4 py-2 text-sm font-bold uppercase tracking-wider transition-colors"
+              style={{
+                color: location === STAFF_PORTAL_LINK.href ? "oklch(0.75 0.85 90)" : "oklch(0.70 0.08 230)",
+                fontFamily: "'Barlow Condensed', sans-serif",
+              }}
+            >
+              {STAFF_PORTAL_LINK.label}
+            </Link>
             <Link
               href="/contact"
               onClick={() => setIsOpen(false)}
