@@ -11,7 +11,7 @@ describe("createInspectionPdf", () => {
       inspectionDate: "2026-11-18",
       serviceType: "Commercial cleaning inspection",
       overallRating: "Satisfactory",
-      checklist: [{ area: "Floors", status: "pass", comment: "Clean and presentable" }],
+      checklist: [{ area: "Toilets & washrooms", items: [{ label: "Toilet bowl and seat clean", score: 5, comment: "Clean and presentable", photos: [{ name: "floor.png", dataUrl: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+A8AAQUBAScY42YAAAAASUVORK5CYII=" }] }] }],
       notes: "No additional notes.",
       correctiveActions: "None required.",
       photos: [{ name: "floor.png", dataUrl: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+A8AAQUBAScY42YAAAAASUVORK5CYII=" }],

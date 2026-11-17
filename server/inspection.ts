@@ -1,9 +1,15 @@
 import PDFDocument from "pdfkit";
 
 type ChecklistItem = {
-  area: string;
-  status: "pass" | "attention" | "not_applicable";
+  label: string;
+  score: number;
   comment?: string;
+  photos: Array<{ name: string; dataUrl: string }>;
+};
+
+type ChecklistSection = {
+  area: string;
+  items: ChecklistItem[];
 };
 
 type InspectionPdfInput = {
@@ -14,7 +20,7 @@ type InspectionPdfInput = {
   inspectionDate: string;
   serviceType: string;
   overallRating: string;
-  checklist: ChecklistItem[];
+  checklist: ChecklistSection[];
   notes?: string;
   correctiveActions?: string;
   photos: Array<{ name: string; dataUrl: string }>;
@@ -39,7 +45,12 @@ function addLabelValue(doc: PDFKit.PDFDocument, label: string, value: string) {
 function dataUrlToBuffer(dataUrl: string) {
   const match = dataUrl.match(/^data:image\/(png|jpe?g);base64,(.+)$/i);
   if (!match) return null;
-  return { format: match[1].toLowerCase() === "png" ? "png" : "jpg", buffer: Buffer.from(match[2], "base64") };
+  return Buffer.from(match[2], "base64");
+}
+
+function sectionTotal(section: ChecklistSection) {
+  const total = section.items.reduce((sum, item) => sum + item.score, 0);
+  return { total, max: section.items.length * 5 };
 }
 
 export function createInspectionPdf(input: InspectionPdfInput): Promise<Buffer> {
@@ -63,17 +74,30 @@ export function createInspectionPdf(input: InspectionPdfInput): Promise<Buffer> 
     addLabelValue(doc, "Site address", input.siteAddress);
     addLabelValue(doc, "Inspection date", input.inspectionDate);
     addLabelValue(doc, "Service type", input.serviceType);
-    addLabelValue(doc, "Overall result", input.overallRating);
+    addLabelValue(doc, "Overall score", input.overallRating);
     addLabelValue(doc, "Completed by", input.staffName);
 
-    addSectionTitle(doc, "Inspection checklist");
-    input.checklist.forEach((item, index) => {
-      const statusLabel = item.status === "pass" ? "PASS" : item.status === "attention" ? "ATTENTION" : "N/A";
-      const statusColor = item.status === "pass" ? "#16734b" : item.status === "attention" ? "#b05a00" : "#637083";
-      doc.fontSize(9).font("Helvetica-Bold").fillColor("#1c2633").text(`${index + 1}. ${item.area}`, { continued: true });
-      doc.fillColor(statusColor).text(`  ${statusLabel}`);
-      if (item.comment) doc.font("Helvetica").fillColor("#4b5968").fontSize(8.5).text(`   ${item.comment}`);
-      doc.moveDown(0.2);
+    addSectionTitle(doc, "Scored inspection checklist");
+    input.checklist.forEach((section) => {
+      const totals = sectionTotal(section);
+      doc.fontSize(11).font("Helvetica-Bold").fillColor("#09254b").text(`${section.area} — ${totals.total}/${totals.max}`);
+      doc.moveDown(0.25);
+      section.items.forEach((item, index) => {
+        if (doc.y > 690) doc.addPage();
+        doc.fontSize(8.7).font("Helvetica-Bold").fillColor("#1c2633").text(`${index + 1}. ${item.label}`, { continued: true });
+        doc.fillColor(item.score >= 4 ? "#16734b" : item.score === 3 ? "#b05a00" : "#a52323").text(`  SCORE ${item.score}/5`);
+        if (item.comment) doc.font("Helvetica").fillColor("#4b5968").fontSize(8).text(`   ${item.comment}`);
+        item.photos.forEach((photo) => {
+          const buffer = dataUrlToBuffer(photo.dataUrl);
+          if (!buffer) return;
+          if (doc.y > 670) doc.addPage();
+          doc.font("Helvetica").fontSize(7.5).fillColor("#637083").text(`   Photo: ${photo.name}`);
+          doc.image(buffer, { fit: [145, 95] as [number, number] });
+          doc.moveDown(0.2);
+        });
+        doc.moveDown(0.2);
+      });
+      doc.moveDown(0.3);
     });
 
     addSectionTitle(doc, "Notes and corrective actions");
@@ -83,13 +107,13 @@ export function createInspectionPdf(input: InspectionPdfInput): Promise<Buffer> 
     doc.font("Helvetica").fillColor("#1c2633").text(clean(input.correctiveActions), { width: 495 });
 
     if (input.photos.length > 0) {
-      addSectionTitle(doc, "Inspection photos");
+      addSectionTitle(doc, "Additional inspection photos");
       input.photos.forEach((photo, index) => {
-        const parsed = dataUrlToBuffer(photo.dataUrl);
-        if (!parsed) return;
+        const buffer = dataUrlToBuffer(photo.dataUrl);
+        if (!buffer) return;
         if (doc.y > 650) doc.addPage();
         doc.font("Helvetica-Bold").fontSize(8.5).fillColor("#174a8b").text(`${index + 1}. ${photo.name || "Inspection photo"}`);
-        doc.image(parsed.buffer, { fit: [235, 145] as [number, number] });
+        doc.image(buffer, { fit: [235, 145] as [number, number] });
         doc.moveDown(0.4);
       });
     }

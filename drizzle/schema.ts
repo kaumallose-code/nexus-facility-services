@@ -1,4 +1,4 @@
-import { int, mysqlEnum, mysqlTable, text, timestamp, varchar } from "drizzle-orm/mysql-core";
+import { boolean, int, mysqlEnum, mysqlTable, text, timestamp, varchar } from "drizzle-orm/mysql-core";
 
 export const users = mysqlTable("users", {
   id: int("id").autoincrement().primaryKey(),
@@ -32,7 +32,35 @@ export const inspectionReports = mysqlTable("inspection_reports", {
   createdAt: timestamp("createdAt").defaultNow().notNull(),
 });
 
+export const staffAccounts = mysqlTable("staff_accounts", {
+  id: int("id").autoincrement().primaryKey(),
+  email: varchar("email", { length: 320 }).notNull().unique(),
+  passwordHash: varchar("passwordHash", { length: 255 }).notNull(),
+  verified: boolean("verified").default(true).notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
+export const staffVerificationCodes = mysqlTable("staff_verification_codes", {
+  id: int("id").autoincrement().primaryKey(),
+  email: varchar("email", { length: 320 }).notNull(),
+  codeHash: varchar("codeHash", { length: 128 }).notNull(),
+  passwordHash: varchar("passwordHash", { length: 255 }),
+  purpose: mysqlEnum("purpose", ["setup", "login"]).notNull(),
+  expiresAt: timestamp("expiresAt").notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+});
+
+export const staffSessions = mysqlTable("staff_sessions", {
+  id: int("id").autoincrement().primaryKey(),
+  email: varchar("email", { length: 320 }).notNull(),
+  tokenHash: varchar("tokenHash", { length: 128 }).notNull().unique(),
+  expiresAt: timestamp("expiresAt").notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+});
+
 export type User = typeof users.$inferSelect;
 export type InsertUser = typeof users.$inferInsert;
 export type InspectionReport = typeof inspectionReports.$inferSelect;
 export type InsertInspectionReport = typeof inspectionReports.$inferInsert;
+export type StaffAccount = typeof staffAccounts.$inferSelect;

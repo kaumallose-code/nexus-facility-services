@@ -1,6 +1,6 @@
-import { eq } from "drizzle-orm";
+import { and, desc, eq, gt } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
-import { InsertInspectionReport, InsertUser, inspectionReports, users } from "../drizzle/schema";
+import { InsertInspectionReport, InsertUser, inspectionReports, staffAccounts, staffSessions, staffVerificationCodes, users } from "../drizzle/schema";
 import { ENV } from './_core/env';
 
 let _db: ReturnType<typeof drizzle> | null = null;
@@ -102,5 +102,45 @@ export async function insertInspectionReport(report: InsertInspectionReport) {
 export async function listInspectionReports(limit = 50) {
   const db = await getDb();
   if (!db) return [];
-  return db.select().from(inspectionReports).orderBy(inspectionReports.createdAt).limit(limit);
+  return db.select().from(inspectionReports).orderBy(desc(inspectionReports.createdAt)).limit(limit);
+}
+
+export async function getStaffAccount(email: string) {
+  const db = await getDb();
+  if (!db) return undefined;
+  const result = await db.select().from(staffAccounts).where(eq(staffAccounts.email, email)).limit(1);
+  return result[0];
+}
+
+export async function createStaffAccount(email: string, passwordHash: string) {
+  const db = await getDb();
+  if (!db) throw new Error("Database is not available");
+  await db.insert(staffAccounts).values({ email, passwordHash, verified: true }).onDuplicateKeyUpdate({ set: { passwordHash, verified: true, updatedAt: new Date() } });
+  return getStaffAccount(email);
+}
+
+export async function createStaffVerificationCode(input: { email: string; codeHash: string; passwordHash?: string | null; purpose: "setup" | "login"; expiresAt: Date }) {
+  const db = await getDb();
+  if (!db) throw new Error("Database is not available");
+  await db.insert(staffVerificationCodes).values(input);
+}
+
+export async function getActiveStaffVerificationCode(email: string, purpose: "setup" | "login") {
+  const db = await getDb();
+  if (!db) return undefined;
+  const result = await db.select().from(staffVerificationCodes).where(and(eq(staffVerificationCodes.email, email), eq(staffVerificationCodes.purpose, purpose), gt(staffVerificationCodes.expiresAt, new Date()))).orderBy(desc(staffVerificationCodes.createdAt)).limit(1);
+  return result[0];
+}
+
+export async function createStaffSession(email: string, tokenHash: string, expiresAt: Date) {
+  const db = await getDb();
+  if (!db) throw new Error("Database is not available");
+  await db.insert(staffSessions).values({ email, tokenHash, expiresAt });
+}
+
+export async function getStaffSession(tokenHash: string) {
+  const db = await getDb();
+  if (!db) return undefined;
+  const result = await db.select().from(staffSessions).where(and(eq(staffSessions.tokenHash, tokenHash), gt(staffSessions.expiresAt, new Date()))).limit(1);
+  return result[0];
 }

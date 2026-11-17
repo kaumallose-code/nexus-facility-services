@@ -5,10 +5,11 @@ import { publicProcedure, router, staffProcedure } from "./_core/trpc";
 import { z } from "zod";
 import nodemailer from "nodemailer";
 import { notifyOwner } from "./_core/notification";
-import { insertInspectionReport, listInspectionReports } from "./db";
+import { createStaffAccount, createStaffSession, createStaffVerificationCode, getActiveStaffVerificationCode, getStaffAccount, insertInspectionReport, listInspectionReports } from "./db";
 import { createInspectionPdf } from "./inspection";
 import { storagePut } from "./storage";
 import { nanoid } from "nanoid";
+import { hashPassword, hashValue, isAllowedStaffEmail, makeCode, makeSessionToken, normalizeStaffEmail, STAFF_SESSION_COOKIE, verifyPassword } from "./staffAuth";
 
 // ─── Email helper ──────────────────────────────────────────────────────────────
 async function sendEnquiryEmail(data: {
@@ -155,6 +156,29 @@ async function sendInspectionEmail(input: { clientName: string; clientEmail: str
   });
 }
 
+async function sendStaffCodeEmail(email: string, code: string, purpose: "setup" | "login") {
+  const smtpHost = process.env.SMTP_HOST;
+  const smtpUser = process.env.SMTP_USER;
+  const smtpPass = process.env.SMTP_PASS;
+  if (!smtpHost || !smtpUser || !smtpPass) throw new Error("Staff email verification is not configured yet.");
+  const transporter = nodemailer.createTransport({ host: smtpHost, port: parseInt(process.env.SMTP_PORT || "587"), secure: process.env.SMTP_SECURE === "true", auth: { user: smtpUser, pass: smtpPass } });
+  const subject = purpose === "setup" ? "Create your Nexus Facility Group staff portal password" : "Your Nexus Facility Group staff portal verification code";
+  await transporter.sendMail({
+    from: `"Nexus Facility Group" <${smtpUser}>`,
+    to: email,
+    subject,
+    text: `Your Nexus Facility Group verification code is ${code}. It expires in 10 minutes. If you did not request this, you can ignore this email.`,
+    html: `<p>Your Nexus Facility Group verification code is:</p><p style="font-size:28px;font-weight:700;letter-spacing:8px">${code}</p><p>This code expires in 10 minutes. If you did not request this, you can ignore this email.</p>`,
+  });
+}
+
+function setStaffSessionCookie(ctx: { req: Parameters<typeof getSessionCookieOptions>[0]; res: { cookie: (name: string, value: string, options: Record<string, unknown>) => void } }) {
+  const token = makeSessionToken();
+  const expiresAt = new Date(Date.now() + 8 * 60 * 60 * 1000);
+  ctx.res.cookie(STAFF_SESSION_COOKIE, token, { ...getSessionCookieOptions(ctx.req), maxAge: 8 * 60 * 60 * 1000 });
+  return { token, expiresAt };
+}
+
 // ─── App Router ───────────────────────────────────────────────────────────────
 export const appRouter = router({
   system: systemRouter,
@@ -164,6 +188,55 @@ export const appRouter = router({
       const cookieOptions = getSessionCookieOptions(ctx.req);
       ctx.res.clearCookie(COOKIE_NAME, { ...cookieOptions, maxAge: -1 });
       return { success: true } as const;
+    }),
+  }),
+
+  staffAuth: router({
+    status: publicProcedure.input(z.object({ email: z.string().email() })).query(async ({ input }) => {
+      const email = normalizeStaffEmail(input.email);
+      return { allowed: isAllowedStaffEmail(email), hasAccount: Boolean(await getStaffAccount(email)) };
+    }),
+    requestSetup: publicProcedure.input(z.object({ email: z.string().email(), password: z.string().min(8).max(128) })).mutation(async ({ input }) => {
+      const email = normalizeStaffEmail(input.email);
+      if (!isAllowedStaffEmail(email)) throw new Error("This email address is not authorised for the Nexus staff portal.");
+      if (await getStaffAccount(email)) throw new Error("An account already exists. Use the staff login option instead.");
+      const code = makeCode();
+      await createStaffVerificationCode({ email, codeHash: hashValue(code), passwordHash: await hashPassword(input.password), purpose: "setup", expiresAt: new Date(Date.now() + 10 * 60 * 1000) });
+      await sendStaffCodeEmail(email, code, "setup");
+      return { success: true };
+    }),
+    verifySetup: publicProcedure.input(z.object({ email: z.string().email(), code: z.string().regex(/^\d{6}$/) })).mutation(async ({ input, ctx }) => {
+      const email = normalizeStaffEmail(input.email);
+      const record = await getActiveStaffVerificationCode(email, "setup");
+      if (!record || record.codeHash !== hashValue(input.code) || !record.passwordHash) throw new Error("The verification code is invalid or expired.");
+      await createStaffAccount(email, record.passwordHash);
+      const session = setStaffSessionCookie(ctx);
+      await createStaffSession(email, hashValue(session.token), session.expiresAt);
+      return { success: true };
+    }),
+    requestLogin: publicProcedure.input(z.object({ email: z.string().email(), password: z.string().min(1).max(128) })).mutation(async ({ input }) => {
+      const email = normalizeStaffEmail(input.email);
+      if (!isAllowedStaffEmail(email)) throw new Error("This email address is not authorised for the Nexus staff portal.");
+      const account = await getStaffAccount(email);
+      if (!account) throw new Error("No staff account exists yet. Use Create password first.");
+      if (!(await verifyPassword(input.password, account.passwordHash))) throw new Error("The email or password is incorrect.");
+      const code = makeCode();
+      await createStaffVerificationCode({ email, codeHash: hashValue(code), purpose: "login", expiresAt: new Date(Date.now() + 10 * 60 * 1000) });
+      await sendStaffCodeEmail(email, code, "login");
+      return { success: true };
+    }),
+    verifyLogin: publicProcedure.input(z.object({ email: z.string().email(), code: z.string().regex(/^\d{6}$/) })).mutation(async ({ input, ctx }) => {
+      const email = normalizeStaffEmail(input.email);
+      const record = await getActiveStaffVerificationCode(email, "login");
+      if (!record || record.codeHash !== hashValue(input.code)) throw new Error("The verification code is invalid or expired.");
+      const session = setStaffSessionCookie(ctx);
+      await createStaffSession(email, hashValue(session.token), session.expiresAt);
+      return { success: true };
+    }),
+    me: publicProcedure.query(({ ctx }) => ctx.staff ?? null),
+    logout: publicProcedure.mutation(({ ctx }) => {
+      ctx.res.clearCookie(STAFF_SESSION_COOKIE, { ...getSessionCookieOptions(ctx.req), maxAge: 0 });
+      return { success: true };
     }),
   }),
 
@@ -203,17 +276,17 @@ export const appRouter = router({
           inspectionDate: z.string().min(1).max(32),
           serviceType: z.string().min(1).max(120),
           overallRating: z.string().min(1).max(32),
-          checklist: z.array(z.object({ area: z.string().min(1).max(255), status: z.enum(["pass", "attention", "not_applicable"]), comment: z.string().max(500).optional() })).min(1).max(30),
+          checklist: z.array(z.object({ area: z.string().min(1).max(255), items: z.array(z.object({ label: z.string().min(1).max(255), score: z.number().int().min(1).max(5), comment: z.string().max(500).optional(), photos: z.array(z.object({ name: z.string().max(120), dataUrl: z.string().max(1_500_000) })).max(2) })).min(1).max(30) })).min(1).max(20),
           notes: z.string().max(4000).optional(),
           correctiveActions: z.string().max(4000).optional(),
           photos: z.array(z.object({ name: z.string().max(120), dataUrl: z.string().max(1_500_000) })).max(6),
         })
       )
       .mutation(async ({ input, ctx }) => {
-        const staffName = ctx.user.name || ctx.user.email || "Nexus Facility Staff";
+        const staffName = ctx.staff?.email || ctx.user?.name || ctx.user?.email || "Nexus Facility Staff";
         const pdf = await createInspectionPdf({ ...input, staffName });
         const reportId = await insertInspectionReport({
-          staffUserId: ctx.user.id,
+          staffUserId: ctx.staff?.id || ctx.user?.id || 0,
           staffName,
           clientName: input.clientName,
           clientEmail: input.clientEmail,
@@ -222,10 +295,10 @@ export const appRouter = router({
           inspectionDate: input.inspectionDate,
           serviceType: input.serviceType,
           overallRating: input.overallRating,
-          checklistJson: JSON.stringify(input.checklist),
+          checklistJson: JSON.stringify(input.checklist.map((section) => ({ area: section.area, items: section.items.map((item) => ({ label: item.label, score: item.score, comment: item.comment || "", photos: item.photos.map((photo) => photo.name) })) }))),
           notes: input.notes || null,
           correctiveActions: input.correctiveActions || null,
-          photoNames: JSON.stringify(input.photos.map((photo) => photo.name)),
+          photoNames: JSON.stringify([...input.photos.map((photo) => photo.name), ...input.checklist.flatMap((section) => section.items.flatMap((item) => item.photos.map((photo) => photo.name)))]),
           pdfUrl: null,
         });
 
