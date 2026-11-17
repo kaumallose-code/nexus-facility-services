@@ -1,10 +1,14 @@
 import { COOKIE_NAME } from "@shared/const";
 import { getSessionCookieOptions } from "./_core/cookies";
 import { systemRouter } from "./_core/systemRouter";
-import { publicProcedure, router } from "./_core/trpc";
+import { publicProcedure, router, staffProcedure } from "./_core/trpc";
 import { z } from "zod";
 import nodemailer from "nodemailer";
 import { notifyOwner } from "./_core/notification";
+import { insertInspectionReport, listInspectionReports } from "./db";
+import { createInspectionPdf } from "./inspection";
+import { storagePut } from "./storage";
+import { nanoid } from "nanoid";
 
 // ─── Email helper ──────────────────────────────────────────────────────────────
 async function sendEnquiryEmail(data: {
@@ -125,6 +129,32 @@ async function sendEnquiryEmail(data: {
   return { success: true };
 }
 
+async function sendInspectionEmail(input: { clientName: string; clientEmail: string; siteName: string; inspectionDate: string; pdf: Buffer; reportId: number | undefined }) {
+  const smtpHost = process.env.SMTP_HOST;
+  const smtpUser = process.env.SMTP_USER;
+  const smtpPass = process.env.SMTP_PASS;
+  if (!smtpHost || !smtpUser || !smtpPass) {
+    throw new Error("Inspection email delivery is not configured yet. Please contact the site administrator.");
+  }
+
+  const transporter = nodemailer.createTransport({
+    host: smtpHost,
+    port: parseInt(process.env.SMTP_PORT || "587"),
+    secure: process.env.SMTP_SECURE === "true",
+    auth: { user: smtpUser, pass: smtpPass },
+  });
+  const subject = `Cleaning Inspection Report — ${input.siteName} — ${input.inspectionDate}`;
+  await transporter.sendMail({
+    from: `"Nexus Facility Group" <${smtpUser}>`,
+    to: [input.clientEmail, "admin.hr@nexusfacility.au"],
+    replyTo: smtpUser,
+    subject,
+    text: `Hello ${input.clientName},\n\nPlease find attached the Nexus Facility Group cleaning inspection report for ${input.siteName} dated ${input.inspectionDate}.\n\nKind regards,\nNexus Facility Group\n0477 376 440 · 0404 934 544`,
+    html: `<p>Hello ${input.clientName},</p><p>Please find attached the Nexus Facility Group cleaning inspection report for <strong>${input.siteName}</strong> dated <strong>${input.inspectionDate}</strong>.</p><p>Kind regards,<br>Nexus Facility Group<br>0477 376 440 · 0404 934 544</p>`,
+    attachments: [{ filename: `nexus-cleaning-inspection-${input.reportId || "report"}.pdf`, content: input.pdf, contentType: "application/pdf" }],
+  });
+}
+
 // ─── App Router ───────────────────────────────────────────────────────────────
 export const appRouter = router({
   system: systemRouter,
@@ -158,6 +188,57 @@ export const appRouter = router({
       )
       .mutation(async ({ input }) => {
         return await sendEnquiryEmail(input);
+      }),
+  }),
+
+  staffInspections: router({
+    recent: staffProcedure.query(async () => listInspectionReports()),
+    submit: staffProcedure
+      .input(
+        z.object({
+          clientName: z.string().min(1).max(255),
+          clientEmail: z.string().email(),
+          siteName: z.string().min(1).max(255),
+          siteAddress: z.string().min(1).max(1000),
+          inspectionDate: z.string().min(1).max(32),
+          serviceType: z.string().min(1).max(120),
+          overallRating: z.string().min(1).max(32),
+          checklist: z.array(z.object({ area: z.string().min(1).max(255), status: z.enum(["pass", "attention", "not_applicable"]), comment: z.string().max(500).optional() })).min(1).max(30),
+          notes: z.string().max(4000).optional(),
+          correctiveActions: z.string().max(4000).optional(),
+          photos: z.array(z.object({ name: z.string().max(120), dataUrl: z.string().max(1_500_000) })).max(6),
+        })
+      )
+      .mutation(async ({ input, ctx }) => {
+        const staffName = ctx.user.name || ctx.user.email || "Nexus Facility Staff";
+        const pdf = await createInspectionPdf({ ...input, staffName });
+        const reportId = await insertInspectionReport({
+          staffUserId: ctx.user.id,
+          staffName,
+          clientName: input.clientName,
+          clientEmail: input.clientEmail,
+          siteName: input.siteName,
+          siteAddress: input.siteAddress,
+          inspectionDate: input.inspectionDate,
+          serviceType: input.serviceType,
+          overallRating: input.overallRating,
+          checklistJson: JSON.stringify(input.checklist),
+          notes: input.notes || null,
+          correctiveActions: input.correctiveActions || null,
+          photoNames: JSON.stringify(input.photos.map((photo) => photo.name)),
+          pdfUrl: null,
+        });
+
+        let pdfUrl: string | null = null;
+        try {
+          const stored = await storagePut(`inspection-reports/${Date.now()}-${nanoid(8)}.pdf`, pdf, "application/pdf");
+          pdfUrl = stored.url;
+        } catch (error) {
+          console.warn("[Inspection] Could not archive PDF in storage:", error);
+        }
+
+        await sendInspectionEmail({ ...input, pdf, reportId });
+        return { success: true, reportId, pdfUrl };
       }),
   }),
 });

@@ -1,6 +1,6 @@
 import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
-import { Route, Switch } from "wouter";
+import { Route, Switch, useLocation } from "wouter";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import Navigation from "./components/Navigation";
@@ -18,6 +18,7 @@ import ContactPage from "./pages/ContactPage";
 import ReviewsPage from "./pages/ReviewsPage";
 import WaterDamageRestorationPage from "./pages/WaterDamageRestorationPage";
 import MouldRemediationPage from "./pages/MouldRemediationPage";
+import StaffInspectionPage from "./pages/StaffInspectionPage";
 import NotFound from "./pages/NotFound";
 
 function Router() {
@@ -28,6 +29,7 @@ function Router() {
       <Route path="/services" component={ServicesPage} />
       <Route path="/water-damage-restoration" component={WaterDamageRestorationPage} />
       <Route path="/mould-remediation" component={MouldRemediationPage} />
+      <Route path="/staff-inspections" component={StaffInspectionPage} />
       <Route path="/offers" component={OffersPage} />
       <Route path="/pricing" component={PricingPage} />
       <Route path="/areas" component={AreasPage} />
@@ -41,20 +43,15 @@ function Router() {
 }
 
 function App() {
+  const [location] = useLocation();
+  const isStaffPortal = location === "/staff-inspections";
+
   return (
     <ErrorBoundary>
       <ThemeProvider defaultTheme="light">
         <TooltipProvider>
           <Toaster />
-          <div className="flex flex-col min-h-screen">
-            <Navigation />
-            <main className="flex-1">
-              <Router />
-            </main>
-            <Footer />
-            <QuoteBot />
-            <WelcomeOfferPopup />
-          </div>
+          {isStaffPortal ? <StaffInspectionPage /> : <div className="flex flex-col min-h-screen"><Navigation /><main className="flex-1"><Router /></main><Footer /><QuoteBot /><WelcomeOfferPopup /></div>}
         </TooltipProvider>
       </ThemeProvider>
     </ErrorBoundary>

@@ -1,6 +1,6 @@
 import { eq } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
-import { InsertUser, users } from "../drizzle/schema";
+import { InsertInspectionReport, InsertUser, inspectionReports, users } from "../drizzle/schema";
 import { ENV } from './_core/env';
 
 let _db: ReturnType<typeof drizzle> | null = null;
@@ -89,4 +89,18 @@ export async function getUserByOpenId(openId: string) {
   return result.length > 0 ? result[0] : undefined;
 }
 
-// TODO: add feature queries here as your schema grows.
+export async function insertInspectionReport(report: InsertInspectionReport) {
+  const db = await getDb();
+  if (!db) {
+    console.warn("[Database] Cannot save inspection report: database not available");
+    return undefined;
+  }
+  const result = await db.insert(inspectionReports).values(report);
+  return Number(result[0].insertId);
+}
+
+export async function listInspectionReports(limit = 50) {
+  const db = await getDb();
+  if (!db) return [];
+  return db.select().from(inspectionReports).orderBy(inspectionReports.createdAt).limit(limit);
+}

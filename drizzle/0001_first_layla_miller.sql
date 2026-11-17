@@ -1,0 +1,20 @@
+CREATE TABLE `inspection_reports` (
+	`id` int AUTO_INCREMENT NOT NULL,
+	`staffUserId` int NOT NULL,
+	`staffName` varchar(255) NOT NULL,
+	`clientName` varchar(255) NOT NULL,
+	`clientEmail` varchar(320) NOT NULL,
+	`siteName` varchar(255) NOT NULL,
+	`siteAddress` text NOT NULL,
+	`inspectionDate` varchar(32) NOT NULL,
+	`serviceType` varchar(120) NOT NULL,
+	`overallRating` varchar(32) NOT NULL,
+	`checklistJson` text NOT NULL,
+	`notes` text,
+	`correctiveActions` text,
+	`photoNames` text,
+	`pdfUrl` text,
+	`sentAt` timestamp NOT NULL DEFAULT (now()),
+	`createdAt` timestamp NOT NULL DEFAULT (now()),
+	CONSTRAINT `inspection_reports_id` PRIMARY KEY(`id`)
+);
