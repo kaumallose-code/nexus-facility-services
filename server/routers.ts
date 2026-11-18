@@ -296,7 +296,7 @@ export const appRouter = router({
         const totalPoints = input.checklist.reduce((sum, section) => sum + section.items.reduce((sectionSum, item) => sectionSum + item.score, 0), 0);
         const overallScore = input.reportMode === "ad_hoc" ? 100 : totalItems ? Math.round((totalPoints / (totalItems * 5)) * 100) : 0;
         const overallResult = input.reportMode === "ad_hoc" ? "PASS" as const : overallScore >= 70 ? "PASS" as const : "FAIL" as const;
-        const overallRating = input.reportMode === "ad_hoc" ? "AD HOC WORKS — COMPLETED" : `${overallScore}/100 — ${overallResult}`;
+        const overallRating = input.reportMode === "ad_hoc" ? "AD HOC SERVICE REPORT — COMPLETED" : `${overallScore}/100 — ${overallResult}`;
         const pdf = await createInspectionPdf({ ...input, overallRating, overallScore, overallResult, staffName });
         return { pdfDataUrl: `data:application/pdf;base64,${pdf.toString("base64")}` };
       }),
@@ -308,7 +308,7 @@ export const appRouter = router({
         const totalPoints = input.checklist.reduce((sum, section) => sum + section.items.reduce((sectionSum, item) => sectionSum + item.score, 0), 0);
         const overallScore = input.reportMode === "ad_hoc" ? 100 : totalItems ? Math.round((totalPoints / (totalItems * 5)) * 100) : 0;
         const overallResult = input.reportMode === "ad_hoc" ? "PASS" as const : overallScore >= 70 ? "PASS" as const : "FAIL" as const;
-        const overallRating = input.reportMode === "ad_hoc" ? "AD HOC WORKS — COMPLETED" : `${overallScore}/100 — ${overallResult}`;
+        const overallRating = input.reportMode === "ad_hoc" ? "AD HOC SERVICE REPORT — COMPLETED" : `${overallScore}/100 — ${overallResult}`;
         await saveInspectionClient({ clientName: input.clientName, clientEmail: input.clientEmail, siteName: input.siteName, siteAddress: input.siteAddress });
         const reportId = await insertInspectionReport({
           staffUserId: ctx.staff?.id || ctx.user?.id || 0,

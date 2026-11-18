@@ -48,7 +48,7 @@ async function loadLogo() {
 function resultColour(result: "PASS" | "FAIL") { return result === "PASS" ? GREEN : RED; }
 
 function addFooter(doc: PDFKit.PDFDocument) {
-  const y = 806;
+  const y = 780;
   doc.save().strokeColor("#d7e4ef").lineWidth(0.6).moveTo(45, y - 12).lineTo(550, y - 12).stroke();
   doc.font("Helvetica").fontSize(7.5).fillColor("#617286").text("Nexus Facility Group · admin.hr@nexusfacility.au · 0477 376 440 · 0404 934 544", 45, y, { width: 505, align: "center" });
   doc.restore();
@@ -70,7 +70,7 @@ export async function createInspectionPdf(input: InspectionPdfInput): Promise<Bu
     if (logo) doc.image(logo, 45, 27, { fit: [156, 48] as [number, number] });
     else doc.font("Helvetica-Bold").fontSize(17).fillColor(NAVY).text("NEXUS FACILITY GROUP", 45, 42);
     const isAdHoc = input.reportMode === "ad_hoc";
-    doc.font("Helvetica-Bold").fontSize(16).fillColor(NAVY).text(isAdHoc ? "AD HOC WORK REPORT" : "CLEANING INSPECTION REPORT", 285, 28, { width: 265, align: "right" });
+    doc.font("Helvetica-Bold").fontSize(16).fillColor(NAVY).text(isAdHoc ? "AD HOC SERVICE REPORT" : "CLEANING INSPECTION REPORT", 285, 28, { width: 265, align: "right" });
     doc.font("Helvetica").fontSize(9).fillColor(BLUE).text(`Report no. ${input.reportNumber || "PREVIEW"}`, 285, 55, { width: 265, align: "right" });
     doc.font("Helvetica").fontSize(8.5).fillColor("#617286").text(`Issued ${new Date().toLocaleDateString("en-AU")}`, 285, 72, { width: 265, align: "right" });
     doc.strokeColor(NAVY).lineWidth(1).moveTo(45, 100).lineTo(550, 100).stroke();
@@ -79,8 +79,8 @@ export async function createInspectionPdf(input: InspectionPdfInput): Promise<Bu
     if (isAdHoc) {
       const adHoc = input.adHoc || { workDescription: input.notes || "", beforePhotos: [], afterPhotos: [] };
       doc.roundedRect(45, doc.y, 505, 72, 5).fill(PALE).strokeColor("#d5e5f2").stroke();
-      doc.font("Helvetica-Bold").fontSize(10).fillColor(BLUE).text("WORK COMPLETION REPORT", 62, doc.y + 14);
-      doc.font("Helvetica-Bold").fontSize(19).fillColor(NAVY).text("AD HOC WORKS COMPLETED", 62, doc.y + 34);
+      doc.font("Helvetica-Bold").fontSize(10).fillColor(BLUE).text("AD HOC SERVICE REPORT", 62, doc.y + 14);
+      doc.font("Helvetica-Bold").fontSize(19).fillColor(NAVY).text("WORK COMPLETED", 62, doc.y + 34);
       doc.y += 94;
       doc.font("Helvetica-Bold").fontSize(14).fillColor(NAVY).text("Work details");
       doc.moveDown(0.35);
@@ -95,24 +95,36 @@ export async function createInspectionPdf(input: InspectionPdfInput): Promise<Bu
       doc.font("Helvetica-Bold").fontSize(14).fillColor(NAVY).text("Description of work completed"); doc.moveDown(0.35);
       doc.roundedRect(45, doc.y, 505, 78, 4).fill("#f5f8fb").strokeColor("#dce7f0").stroke();
       doc.font("Helvetica").fontSize(10).fillColor("#243647").text(clean(adHoc.workDescription), 60, doc.y + 17, { width: 475, height: 48 }); doc.y += 102;
-      const drawPhotoGroup = (title: string, photos: AdHocPhoto[]) => {
-        ensureRoom(doc, 150);
-        doc.font("Helvetica-Bold").fontSize(15).fillColor(NAVY).text(title, 45, doc.y, { width: 505, align: "center" });
-        doc.moveDown(0.55);
-        if (!photos.length) { doc.font("Helvetica").fontSize(9).fillColor("#617286").text("No photos uploaded", 45, doc.y, { width: 505, align: "center" }); doc.y += 34; return; }
-        const selected = photos.slice(0, 10);
-        for (let index = 0; index < selected.length; index += 1) {
-          if (index % 3 === 0) { ensureRoom(doc, 130); }
-          const photo = selected[index]; const buffer = dataUrlToBuffer(photo.dataUrl); const x = 45 + (index % 3) * 170; const y = doc.y;
-          if (buffer) { doc.image(buffer, x, y, { fit: [150, 88] as [number, number] }); doc.font("Helvetica").fontSize(7).fillColor("#617286").text(photo.name, x, y + 92, { width: 150, ellipsis: true }); }
-          if (index % 3 === 2 || index === selected.length - 1) doc.y = y + 118;
+      doc.roundedRect(45, doc.y, 505, 54, 5).fill(BLUE);
+      doc.font("Helvetica-Bold").fontSize(10).fillColor("#ffffff").text("AD HOC SERVICE REPORT STATUS", 62, doc.y + 12);
+      doc.font("Helvetica-Bold").fontSize(18).fillColor("#ffffff").text("COMPLETED", 62, doc.y + 28); doc.y += 76;
+
+      const drawAdHocHeader = () => {
+        addFooter(doc); doc.addPage(); doc.rect(0, 0, 595, 104).fill("#ffffff");
+        if (logo) doc.image(logo, 45, 27, { fit: [156, 48] as [number, number] });
+        else doc.font("Helvetica-Bold").fontSize(17).fillColor(NAVY).text("NEXUS FACILITY GROUP", 45, 42);
+        doc.font("Helvetica-Bold").fontSize(16).fillColor(NAVY).text("AD HOC SERVICE REPORT", 285, 28, { width: 265, align: "right" });
+        doc.font("Helvetica").fontSize(9).fillColor(BLUE).text(`Report no. ${input.reportNumber || "PREVIEW"}`, 285, 55, { width: 265, align: "right" });
+        doc.font("Helvetica").fontSize(8.5).fillColor("#617286").text(`Issued ${new Date().toLocaleDateString("en-AU")}`, 285, 72, { width: 265, align: "right" });
+        doc.strokeColor(NAVY).lineWidth(1).moveTo(45, 100).lineTo(550, 100).stroke(); doc.y = 124;
+      };
+      const drawPhotoSection = (title: string, photos: AdHocPhoto[]) => {
+        const pages = Math.max(1, Math.ceil(photos.length / 4));
+        for (let page = 0; page < pages; page += 1) {
+          drawAdHocHeader();
+          doc.font("Helvetica-Bold").fontSize(25).fillColor(NAVY).text(title, 45, 124, { width: 505 });
+          const pagePhotos = photos.slice(page * 4, page * 4 + 4);
+          pagePhotos.forEach((photo, index) => {
+            const buffer = dataUrlToBuffer(photo.dataUrl); if (!buffer) return;
+            const x = index % 2 === 0 ? 45 : 307; const y = 172 + Math.floor(index / 2) * 286;
+            doc.image(buffer, x, y, { fit: [243, 260] as [number, number] });
+          });
         }
       };
-      drawPhotoGroup("Before work", adHoc.beforePhotos); doc.moveDown(0.5); drawPhotoGroup("After work", adHoc.afterPhotos);
-      ensureRoom(doc, 100); const resultY = doc.y; doc.roundedRect(45, resultY, 505, 70, 5).fill(BLUE); doc.font("Helvetica-Bold").fontSize(11).fillColor("#ffffff").text("AD HOC WORK REPORT STATUS", 62, resultY + 14); doc.font("Helvetica-Bold").fontSize(22).fillColor("#ffffff").text("COMPLETED", 62, resultY + 35); doc.y = resultY + 92;
+      drawPhotoSection("Before Work", adHoc.beforePhotos);
+      drawPhotoSection("After Work", adHoc.afterPhotos);
       addFooter(doc); doc.end(); return;
     }
-
     // Summary banner.
     const colour = resultColour(input.overallResult);
     doc.roundedRect(45, doc.y, 505, 82, 5).fill(PALE).strokeColor("#d5e5f2").stroke();
