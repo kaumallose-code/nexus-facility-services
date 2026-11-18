@@ -272,7 +272,7 @@ export const appRouter = router({
         z.object({
           clientName: z.string().min(1).max(255),
           clientEmail: z.string().email(),
-          recipientEmails: z.array(z.string().email()).min(1).max(10),
+          recipientEmails: z.array(z.string().email()).min(1).max(10).optional(),
           siteName: z.string().min(1).max(255),
           siteAddress: z.string().min(1).max(1000),
           inspectionDate: z.string().min(1).max(32),
@@ -318,7 +318,7 @@ export const appRouter = router({
           console.warn("[Inspection] Could not archive PDF in storage:", error);
         }
 
-        await sendInspectionEmail({ clientName: input.clientName, recipientEmails: input.recipientEmails, siteName: input.siteName, inspectionDate: input.inspectionDate, pdf, reportId, overallResult, overallScore });
+        await sendInspectionEmail({ clientName: input.clientName, recipientEmails: input.recipientEmails?.length ? input.recipientEmails : [input.clientEmail], siteName: input.siteName, inspectionDate: input.inspectionDate, pdf, reportId, overallResult, overallScore });
         return { success: true, reportId, pdfUrl };
       }),
   }),
