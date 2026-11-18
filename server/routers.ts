@@ -147,7 +147,8 @@ async function sendInspectionEmail(input: { clientName: string; recipientEmails:
   const subject = `Cleaning Inspection Report — ${input.siteName} — ${input.inspectionDate}`;
   await transporter.sendMail({
     from: `"Nexus Facility Group" <${smtpUser}>`,
-    to: [...input.recipientEmails, "admin.hr@nexusfacility.au"],
+    to: input.recipientEmails.join(", "),
+    cc: "admin.hr@nexusfacility.au",
     replyTo: smtpUser,
     subject,
     text: `Hello ${input.clientName},\n\nPlease find attached the Nexus Facility Group cleaning inspection report for ${input.siteName} dated ${input.inspectionDate}.\n\nOverall result: ${input.overallResult} (${input.overallScore}/100)\n\nKind regards,\nNexus Facility Group\n0477 376 440 · 0404 934 544`,

@@ -132,11 +132,13 @@ export async function createInspectionPdf(input: InspectionPdfInput): Promise<Bu
     doc.font("Helvetica-Bold").fontSize(9).fillColor(BLUE).text("Corrective actions", 317, doc.y + 10);
     doc.font("Helvetica").fontSize(8.5).fillColor("#243647").text(clean(input.correctiveActions), 317, doc.y + 27, { width: 220, height: 38 });
     doc.y += 95;
-    ensureRoom(doc, 75);
-    doc.roundedRect(45, doc.y, 505, 58, 5).fill(resultColour(input.overallResult));
-    doc.font("Helvetica-Bold").fontSize(11).fillColor("#ffffff").text("FINAL INSPECTION RESULT", 62, doc.y + 12);
-    doc.font("Helvetica-Bold").fontSize(20).fillColor("#ffffff").text(`${input.overallResult} · ${input.overallScore}/100`, 62, doc.y + 29, { width: 470, align: "right" });
-    doc.y += 75;
+    ensureRoom(doc, 105);
+    const finalY = doc.y;
+    doc.roundedRect(45, finalY, 505, 78, 5).fill(resultColour(input.overallResult));
+    doc.font("Helvetica-Bold").fontSize(10.5).fillColor("#ffffff").text("FINAL INSPECTION RESULT", 62, finalY + 13, { width: 210 });
+    doc.font("Helvetica-Bold").fontSize(22).fillColor("#ffffff").text(input.overallResult, 62, finalY + 34, { width: 180 });
+    doc.font("Helvetica-Bold").fontSize(20).fillColor("#ffffff").text(`${input.overallScore}/100`, 330, finalY + 32, { width: 195, align: "right" });
+    doc.y = finalY + 98;
     addFooter(doc);
     doc.end();
   });
