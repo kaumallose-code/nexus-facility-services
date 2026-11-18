@@ -10,8 +10,10 @@ describe("createInspectionPdf", () => {
       siteAddress: "1 Example Street, Melbourne VIC",
       inspectionDate: "2026-11-18",
       serviceType: "Commercial cleaning inspection",
-      overallRating: "Satisfactory",
-      checklist: [{ area: "Toilets & washrooms", items: [{ label: "Toilet bowl and seat clean", score: 5, comment: "Clean and presentable", photos: [{ name: "floor.png", dataUrl: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+A8AAQUBAScY42YAAAAASUVORK5CYII=" }] }] }],
+      overallRating: "100/100 — PASS",
+      overallScore: 100,
+      overallResult: "PASS",
+      checklist: [{ area: "Toilets & washrooms", items: [{ label: "Toilet bowl and seat are clean", score: 5, comment: "Clean and presentable", photos: [{ name: "floor.png", dataUrl: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+A8AAQUBAScY42YAAAAASUVORK5CYII=" }] }] }],
       notes: "No additional notes.",
       correctiveActions: "None required.",
       photos: [{ name: "floor.png", dataUrl: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+A8AAQUBAScY42YAAAAASUVORK5CYII=" }],
@@ -20,5 +22,6 @@ describe("createInspectionPdf", () => {
 
     expect(pdf.subarray(0, 5).toString()).toBe("%PDF-");
     expect(pdf.length).toBeGreaterThan(1000);
+    expect(pdf.includes(Buffer.from([0xff, 0xd8, 0xff]))).toBe(true);
   });
 });

@@ -32,6 +32,16 @@ export const inspectionReports = mysqlTable("inspection_reports", {
   createdAt: timestamp("createdAt").defaultNow().notNull(),
 });
 
+export const inspectionClients = mysqlTable("inspection_clients", {
+  id: int("id").autoincrement().primaryKey(),
+  clientName: varchar("clientName", { length: 255 }).notNull().unique(),
+  clientEmail: varchar("clientEmail", { length: 320 }).notNull(),
+  siteName: varchar("siteName", { length: 255 }).notNull(),
+  siteAddress: text("siteAddress").notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
 export const staffAccounts = mysqlTable("staff_accounts", {
   id: int("id").autoincrement().primaryKey(),
   email: varchar("email", { length: 320 }).notNull().unique(),
@@ -64,3 +74,4 @@ export type InsertUser = typeof users.$inferInsert;
 export type InspectionReport = typeof inspectionReports.$inferSelect;
 export type InsertInspectionReport = typeof inspectionReports.$inferInsert;
 export type StaffAccount = typeof staffAccounts.$inferSelect;
+export type InspectionClient = typeof inspectionClients.$inferSelect;

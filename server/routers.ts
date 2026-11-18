@@ -5,7 +5,7 @@ import { publicProcedure, router, staffProcedure } from "./_core/trpc";
 import { z } from "zod";
 import nodemailer from "nodemailer";
 import { notifyOwner } from "./_core/notification";
-import { createStaffAccount, createStaffSession, createStaffVerificationCode, getActiveStaffVerificationCode, getStaffAccount, insertInspectionReport, listInspectionReports } from "./db";
+import { createStaffAccount, createStaffSession, createStaffVerificationCode, getActiveStaffVerificationCode, getStaffAccount, insertInspectionReport, listInspectionClients, listInspectionReports, saveInspectionClient } from "./db";
 import { createInspectionPdf } from "./inspection";
 import { storagePut } from "./storage";
 import { nanoid } from "nanoid";
@@ -130,7 +130,7 @@ async function sendEnquiryEmail(data: {
   return { success: true };
 }
 
-async function sendInspectionEmail(input: { clientName: string; clientEmail: string; siteName: string; inspectionDate: string; pdf: Buffer; reportId: number | undefined }) {
+async function sendInspectionEmail(input: { clientName: string; recipientEmails: string[]; siteName: string; inspectionDate: string; pdf: Buffer; reportId: number | undefined; overallResult: "PASS" | "FAIL"; overallScore: number }) {
   const smtpHost = process.env.SMTP_HOST;
   const smtpUser = process.env.SMTP_USER;
   const smtpPass = process.env.SMTP_PASS;
@@ -147,11 +147,11 @@ async function sendInspectionEmail(input: { clientName: string; clientEmail: str
   const subject = `Cleaning Inspection Report — ${input.siteName} — ${input.inspectionDate}`;
   await transporter.sendMail({
     from: `"Nexus Facility Group" <${smtpUser}>`,
-    to: [input.clientEmail, "admin.hr@nexusfacility.au"],
+    to: [...input.recipientEmails, "admin.hr@nexusfacility.au"],
     replyTo: smtpUser,
     subject,
-    text: `Hello ${input.clientName},\n\nPlease find attached the Nexus Facility Group cleaning inspection report for ${input.siteName} dated ${input.inspectionDate}.\n\nKind regards,\nNexus Facility Group\n0477 376 440 · 0404 934 544`,
-    html: `<p>Hello ${input.clientName},</p><p>Please find attached the Nexus Facility Group cleaning inspection report for <strong>${input.siteName}</strong> dated <strong>${input.inspectionDate}</strong>.</p><p>Kind regards,<br>Nexus Facility Group<br>0477 376 440 · 0404 934 544</p>`,
+    text: `Hello ${input.clientName},\n\nPlease find attached the Nexus Facility Group cleaning inspection report for ${input.siteName} dated ${input.inspectionDate}.\n\nOverall result: ${input.overallResult} (${input.overallScore}/100)\n\nKind regards,\nNexus Facility Group\n0477 376 440 · 0404 934 544`,
+    html: `<p>Hello ${input.clientName},</p><p>Please find attached the Nexus Facility Group cleaning inspection report for <strong>${input.siteName}</strong> dated <strong>${input.inspectionDate}</strong>.</p><p><strong>Overall result: ${input.overallResult} (${input.overallScore}/100)</strong></p><p>Kind regards,<br>Nexus Facility Group<br>0477 376 440 · 0404 934 544</p>`,
     attachments: [{ filename: `nexus-cleaning-inspection-${input.reportId || "report"}.pdf`, content: input.pdf, contentType: "application/pdf" }],
   });
 }
@@ -266,16 +266,18 @@ export const appRouter = router({
 
   staffInspections: router({
     recent: staffProcedure.query(async () => listInspectionReports()),
+    clients: staffProcedure.query(async () => listInspectionClients()),
     submit: staffProcedure
       .input(
         z.object({
           clientName: z.string().min(1).max(255),
           clientEmail: z.string().email(),
+          recipientEmails: z.array(z.string().email()).min(1).max(10),
           siteName: z.string().min(1).max(255),
           siteAddress: z.string().min(1).max(1000),
           inspectionDate: z.string().min(1).max(32),
           serviceType: z.string().min(1).max(120),
-          overallRating: z.string().min(1).max(32),
+          overallRating: z.string().max(32).optional(),
           checklist: z.array(z.object({ area: z.string().min(1).max(255), items: z.array(z.object({ label: z.string().min(1).max(255), score: z.number().int().min(1).max(5), comment: z.string().max(500).optional(), photos: z.array(z.object({ name: z.string().max(120), dataUrl: z.string().max(1_500_000) })).max(2) })).min(1).max(30) })).min(1).max(20),
           notes: z.string().max(4000).optional(),
           correctiveActions: z.string().max(4000).optional(),
@@ -284,7 +286,13 @@ export const appRouter = router({
       )
       .mutation(async ({ input, ctx }) => {
         const staffName = ctx.staff?.email || ctx.user?.name || ctx.user?.email || "Nexus Facility Staff";
-        const pdf = await createInspectionPdf({ ...input, staffName });
+        const totalItems = input.checklist.reduce((sum, section) => sum + section.items.length, 0);
+        const totalPoints = input.checklist.reduce((sum, section) => sum + section.items.reduce((sectionSum, item) => sectionSum + item.score, 0), 0);
+        const overallScore = totalItems ? Math.round((totalPoints / (totalItems * 5)) * 100) : 0;
+        const overallResult = overallScore >= 70 ? "PASS" as const : "FAIL" as const;
+        const overallRating = `${overallScore}/100 — ${overallResult}`;
+        const pdf = await createInspectionPdf({ ...input, overallRating, overallScore, overallResult, staffName });
+        await saveInspectionClient({ clientName: input.clientName, clientEmail: input.clientEmail, siteName: input.siteName, siteAddress: input.siteAddress });
         const reportId = await insertInspectionReport({
           staffUserId: ctx.staff?.id || ctx.user?.id || 0,
           staffName,
@@ -294,7 +302,7 @@ export const appRouter = router({
           siteAddress: input.siteAddress,
           inspectionDate: input.inspectionDate,
           serviceType: input.serviceType,
-          overallRating: input.overallRating,
+          overallRating,
           checklistJson: JSON.stringify(input.checklist.map((section) => ({ area: section.area, items: section.items.map((item) => ({ label: item.label, score: item.score, comment: item.comment || "", photos: item.photos.map((photo) => photo.name) })) }))),
           notes: input.notes || null,
           correctiveActions: input.correctiveActions || null,
@@ -310,7 +318,7 @@ export const appRouter = router({
           console.warn("[Inspection] Could not archive PDF in storage:", error);
         }
 
-        await sendInspectionEmail({ ...input, pdf, reportId });
+        await sendInspectionEmail({ clientName: input.clientName, recipientEmails: input.recipientEmails, siteName: input.siteName, inspectionDate: input.inspectionDate, pdf, reportId, overallResult, overallScore });
         return { success: true, reportId, pdfUrl };
       }),
   }),

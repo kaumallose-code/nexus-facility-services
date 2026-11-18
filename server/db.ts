@@ -1,6 +1,6 @@
 import { and, desc, eq, gt } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
-import { InsertInspectionReport, InsertUser, inspectionReports, staffAccounts, staffSessions, staffVerificationCodes, users } from "../drizzle/schema";
+import { InsertInspectionReport, InsertUser, inspectionClients, inspectionReports, staffAccounts, staffSessions, staffVerificationCodes, users } from "../drizzle/schema";
 import { ENV } from './_core/env';
 
 let _db: ReturnType<typeof drizzle> | null = null;
@@ -103,6 +103,18 @@ export async function listInspectionReports(limit = 50) {
   const db = await getDb();
   if (!db) return [];
   return db.select().from(inspectionReports).orderBy(desc(inspectionReports.createdAt)).limit(limit);
+}
+
+export async function listInspectionClients() {
+  const db = await getDb();
+  if (!db) return [];
+  return db.select().from(inspectionClients).orderBy(inspectionClients.clientName);
+}
+
+export async function saveInspectionClient(input: { clientName: string; clientEmail: string; siteName: string; siteAddress: string }) {
+  const db = await getDb();
+  if (!db) throw new Error("Database is not available");
+  await db.insert(inspectionClients).values(input).onDuplicateKeyUpdate({ set: { clientEmail: input.clientEmail, siteName: input.siteName, siteAddress: input.siteAddress, updatedAt: new Date() } });
 }
 
 export async function getStaffAccount(email: string) {

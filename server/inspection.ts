@@ -1,17 +1,8 @@
 import PDFDocument from "pdfkit";
+import { NEXUS_LOGO_JPEG } from "./logoAsset";
 
-type ChecklistItem = {
-  label: string;
-  score: number;
-  comment?: string;
-  photos: Array<{ name: string; dataUrl: string }>;
-};
-
-type ChecklistSection = {
-  area: string;
-  items: ChecklistItem[];
-};
-
+type ChecklistItem = { label: string; score: number; comment?: string; photos: Array<{ name: string; dataUrl: string }> };
+type ChecklistSection = { area: string; items: ChecklistItem[] };
 type InspectionPdfInput = {
   clientName: string;
   clientEmail: string;
@@ -20,6 +11,8 @@ type InspectionPdfInput = {
   inspectionDate: string;
   serviceType: string;
   overallRating: string;
+  overallScore: number;
+  overallResult: "PASS" | "FAIL";
   checklist: ChecklistSection[];
   notes?: string;
   correctiveActions?: string;
@@ -27,99 +20,124 @@ type InspectionPdfInput = {
   staffName: string;
 };
 
-function clean(value: string | undefined) {
-  return value?.trim() || "—";
+const LOGO_URL = "https://www.nexusfacility.au/nexus-logo.jpg";
+const NAVY = "#09254b";
+const BLUE = "#1765a8";
+const PALE = "#eef5fb";
+const GREEN = "#138a4b";
+const RED = "#c62828";
+
+function clean(value: string | undefined) { return value?.trim() || "—"; }
+function dataUrlToBuffer(dataUrl: string) { const match = dataUrl.match(/^data:image\/(png|jpe?g);base64,(.+)$/i); return match ? Buffer.from(match[2], "base64") : null; }
+function sectionScore(section: ChecklistSection) { const max = section.items.length * 5; const points = section.items.reduce((sum, item) => sum + item.score, 0); return max ? Math.round((points / max) * 100) : 0; }
+async function loadLogo() {
+  if (NEXUS_LOGO_JPEG.length) return NEXUS_LOGO_JPEG;
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 900);
+  try {
+    const response = await fetch(LOGO_URL, { signal: controller.signal });
+    if (!response.ok) return null;
+    return Buffer.from(await response.arrayBuffer());
+  } catch { return null; }
+  finally { clearTimeout(timeout); }
+}
+function resultColour(result: "PASS" | "FAIL") { return result === "PASS" ? GREEN : RED; }
+
+function addFooter(doc: PDFKit.PDFDocument) {
+  const y = 806;
+  doc.save().strokeColor("#d7e4ef").lineWidth(0.6).moveTo(45, y - 12).lineTo(550, y - 12).stroke();
+  doc.font("Helvetica").fontSize(7.5).fillColor("#617286").text("Nexus Facility Group · admin.hr@nexusfacility.au · 0477 376 440 · 0404 934 544", 45, y, { width: 505, align: "center" });
+  doc.restore();
 }
 
-function addSectionTitle(doc: PDFKit.PDFDocument, title: string) {
-  doc.moveDown(0.7).fontSize(12).fillColor("#174a8b").font("Helvetica-Bold").text(title);
-  doc.moveDown(0.2).strokeColor("#d8e5f4").lineWidth(1).moveTo(50, doc.y).lineTo(545, doc.y).stroke();
-  doc.moveDown(0.4).fillColor("#1c2633").font("Helvetica");
-}
+function ensureRoom(doc: PDFKit.PDFDocument, required = 90) { if (doc.y > 760 - required) { addFooter(doc); doc.addPage(); doc.y = 48; } }
 
-function addLabelValue(doc: PDFKit.PDFDocument, label: string, value: string) {
-  doc.fontSize(9).font("Helvetica-Bold").fillColor("#174a8b").text(`${label}: `, { continued: true });
-  doc.font("Helvetica").fillColor("#1c2633").text(clean(value));
-}
-
-function dataUrlToBuffer(dataUrl: string) {
-  const match = dataUrl.match(/^data:image\/(png|jpe?g);base64,(.+)$/i);
-  if (!match) return null;
-  return Buffer.from(match[2], "base64");
-}
-
-function sectionTotal(section: ChecklistSection) {
-  const total = section.items.reduce((sum, item) => sum + item.score, 0);
-  return { total, max: section.items.length * 5 };
-}
-
-export function createInspectionPdf(input: InspectionPdfInput): Promise<Buffer> {
+export async function createInspectionPdf(input: InspectionPdfInput): Promise<Buffer> {
+  const logo = await loadLogo();
   return new Promise((resolve, reject) => {
-    const doc = new PDFDocument({ size: "A4", margin: 50, info: { Title: `Cleaning Inspection — ${input.siteName}`, Author: "Nexus Facility Group" } });
+    const doc = new PDFDocument({ size: "A4", margin: 45, info: { Title: `Cleaning Inspection — ${input.siteName}`, Author: "Nexus Facility Group" } });
     const chunks: Buffer[] = [];
-    doc.on("data", (chunk) => chunks.push(Buffer.from(chunk)));
+    doc.on("data", chunk => chunks.push(Buffer.from(chunk)));
     doc.on("end", () => resolve(Buffer.concat(chunks)));
     doc.on("error", reject);
 
-    doc.rect(0, 0, 595, 86).fill("#09254b");
-    doc.fillColor("#ffffff").font("Helvetica-Bold").fontSize(22).text("NEXUS FACILITY GROUP", 50, 28);
-    doc.fillColor("#76d7ff").font("Helvetica").fontSize(9).text("CLEANING INSPECTION REPORT", 51, 57);
-    doc.fillColor("#1c2633").font("Helvetica").fontSize(10).text(`Report date: ${new Date().toLocaleDateString("en-AU")}`, 400, 35, { width: 145, align: "right" });
+    // Premium branded header.
+    doc.rect(0, 0, 595, 104).fill(NAVY);
+    doc.rect(45, 16, 205, 72).fill("#ffffff");
+    if (logo) doc.image(logo, 55, 23, { fit: [185, 58] as [number, number] });
+    else doc.font("Helvetica-Bold").fontSize(17).fillColor(NAVY).text("NEXUS FACILITY GROUP", 58, 42);
+    doc.font("Helvetica-Bold").fontSize(17).fillColor("#ffffff").text("CLEANING INSPECTION REPORT", 275, 33, { width: 275, align: "right" });
+    doc.font("Helvetica").fontSize(9).fillColor("#b9ddf6").text("Quality assurance · evidence-based site review", 275, 58, { width: 275, align: "right" });
+    doc.font("Helvetica").fontSize(8.5).fillColor("#ffffff").text(`Issued ${new Date().toLocaleDateString("en-AU")}`, 275, 78, { width: 275, align: "right" });
+    doc.y = 124;
 
-    doc.y = 110;
-    addSectionTitle(doc, "Inspection details");
-    addLabelValue(doc, "Client", input.clientName);
-    addLabelValue(doc, "Client email", input.clientEmail);
-    addLabelValue(doc, "Site", input.siteName);
-    addLabelValue(doc, "Site address", input.siteAddress);
-    addLabelValue(doc, "Inspection date", input.inspectionDate);
-    addLabelValue(doc, "Service type", input.serviceType);
-    addLabelValue(doc, "Overall score", input.overallRating);
-    addLabelValue(doc, "Completed by", input.staffName);
+    // Summary banner.
+    const colour = resultColour(input.overallResult);
+    doc.roundedRect(45, doc.y, 505, 82, 5).fill(PALE).strokeColor("#d5e5f2").stroke();
+    doc.font("Helvetica-Bold").fontSize(10).fillColor(BLUE).text("INSPECTION OUTCOME", 62, doc.y + 15);
+    doc.font("Helvetica-Bold").fontSize(30).fillColor(NAVY).text(`${input.overallScore}/100`, 62, doc.y + 32);
+    doc.font("Helvetica").fontSize(9).fillColor("#536477").text("Overall quality score", 160, doc.y + 51);
+    doc.roundedRect(409, doc.y + 20, 116, 40, 5).fill(colour);
+    doc.font("Helvetica-Bold").fontSize(18).fillColor("#ffffff").text(input.overallResult, 409, doc.y + 31, { width: 116, align: "center" });
+    doc.y += 103;
 
-    addSectionTitle(doc, "Scored inspection checklist");
-    input.checklist.forEach((section) => {
-      const totals = sectionTotal(section);
-      doc.fontSize(11).font("Helvetica-Bold").fillColor("#09254b").text(`${section.area} — ${totals.total}/${totals.max}`);
-      doc.moveDown(0.25);
+    doc.font("Helvetica-Bold").fontSize(14).fillColor(NAVY).text("Inspection details");
+    doc.moveDown(0.35);
+    const details = [["Client", input.clientName, "Client email", input.clientEmail], ["Site", input.siteName, "Inspection date", input.inspectionDate], ["Address", input.siteAddress, "Service type", input.serviceType], ["Completed by", input.staffName, "Report result", `${input.overallResult} · ${input.overallScore}/100`]];
+    details.forEach(row => {
+      const y = doc.y;
+      doc.rect(45, y, 105, 22).fill("#e5f0f8"); doc.rect(150, y, 147, 22).fill("#ffffff"); doc.rect(297, y, 105, 22).fill("#e5f0f8"); doc.rect(402, y, 148, 22).fill("#ffffff");
+      doc.font("Helvetica-Bold").fontSize(8.5).fillColor(BLUE).text(row[0], 53, y + 7, { width: 90 });
+      doc.font("Helvetica").fillColor("#1d2d3d").text(row[1], 158, y + 7, { width: 132, ellipsis: true });
+      doc.font("Helvetica-Bold").fillColor(BLUE).text(row[2], 305, y + 7, { width: 90 });
+      doc.font("Helvetica").fillColor(row[2] === "Report result" ? colour : "#1d2d3d").text(row[3], 410, y + 7, { width: 132, ellipsis: true });
+      doc.y += 22;
+    });
+    doc.moveDown(1);
+
+    doc.font("Helvetica-Bold").fontSize(14).fillColor(NAVY).text("Category results");
+    doc.moveDown(0.35);
+    input.checklist.forEach(section => {
+      const score = sectionScore(section); const result = score >= 70 ? "PASS" as const : "FAIL" as const; const c = resultColour(result);
+      ensureRoom(doc, 70);
+      const y = doc.y;
+      doc.roundedRect(45, y, 505, 30, 4).fill(score >= 70 ? "#e9f7ef" : "#fff0f0");
+      doc.font("Helvetica-Bold").fontSize(10.5).fillColor(NAVY).text(section.area, 56, y + 9, { width: 300 });
+      doc.font("Helvetica-Bold").fontSize(10).fillColor(c).text(`${score}/100 · ${result}`, 410, y + 9, { width: 125, align: "right" });
+      doc.y += 38;
       section.items.forEach((item, index) => {
-        if (doc.y > 690) doc.addPage();
-        doc.fontSize(8.7).font("Helvetica-Bold").fillColor("#1c2633").text(`${index + 1}. ${item.label}`, { continued: true });
-        doc.fillColor(item.score >= 4 ? "#16734b" : item.score === 3 ? "#b05a00" : "#a52323").text(`  SCORE ${item.score}/5`);
-        if (item.comment) doc.font("Helvetica").fillColor("#4b5968").fontSize(8).text(`   ${item.comment}`);
-        item.photos.forEach((photo) => {
-          const buffer = dataUrlToBuffer(photo.dataUrl);
-          if (!buffer) return;
-          if (doc.y > 670) doc.addPage();
-          doc.font("Helvetica").fontSize(7.5).fillColor("#637083").text(`   Photo: ${photo.name}`);
-          doc.image(buffer, { fit: [145, 95] as [number, number] });
-          doc.moveDown(0.2);
-        });
-        doc.moveDown(0.2);
+        ensureRoom(doc, item.photos.length ? 105 : 35);
+        const itemY = doc.y;
+        doc.font("Helvetica-Bold").fontSize(8.8).fillColor("#243647").text(`${index + 1}. ${item.label}`, 59, itemY, { width: 350 });
+        doc.font("Helvetica-Bold").fontSize(8.8).fillColor(item.score >= 4 ? GREEN : item.score >= 3 ? "#ae6500" : RED).text(`${item.score}/5`, 470, itemY, { width: 60, align: "right" });
+        doc.y = itemY + 13;
+        if (item.comment) { doc.font("Helvetica").fontSize(7.8).fillColor("#617286").text(item.comment, 72, doc.y, { width: 390 }); doc.y += 12; }
+        if (item.photos.length) {
+          doc.font("Helvetica").fontSize(7.2).fillColor("#718295").text(`Evidence photos: ${item.photos.map(photo => photo.name).join(", ")}`, 72, doc.y);
+          doc.y += 10;
+          item.photos.forEach(photo => { const buffer = dataUrlToBuffer(photo.dataUrl); if (buffer) { doc.image(buffer, 72, doc.y, { fit: [92, 62] as [number, number] }); doc.x = 170; doc.y += 66; } });
+        }
+        doc.moveDown(0.25);
       });
-      doc.moveDown(0.3);
+      doc.moveDown(0.5);
     });
 
-    addSectionTitle(doc, "Notes and corrective actions");
-    doc.fontSize(9).font("Helvetica-Bold").fillColor("#174a8b").text("General notes");
-    doc.font("Helvetica").fillColor("#1c2633").text(clean(input.notes), { width: 495 });
-    doc.moveDown(0.35).font("Helvetica-Bold").fillColor("#174a8b").text("Corrective actions");
-    doc.font("Helvetica").fillColor("#1c2633").text(clean(input.correctiveActions), { width: 495 });
-
-    if (input.photos.length > 0) {
-      addSectionTitle(doc, "Additional inspection photos");
-      input.photos.forEach((photo, index) => {
-        const buffer = dataUrlToBuffer(photo.dataUrl);
-        if (!buffer) return;
-        if (doc.y > 650) doc.addPage();
-        doc.font("Helvetica-Bold").fontSize(8.5).fillColor("#174a8b").text(`${index + 1}. ${photo.name || "Inspection photo"}`);
-        doc.image(buffer, { fit: [235, 145] as [number, number] });
-        doc.moveDown(0.4);
-      });
-    }
-
-    doc.moveDown(1);
-    doc.fontSize(8).fillColor("#637083").text("Prepared by Nexus Facility Group · admin.hr@nexusfacility.au · 0477 376 440 · 0404 934 544", { align: "center" });
+    ensureRoom(doc, 115);
+    doc.font("Helvetica-Bold").fontSize(14).fillColor(NAVY).text("Notes and corrective actions");
+    doc.moveDown(0.35);
+    doc.roundedRect(45, doc.y, 245, 72, 4).fill("#f5f8fb").strokeColor("#dce7f0").stroke();
+    doc.font("Helvetica-Bold").fontSize(9).fillColor(BLUE).text("General notes", 57, doc.y + 10);
+    doc.font("Helvetica").fontSize(8.5).fillColor("#243647").text(clean(input.notes), 57, doc.y + 27, { width: 220, height: 38 });
+    doc.roundedRect(305, doc.y, 245, 72, 4).fill("#f5f8fb").strokeColor("#dce7f0").stroke();
+    doc.font("Helvetica-Bold").fontSize(9).fillColor(BLUE).text("Corrective actions", 317, doc.y + 10);
+    doc.font("Helvetica").fontSize(8.5).fillColor("#243647").text(clean(input.correctiveActions), 317, doc.y + 27, { width: 220, height: 38 });
+    doc.y += 95;
+    ensureRoom(doc, 75);
+    doc.roundedRect(45, doc.y, 505, 58, 5).fill(resultColour(input.overallResult));
+    doc.font("Helvetica-Bold").fontSize(11).fillColor("#ffffff").text("FINAL INSPECTION RESULT", 62, doc.y + 12);
+    doc.font("Helvetica-Bold").fontSize(20).fillColor("#ffffff").text(`${input.overallResult} · ${input.overallScore}/100`, 62, doc.y + 29, { width: 470, align: "right" });
+    doc.y += 75;
+    addFooter(doc);
     doc.end();
   });
 }
