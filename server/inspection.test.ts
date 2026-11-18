@@ -24,4 +24,28 @@ describe("createInspectionPdf", () => {
     expect(pdf.length).toBeGreaterThan(1000);
     expect(pdf.includes(Buffer.from([0xff, 0xd8, 0xff]))).toBe(true);
   });
+
+  it("returns a completed ad hoc work report with before and after evidence sections", async () => {
+    const pdf = await createInspectionPdf({
+      clientName: "Example Client",
+      clientEmail: "client@example.com",
+      siteName: "Example Site",
+      siteAddress: "1 Example Street, Melbourne VIC",
+      inspectionDate: "2026-11-18",
+      serviceType: "Ad hoc works",
+      overallRating: "AD HOC WORKS — COMPLETED",
+      overallScore: 100,
+      overallResult: "PASS",
+      checklist: [],
+      notes: "Completed requested work.",
+      correctiveActions: "None required.",
+      photos: [],
+      staffName: "Nexus Staff",
+      reportMode: "ad_hoc",
+      adHoc: { workDescription: "Pressure washed the entry path.", beforePhotos: [], afterPhotos: [] },
+    });
+
+    expect(pdf.subarray(0, 5).toString()).toBe("%PDF-");
+    expect(pdf.length).toBeGreaterThan(1000);
+  });
 });

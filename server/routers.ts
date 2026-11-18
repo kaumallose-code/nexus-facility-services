@@ -279,19 +279,24 @@ export const appRouter = router({
           inspectionDate: z.string().min(1).max(32),
           serviceType: z.string().min(1).max(120),
           overallRating: z.string().max(32).optional(),
-          checklist: z.array(z.object({ area: z.string().min(1).max(255), items: z.array(z.object({ label: z.string().min(1).max(255), score: z.number().int().min(1).max(5), comment: z.string().max(500).optional(), photos: z.array(z.object({ name: z.string().max(120), dataUrl: z.string().max(1_500_000) })).max(2) })).min(1).max(30) })).min(1).max(20),
+          checklist: z.array(z.object({ area: z.string().min(1).max(255), items: z.array(z.object({ label: z.string().min(1).max(255), score: z.number().int().min(1).max(5), comment: z.string().max(500).optional(), photos: z.array(z.object({ name: z.string().max(120), dataUrl: z.string().max(1_500_000) })).max(2) })).max(30) })).max(20),
           notes: z.string().max(4000).optional(),
           correctiveActions: z.string().max(4000).optional(),
           photos: z.array(z.object({ name: z.string().max(120), dataUrl: z.string().max(1_500_000) })).max(6),
+          reportMode: z.enum(["inspection", "ad_hoc"]).optional(),
+          adHoc: z.object({ workDescription: z.string().min(1).max(4000), beforePhotos: z.array(z.object({ name: z.string().max(120), dataUrl: z.string().max(1_500_000) })).max(6), afterPhotos: z.array(z.object({ name: z.string().max(120), dataUrl: z.string().max(1_500_000) })).max(6) }).optional(),
+        }).superRefine((input, ctx) => {
+          if (input.reportMode === "ad_hoc" && !input.adHoc) ctx.addIssue({ code: z.ZodIssueCode.custom, path: ["adHoc"], message: "Ad hoc work details are required" });
+          if (input.reportMode !== "ad_hoc" && input.checklist.length === 0) ctx.addIssue({ code: z.ZodIssueCode.custom, path: ["checklist"], message: "Inspection checklist is required" });
         })
       )
       .mutation(async ({ input, ctx }) => {
         const staffName = ctx.staff?.email || ctx.user?.name || ctx.user?.email || "Nexus Facility Staff";
         const totalItems = input.checklist.reduce((sum, section) => sum + section.items.length, 0);
         const totalPoints = input.checklist.reduce((sum, section) => sum + section.items.reduce((sectionSum, item) => sectionSum + item.score, 0), 0);
-        const overallScore = totalItems ? Math.round((totalPoints / (totalItems * 5)) * 100) : 0;
-        const overallResult = overallScore >= 70 ? "PASS" as const : "FAIL" as const;
-        const overallRating = `${overallScore}/100 — ${overallResult}`;
+        const overallScore = input.reportMode === "ad_hoc" ? 100 : totalItems ? Math.round((totalPoints / (totalItems * 5)) * 100) : 0;
+        const overallResult = input.reportMode === "ad_hoc" ? "PASS" as const : overallScore >= 70 ? "PASS" as const : "FAIL" as const;
+        const overallRating = input.reportMode === "ad_hoc" ? "AD HOC WORKS — COMPLETED" : `${overallScore}/100 — ${overallResult}`;
         const pdf = await createInspectionPdf({ ...input, overallRating, overallScore, overallResult, staffName });
         await saveInspectionClient({ clientName: input.clientName, clientEmail: input.clientEmail, siteName: input.siteName, siteAddress: input.siteAddress });
         const reportId = await insertInspectionReport({
