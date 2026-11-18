@@ -95,9 +95,17 @@ export async function createInspectionPdf(input: InspectionPdfInput): Promise<Bu
       doc.roundedRect(45, doc.y, 505, 78, 4).fill("#f5f8fb").strokeColor("#dce7f0").stroke();
       doc.font("Helvetica").fontSize(10).fillColor("#243647").text(clean(adHoc.workDescription), 60, doc.y + 17, { width: 475, height: 48 }); doc.y += 102;
       const drawPhotoGroup = (title: string, photos: AdHocPhoto[]) => {
-        ensureRoom(doc, 145); doc.font("Helvetica-Bold").fontSize(13).fillColor(NAVY).text(title); doc.moveDown(0.25);
-        if (!photos.length) { doc.font("Helvetica").fontSize(9).fillColor("#617286").text("No photos uploaded"); doc.y += 28; return; }
-        const startY = doc.y; photos.slice(0, 6).forEach((photo, index) => { const buffer = dataUrlToBuffer(photo.dataUrl); if (buffer) { const x = 45 + (index % 3) * 170; const y = startY + Math.floor(index / 3) * 118; doc.image(buffer, x, y, { fit: [150, 88] as [number, number] }); doc.font("Helvetica").fontSize(7).fillColor("#617286").text(photo.name, x, y + 92, { width: 150, ellipsis: true }); } }); doc.y = startY + (Math.ceil(Math.min(photos.length, 6) / 3) * 118);
+        ensureRoom(doc, 150);
+        doc.font("Helvetica-Bold").fontSize(15).fillColor(NAVY).text(title, 45, doc.y, { width: 505, align: "center" });
+        doc.moveDown(0.55);
+        if (!photos.length) { doc.font("Helvetica").fontSize(9).fillColor("#617286").text("No photos uploaded", 45, doc.y, { width: 505, align: "center" }); doc.y += 34; return; }
+        const selected = photos.slice(0, 10);
+        for (let index = 0; index < selected.length; index += 1) {
+          if (index % 3 === 0) { ensureRoom(doc, 130); }
+          const photo = selected[index]; const buffer = dataUrlToBuffer(photo.dataUrl); const x = 45 + (index % 3) * 170; const y = doc.y;
+          if (buffer) { doc.image(buffer, x, y, { fit: [150, 88] as [number, number] }); doc.font("Helvetica").fontSize(7).fillColor("#617286").text(photo.name, x, y + 92, { width: 150, ellipsis: true }); }
+          if (index % 3 === 2 || index === selected.length - 1) doc.y = y + 118;
+        }
       };
       drawPhotoGroup("Before work", adHoc.beforePhotos); doc.moveDown(0.5); drawPhotoGroup("After work", adHoc.afterPhotos);
       ensureRoom(doc, 100); const resultY = doc.y; doc.roundedRect(45, resultY, 505, 70, 5).fill(BLUE); doc.font("Helvetica-Bold").fontSize(11).fillColor("#ffffff").text("AD HOC WORK REPORT STATUS", 62, resultY + 14); doc.font("Helvetica-Bold").fontSize(22).fillColor("#ffffff").text("COMPLETED", 62, resultY + 35); doc.y = resultY + 92;

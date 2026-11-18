@@ -145,16 +145,16 @@ async function sendInspectionEmail(input: { clientName: string; recipientEmails:
     auth: { user: smtpUser, pass: smtpPass },
   });
   const subject = `Cleaning Inspection Report — ${input.siteName} — ${input.inspectionDate}`;
-  await transporter.sendMail({
+  await Promise.all(input.recipientEmails.map(recipient => transporter.sendMail({
     from: `"Nexus Facility Group" <${smtpUser}>`,
-    to: input.recipientEmails.join(", "),
+    to: recipient,
     cc: "admin.hr@nexusfacility.au",
     replyTo: smtpUser,
     subject,
-    text: `Hello ${input.clientName},\n\nPlease find attached the Nexus Facility Group cleaning inspection report for ${input.siteName} dated ${input.inspectionDate}.\n\nOverall result: ${input.overallResult} (${input.overallScore}/100)\n\nKind regards,\nNexus Facility Group\n0477 376 440 · 0404 934 544`,
-    html: `<p>Hello ${input.clientName},</p><p>Please find attached the Nexus Facility Group cleaning inspection report for <strong>${input.siteName}</strong> dated <strong>${input.inspectionDate}</strong>.</p><p><strong>Overall result: ${input.overallResult} (${input.overallScore}/100)</strong></p><p>Kind regards,<br>Nexus Facility Group<br>0477 376 440 · 0404 934 544</p>`,
+    text: `Hello ${input.clientName},\n\nPlease find attached the Nexus Facility Group report for ${input.siteName} dated ${input.inspectionDate}.\n\nOverall result: ${input.overallResult} (${input.overallScore}/100)\n\nKind regards,\nNexus Facility Group\n0477 376 440 · 0404 934 544`,
+    html: `<p>Hello ${input.clientName},</p><p>Please find attached the Nexus Facility Group report for <strong>${input.siteName}</strong> dated <strong>${input.inspectionDate}</strong>.</p><p><strong>Overall result: ${input.overallResult} (${input.overallScore}/100)</strong></p><p>Kind regards,<br>Nexus Facility Group<br>0477 376 440 · 0404 934 544</p>`,
     attachments: [{ filename: `nexus-cleaning-inspection-${input.reportId || "report"}.pdf`, content: input.pdf, contentType: "application/pdf" }],
-  });
+  })));
 }
 
 async function sendStaffCodeEmail(email: string, code: string, purpose: "setup" | "login") {
@@ -181,6 +181,26 @@ function setStaffSessionCookie(ctx: { req: Parameters<typeof getSessionCookieOpt
 }
 
 // ─── App Router ───────────────────────────────────────────────────────────────
+const inspectionSubmissionInput = z.object({
+  clientName: z.string().min(1).max(255),
+  clientEmail: z.string().email(),
+  recipientEmails: z.array(z.string().email()).min(1).max(10).optional(),
+  siteName: z.string().min(1).max(255),
+  siteAddress: z.string().min(1).max(1000),
+  inspectionDate: z.string().min(1).max(32),
+  serviceType: z.string().min(1).max(120),
+  overallRating: z.string().max(32).optional(),
+  checklist: z.array(z.object({ area: z.string().min(1).max(255), items: z.array(z.object({ label: z.string().min(1).max(255), score: z.number().int().min(1).max(5), comment: z.string().max(500).optional(), photos: z.array(z.object({ name: z.string().max(120), dataUrl: z.string().max(1_500_000) })).max(2) })).max(30) })).max(20),
+  notes: z.string().max(4000).optional(),
+  correctiveActions: z.string().max(4000).optional(),
+  photos: z.array(z.object({ name: z.string().max(120), dataUrl: z.string().max(1_500_000) })).max(6),
+  reportMode: z.enum(["inspection", "ad_hoc"]).optional(),
+  adHoc: z.object({ workDescription: z.string().min(1).max(4000), beforePhotos: z.array(z.object({ name: z.string().max(120), dataUrl: z.string().max(1_500_000) })).max(10), afterPhotos: z.array(z.object({ name: z.string().max(120), dataUrl: z.string().max(1_500_000) })).max(10) }).optional(),
+}).superRefine((input, ctx) => {
+  if (input.reportMode === "ad_hoc" && !input.adHoc) ctx.addIssue({ code: z.ZodIssueCode.custom, path: ["adHoc"], message: "Ad hoc work details are required" });
+  if (input.reportMode !== "ad_hoc" && input.checklist.length === 0) ctx.addIssue({ code: z.ZodIssueCode.custom, path: ["checklist"], message: "Inspection checklist is required" });
+});
+
 export const appRouter = router({
   system: systemRouter,
   auth: router({
@@ -268,28 +288,20 @@ export const appRouter = router({
   staffInspections: router({
     recent: staffProcedure.query(async () => listInspectionReports()),
     clients: staffProcedure.query(async () => listInspectionClients()),
+    preview: staffProcedure
+      .input(inspectionSubmissionInput)
+      .mutation(async ({ input, ctx }) => {
+        const staffName = ctx.staff?.email || ctx.user?.name || ctx.user?.email || "Nexus Facility Staff";
+        const totalItems = input.checklist.reduce((sum, section) => sum + section.items.length, 0);
+        const totalPoints = input.checklist.reduce((sum, section) => sum + section.items.reduce((sectionSum, item) => sectionSum + item.score, 0), 0);
+        const overallScore = input.reportMode === "ad_hoc" ? 100 : totalItems ? Math.round((totalPoints / (totalItems * 5)) * 100) : 0;
+        const overallResult = input.reportMode === "ad_hoc" ? "PASS" as const : overallScore >= 70 ? "PASS" as const : "FAIL" as const;
+        const overallRating = input.reportMode === "ad_hoc" ? "AD HOC WORKS — COMPLETED" : `${overallScore}/100 — ${overallResult}`;
+        const pdf = await createInspectionPdf({ ...input, overallRating, overallScore, overallResult, staffName });
+        return { pdfDataUrl: `data:application/pdf;base64,${pdf.toString("base64")}` };
+      }),
     submit: staffProcedure
-      .input(
-        z.object({
-          clientName: z.string().min(1).max(255),
-          clientEmail: z.string().email(),
-          recipientEmails: z.array(z.string().email()).min(1).max(10).optional(),
-          siteName: z.string().min(1).max(255),
-          siteAddress: z.string().min(1).max(1000),
-          inspectionDate: z.string().min(1).max(32),
-          serviceType: z.string().min(1).max(120),
-          overallRating: z.string().max(32).optional(),
-          checklist: z.array(z.object({ area: z.string().min(1).max(255), items: z.array(z.object({ label: z.string().min(1).max(255), score: z.number().int().min(1).max(5), comment: z.string().max(500).optional(), photos: z.array(z.object({ name: z.string().max(120), dataUrl: z.string().max(1_500_000) })).max(2) })).max(30) })).max(20),
-          notes: z.string().max(4000).optional(),
-          correctiveActions: z.string().max(4000).optional(),
-          photos: z.array(z.object({ name: z.string().max(120), dataUrl: z.string().max(1_500_000) })).max(6),
-          reportMode: z.enum(["inspection", "ad_hoc"]).optional(),
-          adHoc: z.object({ workDescription: z.string().min(1).max(4000), beforePhotos: z.array(z.object({ name: z.string().max(120), dataUrl: z.string().max(1_500_000) })).max(6), afterPhotos: z.array(z.object({ name: z.string().max(120), dataUrl: z.string().max(1_500_000) })).max(6) }).optional(),
-        }).superRefine((input, ctx) => {
-          if (input.reportMode === "ad_hoc" && !input.adHoc) ctx.addIssue({ code: z.ZodIssueCode.custom, path: ["adHoc"], message: "Ad hoc work details are required" });
-          if (input.reportMode !== "ad_hoc" && input.checklist.length === 0) ctx.addIssue({ code: z.ZodIssueCode.custom, path: ["checklist"], message: "Inspection checklist is required" });
-        })
-      )
+      .input(inspectionSubmissionInput)
       .mutation(async ({ input, ctx }) => {
         const staffName = ctx.staff?.email || ctx.user?.name || ctx.user?.email || "Nexus Facility Staff";
         const totalItems = input.checklist.reduce((sum, section) => sum + section.items.length, 0);
