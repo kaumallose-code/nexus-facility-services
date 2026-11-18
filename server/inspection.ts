@@ -95,9 +95,10 @@ export async function createInspectionPdf(input: InspectionPdfInput): Promise<Bu
       doc.font("Helvetica-Bold").fontSize(14).fillColor(NAVY).text("Description of work completed"); doc.moveDown(0.35);
       doc.roundedRect(45, doc.y, 505, 78, 4).fill("#f5f8fb").strokeColor("#dce7f0").stroke();
       doc.font("Helvetica").fontSize(10).fillColor("#243647").text(clean(adHoc.workDescription), 60, doc.y + 17, { width: 475, height: 48 }); doc.y += 102;
-      doc.roundedRect(45, doc.y, 505, 54, 5).fill(BLUE);
-      doc.font("Helvetica-Bold").fontSize(10).fillColor("#ffffff").text("AD HOC SERVICE REPORT STATUS", 62, doc.y + 12);
-      doc.font("Helvetica-Bold").fontSize(18).fillColor("#ffffff").text("COMPLETED", 62, doc.y + 28); doc.y += 76;
+      const statusY = doc.y;
+      doc.roundedRect(45, statusY, 505, 62, 5).fill(BLUE);
+      doc.font("Helvetica-Bold").fontSize(10).fillColor("#ffffff").text("AD HOC SERVICE REPORT STATUS", 62, statusY + 11);
+      doc.font("Helvetica-Bold").fontSize(18).fillColor("#ffffff").text("COMPLETED", 62, statusY + 29); doc.y = statusY + 84;
 
       const drawAdHocHeader = () => {
         addFooter(doc); doc.addPage(); doc.rect(0, 0, 595, 104).fill("#ffffff");

@@ -1,6 +1,7 @@
 import { useMemo, useState } from "react";
 import { ClipboardCheck, Download, Eye, KeyRound, LogIn, LogOut, Mail, Plus, Send, Share2, ShieldCheck, Upload, X } from "lucide-react";
 import { trpc } from "@/lib/trpc";
+import heic2any from "heic2any";
 import { toast } from "sonner";
 
 type PhotoItem = { name: string; dataUrl: string };
@@ -25,7 +26,12 @@ const AD_HOC_SERVICE_TYPE = "Ad hoc works";
 const today = () => new Date().toISOString().slice(0, 10);
 
 async function preparePhoto(file: File): Promise<PhotoItem> {
-  const dataUrl = await new Promise<string>((resolve, reject) => { const reader = new FileReader(); reader.onload = () => resolve(String(reader.result)); reader.onerror = () => reject(reader.error); reader.readAsDataURL(file); });
+  let source: Blob = file;
+  if (/\.(heic|heif)$/i.test(file.name) || /^image\/hei[cf]$/i.test(file.type)) {
+    const converted = await heic2any({ blob: file, toType: "image/jpeg", quality: 0.82 });
+    source = Array.isArray(converted) ? converted[0] : converted;
+  }
+  const dataUrl = await new Promise<string>((resolve, reject) => { const reader = new FileReader(); reader.onload = () => resolve(String(reader.result)); reader.onerror = () => reject(reader.error); reader.readAsDataURL(source); });
   const image = await new Promise<HTMLImageElement>((resolve, reject) => { const img = new Image(); img.onload = () => resolve(img); img.onerror = reject; img.src = dataUrl; });
   let width = Math.max(1, Math.round(image.width * Math.min(1, 1100 / Math.max(image.width, image.height)))); let height = Math.max(1, Math.round(image.height * (width / image.width)));
   for (let attempt = 0; attempt < 6; attempt += 1) {
