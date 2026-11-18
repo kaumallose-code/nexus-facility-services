@@ -33,7 +33,7 @@ describe("createInspectionPdf", () => {
       siteAddress: "1 Example Street, Melbourne VIC",
       inspectionDate: "2026-11-18",
       serviceType: "Ad hoc works",
-      overallRating: "AD HOC SERVICE REPORT — COMPLETED",
+      overallRating: "AD HOC COMPLETED",
       overallScore: 100,
       overallResult: "PASS",
       checklist: [],
