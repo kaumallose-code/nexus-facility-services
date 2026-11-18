@@ -10,6 +10,7 @@ type InspectionPdfInput = {
   siteName: string;
   siteAddress: string;
   inspectionDate: string;
+  reportNumber?: string;
   serviceType: string;
   overallRating: string;
   overallScore: number;
@@ -64,15 +65,15 @@ export async function createInspectionPdf(input: InspectionPdfInput): Promise<Bu
     doc.on("end", () => resolve(Buffer.concat(chunks)));
     doc.on("error", reject);
 
-    // Premium branded header.
-    doc.rect(0, 0, 595, 104).fill(NAVY);
-    doc.rect(45, 16, 205, 72).fill("#ffffff");
-    if (logo) doc.image(logo, 55, 23, { fit: [185, 58] as [number, number] });
-    else doc.font("Helvetica-Bold").fontSize(17).fillColor(NAVY).text("NEXUS FACILITY GROUP", 58, 42);
+    // Clean A4 header: horizontal logo on white, with the report title aligned to its right.
+    doc.rect(0, 0, 595, 104).fill("#ffffff");
+    if (logo) doc.image(logo, 45, 27, { fit: [156, 48] as [number, number] });
+    else doc.font("Helvetica-Bold").fontSize(17).fillColor(NAVY).text("NEXUS FACILITY GROUP", 45, 42);
     const isAdHoc = input.reportMode === "ad_hoc";
-    doc.font("Helvetica-Bold").fontSize(17).fillColor("#ffffff").text(isAdHoc ? "AD HOC WORK REPORT" : "CLEANING INSPECTION REPORT", 275, 33, { width: 275, align: "right" });
-    doc.font("Helvetica").fontSize(9).fillColor("#b9ddf6").text(isAdHoc ? "Completed works · before and after evidence" : "Quality assurance · evidence-based site review", 275, 58, { width: 275, align: "right" });
-    doc.font("Helvetica").fontSize(8.5).fillColor("#ffffff").text(`Issued ${new Date().toLocaleDateString("en-AU")}`, 275, 78, { width: 275, align: "right" });
+    doc.font("Helvetica-Bold").fontSize(16).fillColor(NAVY).text(isAdHoc ? "AD HOC WORK REPORT" : "CLEANING INSPECTION REPORT", 285, 28, { width: 265, align: "right" });
+    doc.font("Helvetica").fontSize(9).fillColor(BLUE).text(`Report no. ${input.reportNumber || "PREVIEW"}`, 285, 55, { width: 265, align: "right" });
+    doc.font("Helvetica").fontSize(8.5).fillColor("#617286").text(`Issued ${new Date().toLocaleDateString("en-AU")}`, 285, 72, { width: 265, align: "right" });
+    doc.strokeColor(NAVY).lineWidth(1).moveTo(45, 100).lineTo(550, 100).stroke();
     doc.y = 124;
 
     if (isAdHoc) {

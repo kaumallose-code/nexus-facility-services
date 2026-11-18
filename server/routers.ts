@@ -309,7 +309,6 @@ export const appRouter = router({
         const overallScore = input.reportMode === "ad_hoc" ? 100 : totalItems ? Math.round((totalPoints / (totalItems * 5)) * 100) : 0;
         const overallResult = input.reportMode === "ad_hoc" ? "PASS" as const : overallScore >= 70 ? "PASS" as const : "FAIL" as const;
         const overallRating = input.reportMode === "ad_hoc" ? "AD HOC WORKS — COMPLETED" : `${overallScore}/100 — ${overallResult}`;
-        const pdf = await createInspectionPdf({ ...input, overallRating, overallScore, overallResult, staffName });
         await saveInspectionClient({ clientName: input.clientName, clientEmail: input.clientEmail, siteName: input.siteName, siteAddress: input.siteAddress });
         const reportId = await insertInspectionReport({
           staffUserId: ctx.staff?.id || ctx.user?.id || 0,
@@ -327,6 +326,7 @@ export const appRouter = router({
           photoNames: JSON.stringify([...input.photos.map((photo) => photo.name), ...input.checklist.flatMap((section) => section.items.flatMap((item) => item.photos.map((photo) => photo.name)))]),
           pdfUrl: null,
         });
+        const pdf = await createInspectionPdf({ ...input, reportNumber: `NFG-${String(reportId).padStart(6, "0")}`, overallRating, overallScore, overallResult, staffName });
 
         let pdfUrl: string | null = null;
         try {
