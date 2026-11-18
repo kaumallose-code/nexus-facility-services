@@ -190,12 +190,12 @@ const inspectionSubmissionInput = z.object({
   inspectionDate: z.string().min(1).max(32),
   serviceType: z.string().min(1).max(120),
   overallRating: z.string().max(32).optional(),
-  checklist: z.array(z.object({ area: z.string().min(1).max(255), items: z.array(z.object({ label: z.string().min(1).max(255), score: z.number().int().min(1).max(5), comment: z.string().max(500).optional(), photos: z.array(z.object({ name: z.string().max(120), dataUrl: z.string().max(1_500_000) })).max(2) })).max(30) })).max(20),
+  checklist: z.array(z.object({ area: z.string().min(1).max(255), items: z.array(z.object({ label: z.string().min(1).max(255), score: z.number().int().min(1).max(5), comment: z.string().max(500).optional(), photos: z.array(z.object({ name: z.string().max(120), dataUrl: z.string().max(3_000_000) })).max(2) })).max(30) })).max(20),
   notes: z.string().max(4000).optional(),
   correctiveActions: z.string().max(4000).optional(),
-  photos: z.array(z.object({ name: z.string().max(120), dataUrl: z.string().max(1_500_000) })).max(6),
+  photos: z.array(z.object({ name: z.string().max(120), dataUrl: z.string().max(3_000_000) })).max(6),
   reportMode: z.enum(["inspection", "ad_hoc"]).optional(),
-  adHoc: z.object({ workDescription: z.string().min(1).max(4000), beforePhotos: z.array(z.object({ name: z.string().max(120), dataUrl: z.string().max(1_500_000) })).max(10), afterPhotos: z.array(z.object({ name: z.string().max(120), dataUrl: z.string().max(1_500_000) })).max(10) }).optional(),
+  adHoc: z.object({ workDescription: z.string().min(1).max(4000), beforePhotos: z.array(z.object({ name: z.string().max(120), dataUrl: z.string().max(3_000_000) })).max(10), afterPhotos: z.array(z.object({ name: z.string().max(120), dataUrl: z.string().max(3_000_000) })).max(10) }).optional(),
 }).superRefine((input, ctx) => {
   if (input.reportMode === "ad_hoc" && !input.adHoc) ctx.addIssue({ code: z.ZodIssueCode.custom, path: ["adHoc"], message: "Ad hoc work details are required" });
   if (input.reportMode !== "ad_hoc" && input.checklist.length === 0) ctx.addIssue({ code: z.ZodIssueCode.custom, path: ["checklist"], message: "Inspection checklist is required" });
