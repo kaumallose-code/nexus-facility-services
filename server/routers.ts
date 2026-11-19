@@ -187,6 +187,7 @@ const inspectionSubmissionInput = z.object({
   recipientEmails: z.array(z.string().email()).min(1).max(10).optional(),
   siteName: z.string().min(1).max(255),
   siteAddress: z.string().min(1).max(1000),
+  inspectorName: z.string().max(255).optional(),
   inspectionDate: z.string().min(1).max(32),
   serviceType: z.string().min(1).max(120),
   overallRating: z.string().max(32).optional(),
@@ -291,7 +292,7 @@ export const appRouter = router({
     preview: staffProcedure
       .input(inspectionSubmissionInput)
       .mutation(async ({ input, ctx }) => {
-        const staffName = ctx.staff?.email || ctx.user?.name || ctx.user?.email || "Nexus Facility Staff";
+        const staffName = input.inspectorName?.trim() || ctx.staff?.email || ctx.user?.name || ctx.user?.email || "Nexus Facility Staff";
         const totalItems = input.checklist.reduce((sum, section) => sum + section.items.length, 0);
         const totalPoints = input.checklist.reduce((sum, section) => sum + section.items.reduce((sectionSum, item) => sectionSum + item.score, 0), 0);
         const overallScore = input.reportMode === "ad_hoc" ? 100 : totalItems ? Math.round((totalPoints / (totalItems * 5)) * 100) : 0;
@@ -303,7 +304,7 @@ export const appRouter = router({
     submit: staffProcedure
       .input(inspectionSubmissionInput)
       .mutation(async ({ input, ctx }) => {
-        const staffName = ctx.staff?.email || ctx.user?.name || ctx.user?.email || "Nexus Facility Staff";
+        const staffName = input.inspectorName?.trim() || ctx.staff?.email || ctx.user?.name || ctx.user?.email || "Nexus Facility Staff";
         const totalItems = input.checklist.reduce((sum, section) => sum + section.items.length, 0);
         const totalPoints = input.checklist.reduce((sum, section) => sum + section.items.reduce((sectionSum, item) => sectionSum + item.score, 0), 0);
         const overallScore = input.reportMode === "ad_hoc" ? 100 : totalItems ? Math.round((totalPoints / (totalItems * 5)) * 100) : 0;
