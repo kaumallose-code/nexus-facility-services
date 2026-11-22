@@ -70,6 +70,11 @@ function TrustBadge({ logo, alt, caption, explanation, tooltipId }: TrustBadgePr
   );
 }
 
+function CommitmentMark({ type, label }: { type: "aboriginal" | "torres" | "inclusion"; label: string }) {
+  const background = type === "aboriginal" ? "linear-gradient(#111 0 50%, #e64636 50% 100%)" : type === "torres" ? "linear-gradient(#0e8c74 0 22%, #0b5b9a 22% 78%, #0e8c74 78% 100%)" : "linear-gradient(#e53935 0 16.66%, #f5a623 16.66% 33.33%, #f8df3f 33.33% 50%, #39a852 50% 66.66%, #2585c5 66.66% 83.33%, #9254a5 83.33% 100%)";
+  return <div className="flex items-center gap-3" aria-label={label} title={label}><span className="relative block h-10 w-16 shrink-0 overflow-hidden rounded-sm border border-white/20" aria-hidden="true" style={{ background }}>{type === "aboriginal" && <span className="absolute left-1/2 top-1/2 h-5 w-5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#f9d12f]" />}{type === "torres" && <span className="absolute left-1/2 top-1/2 h-6 w-6 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-white/90" />}</span><span className="text-xs font-semibold uppercase tracking-wider" style={{ color: "oklch(0.78 0.05 230)" }}>{label}</span></div>;
+}
+
 export default function Footer() {
   return (
     <footer style={{ background: "oklch(0.05 0.02 240)", borderTop: "1px solid oklch(0.75 0.18 210 / 0.15)" }}>
@@ -173,6 +178,20 @@ export default function Footer() {
               explanation="IRCC logo supplied by Nexus Facility Group for display in its footer."
             />
           </div>
+        </div>
+
+        {/* Acknowledgement and inclusion commitments */}
+        <div className="mb-8 grid gap-5 border-b pb-8 md:grid-cols-2" style={{ borderColor: "oklch(0.75 0.18 210 / 0.15)" }}>
+          <section className="rounded-xl border p-5" style={{ borderColor: "oklch(0.75 0.18 210 / 0.2)", background: "oklch(0.1 0.025 240)" }}>
+            <div className="mb-4 flex flex-wrap items-center gap-3"><CommitmentMark type="aboriginal" label="Aboriginal flag" /><CommitmentMark type="torres" label="Torres Strait Islander flag" /></div>
+            <h4 className="mb-2 text-xl font-bold uppercase" style={{ color: "oklch(0.9 0.03 230)", fontFamily: "'Barlow Condensed', sans-serif" }}>Acknowledgement of Country</h4>
+            <p className="text-sm leading-relaxed" style={{ color: "oklch(0.72 0.05 230)" }}>Nexus Facility Group acknowledges the Traditional Owners of Country throughout Victoria and recognises their continuing connection to land, waters and community. We pay our respects to Elders past and present, and extend that respect to all Aboriginal and Torres Strait Islander peoples.</p>
+          </section>
+          <section className="rounded-xl border p-5" style={{ borderColor: "oklch(0.75 0.18 210 / 0.2)", background: "oklch(0.1 0.025 240)" }}>
+            <div className="mb-4"><CommitmentMark type="inclusion" label="Inclusion and diversity" /></div>
+            <h4 className="mb-2 text-xl font-bold uppercase" style={{ color: "oklch(0.9 0.03 230)", fontFamily: "'Barlow Condensed', sans-serif" }}>Diversity, Equity &amp; Inclusion</h4>
+            <p className="text-sm leading-relaxed" style={{ color: "oklch(0.72 0.05 230)" }}>We welcome people of all backgrounds and are committed to a respectful, safe and inclusive workplace. We value different perspectives and do not tolerate discrimination or harassment based on culture, race, gender, religion, disability, age or sexual orientation.</p>
+          </section>
         </div>
 
         {/* Copyright */}
