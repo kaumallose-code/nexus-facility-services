@@ -57,7 +57,7 @@ function Field({
   );
 }
 
-export default function EnquiryFormDialog({ mode }: { mode: FormMode }) {
+export default function EnquiryFormDialog({ mode, triggerLabel }: { mode: FormMode; triggerLabel?: string }) {
   const [open, setOpen] = useState(false);
   const [form, setForm] = useState<FormState>(EMPTY_FORM);
   const [submitted, setSubmitted] = useState(false);
@@ -124,7 +124,7 @@ export default function EnquiryFormDialog({ mode }: { mode: FormMode }) {
           }}
         >
           {isPartner ? <Handshake className="h-4 w-4" /> : <ArrowRight className="h-4 w-4" />}
-          {isPartner ? "Partner With Us" : "Request a Quote"}
+          {triggerLabel || (isPartner ? "Partner With Us" : "Request a Quote")}
         </button>
       </DialogTrigger>
 

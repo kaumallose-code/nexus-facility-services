@@ -34,6 +34,7 @@ const EMAIL = "admin.hr@nexusfacility.au";
 
 const SERVICE_CARDS = [
   { title: "Commercial Cleaning", description: "Dependable cleaning programs for offices, retail, medical and commercial properties.", image: SERVICES_BG, href: "/services" },
+  { title: "Cleaning Subcontracting", description: "Supervised Victoria-wide support for facility managers, contractors, builders and property managers.", image: VAN_IMAGE, href: "/cleaning-subcontracting" },
   { title: "Childcare & Educational Facilities", description: "Practical hygiene-focused cleaning for learning environments and shared facilities.", image: CHILDCARE_IMAGE, href: "/services" },
   { title: "Warehouse & Industrial Cleaning", description: "Structured support for operational, staff, warehouse and high-traffic areas.", image: VAN_IMAGE, href: "/services" },
   { title: "Builders & Post-Construction", description: "Dust, residue and construction clean-up for handovers, renovations and make-goods.", image: POST_CONSTRUCTION_IMAGE, href: "/services" },

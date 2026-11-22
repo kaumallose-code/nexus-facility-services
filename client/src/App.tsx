@@ -19,6 +19,7 @@ import ReviewsPage from "./pages/ReviewsPage";
 import WaterDamageRestorationPage from "./pages/WaterDamageRestorationPage";
 import MouldRemediationPage from "./pages/MouldRemediationPage";
 import StaffInspectionPage from "./pages/StaffInspectionPage";
+import CleaningSubcontractingPage from "./pages/CleaningSubcontractingPage";
 import NotFound from "./pages/NotFound";
 
 function Router() {
@@ -27,6 +28,7 @@ function Router() {
       <Route path="/" component={HomePage} />
       <Route path="/about" component={AboutPage} />
       <Route path="/services" component={ServicesPage} />
+      <Route path="/cleaning-subcontracting" component={CleaningSubcontractingPage} />
       <Route path="/water-damage-restoration" component={WaterDamageRestorationPage} />
       <Route path="/mould-remediation" component={MouldRemediationPage} />
       <Route path="/staff-inspections" component={StaffInspectionPage} />
