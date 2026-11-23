@@ -191,7 +191,7 @@ const inspectionSubmissionInput = z.object({
   inspectionDate: z.string().min(1).max(32),
   serviceType: z.string().min(1).max(120),
   overallRating: z.string().max(32).optional(),
-  checklist: z.array(z.object({ area: z.string().min(1).max(255), items: z.array(z.object({ label: z.string().min(1).max(255), score: z.number().int().min(1).max(5), comment: z.string().max(500).optional(), photos: z.array(z.object({ name: z.string().max(120), dataUrl: z.string().max(3_000_000) })).max(2) })).max(30) })).max(20),
+  checklist: z.array(z.object({ area: z.string().min(1).max(255), items: z.array(z.object({ label: z.string().min(1).max(255), score: z.number().int().min(1).max(5).nullable(), comment: z.string().max(500).optional(), photos: z.array(z.object({ name: z.string().max(120), dataUrl: z.string().max(3_000_000) })).max(2) })).max(30) })).max(20),
   notes: z.string().max(4000).optional(),
   correctiveActions: z.string().max(4000).optional(),
   photos: z.array(z.object({ name: z.string().max(120), dataUrl: z.string().max(3_000_000) })).max(6),
@@ -293,8 +293,9 @@ export const appRouter = router({
       .input(inspectionSubmissionInput)
       .mutation(async ({ input, ctx }) => {
         const staffName = input.inspectorName?.trim() || ctx.staff?.email || ctx.user?.name || ctx.user?.email || "Nexus Facility Staff";
-        const totalItems = input.checklist.reduce((sum, section) => sum + section.items.length, 0);
-        const totalPoints = input.checklist.reduce((sum, section) => sum + section.items.reduce((sectionSum, item) => sectionSum + item.score, 0), 0);
+        const ratedItems = input.checklist.flatMap(section => section.items).filter(item => item.score !== null);
+        const totalItems = ratedItems.length;
+        const totalPoints = ratedItems.reduce((sum, item) => sum + (item.score || 0), 0);
         const overallScore = input.reportMode === "ad_hoc" ? 100 : totalItems ? Math.round((totalPoints / (totalItems * 5)) * 100) : 0;
         const overallResult = input.reportMode === "ad_hoc" ? "PASS" as const : overallScore >= 70 ? "PASS" as const : "FAIL" as const;
         const overallRating = input.reportMode === "ad_hoc" ? "AD HOC COMPLETED" : `${overallScore}/100 — ${overallResult}`;
@@ -305,8 +306,9 @@ export const appRouter = router({
       .input(inspectionSubmissionInput)
       .mutation(async ({ input, ctx }) => {
         const staffName = input.inspectorName?.trim() || ctx.staff?.email || ctx.user?.name || ctx.user?.email || "Nexus Facility Staff";
-        const totalItems = input.checklist.reduce((sum, section) => sum + section.items.length, 0);
-        const totalPoints = input.checklist.reduce((sum, section) => sum + section.items.reduce((sectionSum, item) => sectionSum + item.score, 0), 0);
+        const ratedItems = input.checklist.flatMap(section => section.items).filter(item => item.score !== null);
+        const totalItems = ratedItems.length;
+        const totalPoints = ratedItems.reduce((sum, item) => sum + (item.score || 0), 0);
         const overallScore = input.reportMode === "ad_hoc" ? 100 : totalItems ? Math.round((totalPoints / (totalItems * 5)) * 100) : 0;
         const overallResult = input.reportMode === "ad_hoc" ? "PASS" as const : overallScore >= 70 ? "PASS" as const : "FAIL" as const;
         const overallRating = input.reportMode === "ad_hoc" ? "AD HOC COMPLETED" : `${overallScore}/100 — ${overallResult}`;

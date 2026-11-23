@@ -1,7 +1,7 @@
 import PDFDocument from "pdfkit";
 import { NEXUS_LOGO_JPEG } from "./logoAsset";
 
-type ChecklistItem = { label: string; score: number; comment?: string; photos: Array<{ name: string; dataUrl: string }> };
+type ChecklistItem = { label: string; score: number | null; comment?: string; photos: Array<{ name: string; dataUrl: string }> };
 type ChecklistSection = { area: string; items: ChecklistItem[] };
 type AdHocPhoto = { name: string; dataUrl: string };
 type InspectionPdfInput = {
@@ -33,7 +33,7 @@ const RED = "#c62828";
 
 function clean(value: string | undefined) { return value?.trim() || "—"; }
 function dataUrlToBuffer(dataUrl: string) { const match = dataUrl.match(/^data:image\/(png|jpe?g);base64,(.+)$/i); return match ? Buffer.from(match[2], "base64") : null; }
-function sectionScore(section: ChecklistSection) { const max = section.items.length * 5; const points = section.items.reduce((sum, item) => sum + item.score, 0); return max ? Math.round((points / max) * 100) : 0; }
+function sectionScore(section: ChecklistSection) { const rated = section.items.filter(item => item.score !== null); const max = rated.length * 5; const points = rated.reduce((sum, item) => sum + (item.score || 0), 0); return max ? Math.round((points / max) * 100) : 100; }
 async function loadLogo() {
   if (NEXUS_LOGO_JPEG.length) return NEXUS_LOGO_JPEG;
   const controller = new AbortController();
@@ -164,7 +164,7 @@ export async function createInspectionPdf(input: InspectionPdfInput): Promise<Bu
         ensureRoom(doc, item.photos.length ? 105 : 35);
         const itemY = doc.y;
         doc.font("Helvetica-Bold").fontSize(8.8).fillColor("#243647").text(`${index + 1}. ${item.label}`, 59, itemY, { width: 350 });
-        doc.font("Helvetica-Bold").fontSize(8.8).fillColor(item.score >= 4 ? GREEN : item.score >= 3 ? "#ae6500" : RED).text(`${item.score}/5`, 470, itemY, { width: 60, align: "right" });
+        doc.font("Helvetica-Bold").fontSize(8.8).fillColor(item.score === null ? "#617286" : item.score >= 4 ? GREEN : item.score >= 3 ? "#ae6500" : RED).text(item.score === null ? "N/A" : `${item.score}/5`, 470, itemY, { width: 60, align: "right" });
         doc.y = itemY + 13;
         if (item.comment) { doc.font("Helvetica").fontSize(7.8).fillColor("#617286").text(item.comment, 72, doc.y, { width: 390 }); doc.y += 12; }
         if (item.photos.length) {
