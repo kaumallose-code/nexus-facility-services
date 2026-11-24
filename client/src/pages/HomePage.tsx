@@ -33,7 +33,8 @@ const SECONDARY_PHONE_HREF = "tel:0404934544";
 const EMAIL = "admin.hr@nexusfacility.au";
 
 const SERVICE_CARDS = [
-  { title: "Commercial Cleaning", description: "Dependable cleaning programs for offices, retail, medical and commercial properties.", image: SERVICES_BG, href: "/services" },
+  { title: "Commercial Cleaning", description: "Dependable cleaning programs for offices, retail, medical and commercial properties.", image: SERVICES_BG, href: "/commercial-cleaning-melbourne" },
+  { title: "Office Cleaning Melbourne", description: "Tailored office cleaning for workstations, meeting rooms, kitchens, washrooms and commercial workplaces.", image: SERVICES_BG, href: "/office-cleaning-melbourne" },
   { title: "Cleaning Subcontracting", description: "Supervised Victoria-wide support for facility managers, contractors, builders and property managers.", image: VAN_IMAGE, href: "/cleaning-subcontracting" },
   { title: "Childcare & Educational Facilities", description: "Practical hygiene-focused cleaning for learning environments and shared facilities.", image: CHILDCARE_IMAGE, href: "/services" },
   { title: "Warehouse & Industrial Cleaning", description: "Structured support for operational, staff, warehouse and high-traffic areas.", image: VAN_IMAGE, href: "/services" },

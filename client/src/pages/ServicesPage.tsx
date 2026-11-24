@@ -14,7 +14,8 @@ const PRESSURE_WASHING_IMAGE = "/manus-storage/nexus-pressure-washing-branded_ca
 const CARPET_IMAGE = "/manus-storage/nexus-carpet-upholstery-steam-cleaning_5a39a508.jpg";
 
 const SERVICES = [
-  { icon: Building2, label: "Commercial Cleaning", desc: "Professional cleaning for offices, retail spaces, medical centres, warehouses and corporate facilities.", image: SERVICES_BG, href: "/contact", color: "oklch(0.65 0.20 230)" },
+  { icon: Building2, label: "Commercial Cleaning", desc: "Professional cleaning for offices, retail spaces, medical centres, warehouses and corporate facilities.", image: SERVICES_BG, href: "/commercial-cleaning-melbourne", color: "oklch(0.65 0.20 230)" },
+  { icon: Building2, label: "Office Cleaning Melbourne", desc: "Tailored office cleaning for workstations, meeting rooms, kitchens, washrooms and commercial workplaces.", image: SERVICES_BG, href: "/office-cleaning-melbourne", color: "oklch(0.65 0.20 230)" },
   { icon: Sparkles, label: "Childcare & Educational Facilities", desc: "Hygiene-focused cleaning programs for learning environments, shared facilities and high-touch areas.", image: CHILDCARE_IMAGE, href: "/contact", color: "oklch(0.65 0.15 160)" },
   { icon: Wind, label: "Warehouse & Industrial Cleaning", desc: "Structured cleaning support for operational, staff, warehouse and high-traffic areas.", image: VAN_IMAGE, href: "/contact", color: "oklch(0.65 0.18 50)" },
   { icon: HardHat, label: "Builders & Post-Construction", desc: "Dust, debris and construction-residue removal for renovations, handovers and make-good projects.", image: POST_CONSTRUCTION_IMAGE, href: "/contact", color: "oklch(0.65 0.20 280)" },

@@ -20,6 +20,8 @@ import WaterDamageRestorationPage from "./pages/WaterDamageRestorationPage";
 import MouldRemediationPage from "./pages/MouldRemediationPage";
 import StaffInspectionPage from "./pages/StaffInspectionPage";
 import CleaningSubcontractingPage from "./pages/CleaningSubcontractingPage";
+import CommercialCleaningMelbournePage from "./pages/CommercialCleaningMelbournePage";
+import OfficeCleaningMelbournePage from "./pages/OfficeCleaningMelbournePage";
 import NotFound from "./pages/NotFound";
 
 function Router() {
@@ -28,6 +30,8 @@ function Router() {
       <Route path="/" component={HomePage} />
       <Route path="/about" component={AboutPage} />
       <Route path="/services" component={ServicesPage} />
+      <Route path="/commercial-cleaning-melbourne" component={CommercialCleaningMelbournePage} />
+      <Route path="/office-cleaning-melbourne" component={OfficeCleaningMelbournePage} />
       <Route path="/cleaning-subcontracting" component={CleaningSubcontractingPage} />
       <Route path="/water-damage-restoration" component={WaterDamageRestorationPage} />
       <Route path="/mould-remediation" component={MouldRemediationPage} />
